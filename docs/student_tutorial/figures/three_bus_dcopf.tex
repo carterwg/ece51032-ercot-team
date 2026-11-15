@@ -1,0 +1,11 @@
+\begin{tikzpicture}[font=\small, >=latex]
+  % Semantic source anchors: ACTIVSg2000, student CSV, DCOPF, student preview.
+  \tikzset{bus/.style={circle, draw=blue!65!black, fill=blue!10, minimum size=3mm, align=center},
+    line/.style={thick, draw=gray!80!black}}
+  \node[bus] (a) at (0,0) {1\\$\theta_1$};
+  \node[bus] (b) at (3.3,1.35) {2\\$\theta_2$};
+  \node[bus] (c) at (3.3,-1.35) {3\\$\theta_3$};
+  \draw[line] (a) -- node[above, sloped, font=\scriptsize] {$f_{12}$} (b);
+  \draw[line] (a) -- node[below, sloped, font=\scriptsize] {$f_{13}$} (c);
+  \draw[line] (b) -- node[right, font=\scriptsize] {$f_{23}$} (c);
+\end{tikzpicture}
