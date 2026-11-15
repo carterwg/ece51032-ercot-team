@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ercot-game"
+version = "0.3.0"
+description = "Deterministic offline evaluator domain model for the ERCOT data-center competition"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+    "highspy>=1.8,<2",
+    "openpyxl>=3.1,<4",
+    "numpy>=1.24,<3",
+]
+
+[project.optional-dependencies]
+tutorial = [
+    "nbclient>=0.10,<1",
+    "nbformat>=5.10,<6",
+    "jupyter>=1,<2",
+    "matplotlib>=3.8,<4",
+]
+test = [
+    "pytest>=8,<10",
+]
+
+[project.scripts]
+ercot-game-batch = "ercot_game.batch_cli:main"
+ercot-game-check-csv = "ercot_game.csv_validator:main"
+ercot-game-preview = "ercot_game.student_preview:main"
+ercot-game-grid-map = "ercot_game.grid_map:main"
+ercot-game-hosting-capacity = "ercot_game.hosting_capacity_cli:main"
+
+# The package contains the canonical CSV evaluator and the ACTIVSg2000 DCOPF tools.
+[tool.setuptools]
+packages = [
+    "ercot_game",
+    "tools",
+    "tools.activsg2000",
+]
+
+[tool.setuptools.package-dir]
+ercot_game = "src/ercot_game"
+tools = "tools"
+"tools.activsg2000" = "tools/activsg2000"
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "."]
+testpaths = ["tests"]

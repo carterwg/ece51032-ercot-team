@@ -1,0 +1,153 @@
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+*.egg-info/
+
+# macOS/editor noise
+.DS_Store
+.idea/
+.vscode/
+
+# Local databases, logs, and temporary outputs
+*.db
+*.sqlite
+*.sqlite3
+*.log
+outputs/
+work/
+.superpowers/
+docs/superpowers/
+
+# LaTeX build products; keep the source, bibliography, README, and PDF.
+docs/student_manual/*.aux
+docs/student_manual/*.bbl
+docs/student_manual/*.blg
+docs/student_manual/*.fdb_latexmk
+docs/student_manual/*.fls
+docs/student_manual/*.out
+docs/student_manual/*.synctex.gz
+docs/student_manual/*.toc
+
+# Student tutorial build products; source prompts/transcripts remain tracked.
+docs/student_tutorial/generated/
+docs/student_tutorial/build/
+docs/student_tutorial/*.aux
+docs/student_tutorial/*.bbl
+docs/student_tutorial/*.blg
+docs/student_tutorial/*.fdb_latexmk
+docs/student_tutorial/*.fls
+docs/student_tutorial/*.out
+docs/student_tutorial/*.synctex.gz
+docs/student_tutorial/*.toc
+docs/student_tutorial/*.pdf
+!docs/student_tutorial/tutorial.pdf
+
+# Raw downloads and large source artifacts. Obtain raw datasets through the
+# documented provenance steps rather than committing local downloads.
+data/raw/*
+!data/raw/README.md
+!data/raw/ercot_hourly_load/
+!data/raw/ercot_hourly_load/README.md
+data/raw/ercot_hourly_load/*.zip
+!data/raw/*metadata*.json
+data/processed/texas_dispatch_source_v1/demand_bus.csv
+# Rebuildable year-specific expansions are intentionally not committed. They
+# are hundreds of MB each; the normalized zone inputs and builder are tracked.
+data/processed/texas_dispatch_source_v1_years/
+!data/processed/texas_dispatch_source_v1_years/.gitkeep
+
+# Local generated batch/evaluation results; the sanitized web package is
+# intentionally tracked under web/data/results/.
+results/hosting_capacity_*/
+results/hosting_capacity_benchmark_*/
+
+# Kept locally but not published: material that is not part of the current
+# representative-day classroom game (removed from the repo 2026-10).
+docs/student_manual/
+docs/instructor_manual/
+docs/TASK_10_FINAL_AUDIT_REPORT.md
+docs/EVALUATOR_ACCELERATION.md
+docs/IT_SERVICE_VALUE_PROFILE.md
+docs/ERCOT_DISPATCH_SCORING_SENSITIVITY.md
+docs/ERCOT_DATA_CENTER_VALUE_CALIBRATION.md
+docs/ERCOT_DISPATCH_SCORING_CALIBRATION.md
+docs/COLAB_DCOPF_BENCHMARK.md
+docs/student_tutorial/prompts/
+docs/student_tutorial/transcripts/
+docs/student_tutorial/prompt_registry.json
+docs/student_tutorial/BUILD_QA.md
+docs/student_tutorial/RELEASE_AUDIT.md
+docs/student_tutorial/scripts/validate_prompt_registry.py
+docs/student_tutorial/scripts/validate_transcripts.py
+docs/student_tutorial/scripts/build_latex_inputs.py
+tests/test_student_tutorial_inline_render.py
+data/raw/
+data/processed/reduced/
+data/processed/ercot_planning_model_v1.json
+data/processed/ercot_public_network.json
+data/processed/activsg2000_scenarios_v1/
+data/teaching/planning_region_source_bus_map_v1.json
+data/teaching/dispatch_scoring_rules_jan_jun_v1.json
+data/teaching/dispatch_scoring_rules_jul_dec_v1.json
+examples/instructor_batch/
+examples/week_01_submissions.json
+examples/rl_gym/
+/experiments/
+scripts/create_meaningful_test_submissions.py
+scripts/simulate_group_cohorts.py
+scripts/simulate_eight_team_round.py
+scripts/summarize_simulation.py
+tools/activsg2000/rename_scenario_years.py
+tools/colab_instructor/
+/rl_gym/
+tests/test_rl_gym_*.py
+tests/test_colab_benchmark_package.py
+
+# LaTeX build by-products
+
+# Manuscript drafts (kept local)
+paper/
+
+# Student and instructor run outputs
+runs/
+results/
+
+# LaTeX editor temporary files
+*.synctex(busy)
+
+# Instructor-only material kept locally, not distributed: benchmarks, the
+# data-building pipeline and its tests, lecture/tutorial build tooling, and
+# the hidden game-equilibrium appendix assets.
+tools/benchmarks/
+tools/check_submission.py
+tools/activsg2000/build_scenario_package.py
+tools/activsg2000/validate_scenario_package.py
+tools/activsg2000/build_representative_package.py
+tools/activsg2000/build_geo_layout.py
+tools/build_ieee14_demo_package.py
+scripts/create_representative_scoring_rules.py
+tests/test_activsg2000_scenario_builder.py
+tests/test_activsg2000_validation.py
+tests/test_data_builders.py
+tests/test_benchmark_hosting_capacity.py
+docs/MULTI_YEAR_ASSET_STATE.md
+docs/student_tutorial/scripts/
+tests/test_student_tutorial_artifacts.py
+tests/test_student_tutorial_content.py
+tests/test_student_tutorial_notebooks.py
+docs/student_tutorial/data/game_equilibrium/
+docs/student_tutorial/figures/ne_*.pdf
+docs/hosting_capacity/
+tests/test_hosting_capacity_documentation.py
+
+# Guest lecture (kept locally, not distributed)
+docs/guest_lecture/
+
+# Conference poster (kept locally, not distributed)
+poster/

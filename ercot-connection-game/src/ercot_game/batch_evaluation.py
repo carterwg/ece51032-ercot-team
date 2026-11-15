@@ -1,0 +1,2991 @@
+"""Deterministic instructor-side CSV collection and batch evaluation."""
+
+from __future__ import annotations
+
+from dataclasses import asdict, dataclass, field, replace
+import csv
+import hashlib
+import json
+from copy import copy
+from pathlib import Path
+from collections import Counter
+from collections.abc import Iterable, Mapping, Sequence
+import math
+import shutil
+from typing import Any, TYPE_CHECKING, NoReturn
+
+from .csv_submission import (
+    CSVSubmission,
+    TEAM_GENERATOR_COST_CURVE,
+    load_bus_ids,
+    read_student_csv,
+    read_submission_identity,
+)
+from .asset_state import AssetLedger, AssetStateError
+from .models import TeamPlan
+from .models import ConnectionPlan
+
+if TYPE_CHECKING:
+    from tools.activsg2000.dcopf import DCOPFInfeasible, DCOPFUnresolved
+    from tools.activsg2000.plan_adapter import (
+        BatchDispatchResult,
+        check_generator_cap,
+        evaluate_plans_with_prepared_dcopf,
+    )
+else:  # pragma: no cover - runtime branch is exercised by import behavior
+    try:
+        from tools.activsg2000.dcopf import (
+            DCOPFInfeasible as _runtime_dcopf_infeasible,
+            DCOPFUnresolved as _runtime_dcopf_unresolved,
+        )
+        from tools.activsg2000.plan_adapter import (
+            BatchDispatchResult as _runtime_batch_dispatch_result,
+            check_generator_cap as _runtime_check_generator_cap,
+            evaluate_plans_with_prepared_dcopf as _runtime_evaluate_plans,
+        )
+    except ModuleNotFoundError:
+        class _FallbackDCOPFInfeasible(ValueError):
+            """Fallback exception when the optional tools package is not importable."""
+
+        _runtime_dcopf_infeasible: Any = _FallbackDCOPFInfeasible
+        _runtime_dcopf_unresolved: Any = _FallbackDCOPFInfeasible
+        _runtime_batch_dispatch_result: Any = object
+
+        def _runtime_check_generator_cap(plan: TeamPlan, ratio: float) -> None:
+            return None
+
+        def _runtime_evaluate_plans(
+            artifact_dir: str | Path,
+            plans: Sequence[TeamPlan],
+            *,
+            period_indices: tuple[int, ...],
+        ) -> NoReturn:
+            raise RuntimeError("the ACTIVSg2000 adapter is not importable")
+
+    globals().update(
+        {
+            "DCOPFInfeasible": _runtime_dcopf_infeasible,
+            "DCOPFUnresolved": _runtime_dcopf_unresolved,
+            "BatchDispatchResult": _runtime_batch_dispatch_result,
+            "evaluate_plans_with_prepared_dcopf": _runtime_evaluate_plans,
+            "check_generator_cap": _runtime_check_generator_cap,
+        }
+    )
+
+
+@dataclass(frozen=True)
+class SubmissionRecord:
+    path: Path
+    team_id: str
+    submission_id: str | None
+    submission: CSVSubmission | None
+    valid: bool
+    failure_reason: str | None
+    identity_is_fallback: bool = False
+    input_sha256: str | None = None
+
+    @property
+    def submission_key(self) -> str:
+        """Return a deterministic identity that remains unique across team IDs."""
+        return str(self.path.resolve())
+
+
+@dataclass(frozen=True)
+class BatchCollection:
+    accepted: tuple[SubmissionRecord, ...]
+    rejected: tuple[SubmissionRecord, ...]
+
+
+def _validate_rule_number(name: str, value: float, *, nonnegative: bool = False, positive: bool = False) -> None:
+    try:
+        finite = math.isfinite(value)
+    except TypeError:
+        finite = False
+    if not finite:
+        raise ValueError(f"{name} must be finite")
+    if positive and value <= 0:
+        raise ValueError(f"{name} must be positive")
+    if nonnegative and value < 0:
+        raise ValueError(f"{name} must be non-negative")
+
+
+@dataclass(frozen=True)
+class BatchScoringRules:
+    rules_version: str
+    it_value_per_mwh: tuple[float, ...] = ()
+    energy_price_per_mwh: tuple[float, ...] = ()
+    time_step_hours: float = 1.0
+    generator_capital_cost_per_mw: float = 0.0
+    site_cost_per_mw: float = 0.0
+    # Retained for callers that load pre-Task-5 rules; production rules use
+    # the capacity-dependent site coefficient above.
+    site_cost_per_site: float = 0.0
+    infeasible_score: float = 0.0
+    default_generator_cost_per_mwh: float = 100.0
+    storage_capital_cost_per_mw: float = 0.0
+    storage_capital_cost_per_mwh: float = 0.0
+    storage_boundary_mode: str = "half_year_terminal_floor"
+    # Optional per-period weight (hours) of every energy-based term.  Empty
+    # means every period weighs ``time_step_hours``.
+    # The ten-year rules use time_step_hours x day weight x annuity factor.
+    period_weight_hours: tuple[float, ...] = ()
+    # Divides weighted MWh back to MWh per represented year for reporting.
+    present_value_factor: float = 1.0
+    max_generator_to_connection_ratio: float = 1.0
+    # Cap on a team's total connection capacity per submission (None: no cap).
+    max_team_connection_capacity_mw: float | None = None
+
+    def __post_init__(self) -> None:
+        for field_name in ("it_value_per_mwh", "energy_price_per_mwh", "period_weight_hours"):
+            try:
+                values = tuple(getattr(self, field_name))
+            except TypeError:
+                raise ValueError(f"{field_name} must contain finite values") from None
+            object.__setattr__(self, field_name, values)
+            for index, value in enumerate(values):
+                _validate_rule_number(f"{field_name}[{index}]", value, nonnegative=True)
+        _validate_rule_number("time_step_hours", self.time_step_hours, positive=True)
+        _validate_rule_number("present_value_factor", self.present_value_factor, positive=True)
+        _validate_rule_number(
+            "max_generator_to_connection_ratio",
+            self.max_generator_to_connection_ratio,
+            positive=True,
+        )
+        _validate_rule_number(
+            "generator_capital_cost_per_mw",
+            self.generator_capital_cost_per_mw,
+            nonnegative=True,
+        )
+        if self.max_team_connection_capacity_mw is not None:
+            _validate_rule_number(
+                "max_team_connection_capacity_mw",
+                self.max_team_connection_capacity_mw,
+                positive=True,
+            )
+        _validate_rule_number("site_cost_per_site", self.site_cost_per_site, nonnegative=True)
+        _validate_rule_number("site_cost_per_mw", self.site_cost_per_mw, nonnegative=True)
+        _validate_rule_number("infeasible_score", self.infeasible_score)
+        _validate_rule_number(
+            "default_generator_cost_per_mwh",
+            self.default_generator_cost_per_mwh,
+            nonnegative=True,
+        )
+        for name in ("storage_capital_cost_per_mw", "storage_capital_cost_per_mwh"):
+            _validate_rule_number(name, getattr(self, name), nonnegative=True)
+        if self.storage_boundary_mode not in {"half_year_terminal_floor", "daily_exact_cycle"}:
+            raise ValueError(
+                "storage_boundary_mode must be 'half_year_terminal_floor' or 'daily_exact_cycle'"
+            )
+
+    def weight_for(self, period_index: int) -> float:
+        """Hours that one MW in ``period_index`` counts for in the score."""
+        if not self.period_weight_hours:
+            return self.time_step_hours
+        return self.period_weight_hours[period_index]
+
+
+@dataclass(frozen=True)
+class CapitalCostScope:
+    """One-time construction-cost scope for a multi-round evaluation.
+
+    When omitted from :func:`evaluate_csv_batch`, every asset in the
+    evaluator-facing plan is charged.  When supplied, only the listed asset
+    IDs are charged capital cost; operational costs still use the complete
+    materialized plan.
+    """
+
+    generator_ids_by_team: Mapping[str, Iterable[str]] = field(default_factory=dict)
+    storage_ids_by_team: Mapping[str, Iterable[str]] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        object.__setattr__(
+            self,
+            "generator_ids_by_team",
+            _normalize_capital_ids(self.generator_ids_by_team, "generator"),
+        )
+        object.__setattr__(
+            self,
+            "storage_ids_by_team",
+            _normalize_capital_ids(self.storage_ids_by_team, "storage"),
+        )
+
+    def generator_ids_for(self, team_id: str) -> frozenset[str]:
+        return self.generator_ids_by_team.get(team_id, frozenset())
+
+    def storage_ids_for(self, team_id: str) -> frozenset[str]:
+        return self.storage_ids_by_team.get(team_id, frozenset())
+
+
+def _normalize_capital_ids(
+    values: Mapping[str, Iterable[str]],
+    kind: str,
+) -> dict[str, frozenset[str]]:
+    if not isinstance(values, Mapping):
+        raise ValueError(f"{kind}_ids_by_team must be a mapping")
+    normalized: dict[str, frozenset[str]] = {}
+    for team_id, asset_ids in values.items():
+        if not isinstance(team_id, str) or not team_id:
+            raise ValueError(f"{kind}_ids_by_team keys must be non-empty strings")
+        if isinstance(asset_ids, (str, bytes)):
+            raise ValueError(f"{kind}_ids_by_team values must be collections of IDs")
+        try:
+            normalized[team_id] = frozenset(asset_ids)
+        except TypeError:
+            raise ValueError(f"{kind}_ids_by_team values must be collections of IDs") from None
+        if any(not isinstance(asset_id, str) or not asset_id for asset_id in normalized[team_id]):
+            raise ValueError(f"{kind}_ids_by_team values must contain non-empty string IDs")
+    return normalized
+
+
+@dataclass(frozen=True)
+class TeamScore:
+    team_id: str
+    rank: int
+    valid: bool
+    feasible: bool
+    score: float
+    served_load_mwh: float
+    it_value: float
+    energy_cost: float
+    generator_operating_cost: float
+    generator_capital_cost: float
+    site_cost: float
+    competition_scope: str
+    failure_reason: str | None = None
+    submission_key: str | None = None
+    storage_capital_cost: float = 0.0
+
+
+@dataclass(frozen=True)
+class FailureIsolationEvent:
+    attempted_team_ids: tuple[str, ...]
+    removed_team_id: str | None
+    outcome: str
+    reason: str
+
+
+@dataclass(frozen=True)
+class DispatchRecord:
+    """Audit record for one joint, subset, or individual dispatch attempt."""
+
+    scope: str
+    attempted_team_ids: tuple[str, ...]
+    attempted_submission_keys: tuple[str, ...]
+    status: str
+    dispatch: BatchDispatchResult | None = None
+    failure_reason: str | None = None
+
+
+@dataclass(frozen=True)
+class ProjectionDiagnostics:
+    """Audit data for the site allocation used when plans do not fit together."""
+
+    service_fraction_by_team: dict[str, float]
+    projected_capacity_mw_by_team: dict[str, float]
+    capped_request_capacity_mw_by_team: dict[str, float]
+    requested_load_mwh_by_team: dict[str, float]
+    projected_load_mwh_by_team: dict[str, float]
+    total_requested_load_mwh: float
+    total_projected_load_mwh: float
+    proportional_fair_utility: float
+    total_load_tolerance_mwh: float
+    objective: str = "utilitarian_max_served_capacity"
+    cap_policy: dict[str, float] = field(default_factory=dict)
+    site_fraction_by_team: dict[str, dict[str, float]] = field(default_factory=dict)
+
+
+@dataclass(frozen=True)
+class BatchEvaluation:
+    rules_version: str
+    competition_scope: str
+    input_sha256_by_team: dict[str, str]
+    team_scores: tuple[TeamScore, ...]
+    rejected_submissions: tuple[SubmissionRecord, ...]
+    isolation_events: tuple[FailureIsolationEvent, ...]
+    dispatch: BatchDispatchResult | None
+    failure_reason: str | None = None
+    rules_payload: dict[str, Any] | None = None
+    accepted_submissions: tuple[SubmissionRecord, ...] = ()
+    input_sha256_by_submission: dict[str, str | None] = field(default_factory=dict)
+    dispatch_records: tuple[DispatchRecord, ...] = ()
+    source_period_indices: tuple[int, ...] = ()
+    projection_diagnostics: ProjectionDiagnostics | None = None
+    # Evaluator-facing plans (after overrides and horizon expansion).
+    evaluated_plans: tuple[TeamPlan, ...] = ()
+
+
+def load_scoring_rules(
+    path: str | Path,
+    *,
+    artifact_dir: str | Path | None = None,
+    horizon: int | None = None,
+) -> BatchScoringRules:
+    """Load scoring rules, optionally resolving the production profile artifact."""
+    payload = json.loads(Path(path).read_text(encoding="utf-8"))
+    if not isinstance(payload, Mapping):
+        raise ValueError("scoring rules must be a JSON object")
+    if payload.get("generator_daily_energy_hours") is not None:
+        raise ValueError(
+            "generator_daily_energy_hours is no longer supported: team generators "
+            "may run in every hour (remove the field or set it to null)"
+        )
+    it_values = tuple(float(value) for value in payload.get("it_value_per_mwh", ()))
+    energy_prices = tuple(float(value) for value in payload.get("energy_price_per_mwh", ()))
+    return BatchScoringRules(
+        rules_version=str(payload["rules_version"]),
+        it_value_per_mwh=it_values,
+        energy_price_per_mwh=energy_prices,
+        time_step_hours=float(payload.get("time_step_hours", 1.0)),
+        generator_capital_cost_per_mw=float(payload.get("generator_capital_cost_per_mw", 0.0)),
+        site_cost_per_mw=float(payload.get("site_cost_per_mw", 0.0)),
+        site_cost_per_site=float(payload.get("site_cost_per_site", 0.0)),
+        infeasible_score=float(payload.get("infeasible_score", 0.0)),
+        default_generator_cost_per_mwh=float(payload.get("default_generator_cost_per_mwh", 100.0)),
+        storage_capital_cost_per_mw=float(payload.get("storage_capital_cost_per_mw", 0.0)),
+        storage_capital_cost_per_mwh=float(payload.get("storage_capital_cost_per_mwh", 0.0)),
+        storage_boundary_mode=str(payload.get("storage_boundary_mode", "half_year_terminal_floor")),
+        period_weight_hours=tuple(float(value) for value in payload.get("period_weight_hours", ())),
+        present_value_factor=float(payload.get("present_value_annuity_factor", 1.0)),
+        max_generator_to_connection_ratio=float(
+            payload.get("max_generator_to_connection_ratio", 1.0)
+        ),
+        max_team_connection_capacity_mw=(
+            None
+            if payload.get("max_team_connection_capacity_mw") is None
+            else float(payload["max_team_connection_capacity_mw"])
+        ),
+    )
+
+
+def _unparsed_team_id(path: Path) -> str:
+    return f"UNPARSED::{path.name}"
+
+
+def _full_path_sort_key(path: Path) -> str:
+    return str(path.resolve())
+
+
+def _collect_paths(
+    paths: Sequence[str | Path],
+    *,
+    region_to_source_bus: Mapping[str, str] | None,
+    bus_ids: set[str] | frozenset[str] | None = None,
+    generator_cost_by_id: Mapping[str, float] | None = None,
+    horizon: int,
+    default_generator_cost_per_mwh: float,
+    require_complete_horizon: bool = False,
+    max_generator_to_connection_ratio: float = 1.0,
+    reserved_site_ids_by_team: Mapping[str, Iterable[str]] | None = None,
+    max_team_connection_capacity_mw: float | None = None,
+) -> BatchCollection:
+    reserved = {
+        team_id: frozenset(site_ids)
+        for team_id, site_ids in (reserved_site_ids_by_team or {}).items()
+    }
+    records: list[SubmissionRecord] = []
+    for raw_path in sorted((Path(path) for path in paths), key=_full_path_sort_key):
+        declared_team_id: str | None = None
+        declared_submission_id: str | None = None
+        input_sha256: str | None = None
+        try:
+            input_sha256 = hashlib.sha256(raw_path.read_bytes()).hexdigest()
+            declared_team_id, declared_submission_id = read_submission_identity(raw_path)
+            submission = read_student_csv(
+                raw_path,
+                region_to_source_bus=region_to_source_bus,
+                bus_ids=bus_ids,
+                generator_cost_by_id=generator_cost_by_id,
+                horizon=horizon,
+                default_generator_cost_per_mwh=default_generator_cost_per_mwh,
+                require_complete_horizon=require_complete_horizon,
+                allow_legacy=True,
+                max_generator_to_connection_ratio=max_generator_to_connection_ratio,
+                max_team_connection_capacity_mw=max_team_connection_capacity_mw,
+            )
+            reused = sorted(
+                site.site_id
+                for site in submission.plan.sites
+                if site.site_id in reserved.get(submission.team_id, frozenset())
+            )
+            if reused:
+                raise ValueError(
+                    "Submission 2 lists only new sites; site_id already used in "
+                    f"Submission 1: {', '.join(reused)}"
+                )
+        except (OSError, UnicodeDecodeError, csv.Error, ValueError) as exc:
+            records.append(
+                SubmissionRecord(
+                    path=raw_path,
+                    team_id=declared_team_id or _unparsed_team_id(raw_path),
+                    submission_id=declared_submission_id,
+                    submission=None,
+                    valid=False,
+                    failure_reason=str(exc),
+                    identity_is_fallback=declared_team_id is None,
+                    input_sha256=input_sha256,
+                )
+            )
+        else:
+            records.append(
+                SubmissionRecord(
+                    path=raw_path,
+                    team_id=submission.team_id,
+                    submission_id=submission.submission_id,
+                    submission=submission,
+                    valid=True,
+                    failure_reason=None,
+                    input_sha256=submission.sha256,
+                )
+            )
+
+    team_counts = Counter(record.team_id for record in records)
+    accepted: list[SubmissionRecord] = []
+    rejected: list[SubmissionRecord] = []
+    for record in records:
+        if team_counts[record.team_id] > 1:
+            duplicate_reason = f"duplicate team_id: {record.team_id}"
+            failure_reason = (
+                f"{duplicate_reason}; {record.failure_reason}"
+                if record.failure_reason
+                else duplicate_reason
+            )
+            rejected.append(
+                replace(
+                    record,
+                    submission=None,
+                    valid=False,
+                    failure_reason=failure_reason,
+                )
+            )
+        elif record.valid:
+            accepted.append(record)
+        else:
+            rejected.append(record)
+
+    accepted.sort(key=lambda record: record.team_id)
+    rejected.sort(key=lambda record: _full_path_sort_key(record.path))
+    return BatchCollection(tuple(accepted), tuple(rejected))
+
+
+def collect_csv_submissions(
+    directory: str | Path,
+    *,
+    region_to_source_bus: Mapping[str, str] | None = None,
+    bus_ids: set[str] | frozenset[str] | None = None,
+    generator_cost_by_id: Mapping[str, float] | None = None,
+    horizon: int,
+    default_generator_cost_per_mwh: float,
+    require_complete_horizon: bool = False,
+    max_generator_to_connection_ratio: float = 1.0,
+    reserved_site_ids_by_team: Mapping[str, Iterable[str]] | None = None,
+    max_team_connection_capacity_mw: float | None = None,
+) -> BatchCollection:
+    """Discover, validate, and deterministically partition CSV submissions.
+
+    ``reserved_site_ids_by_team`` lists each team's Submission 1 site IDs; a
+    Submission 2 file reusing one of them is rejected.
+    """
+    root = Path(directory)
+    if not root.is_dir():
+        raise ValueError(f"submission directory does not exist or is not a directory: {root}")
+    paths = [
+        path
+        for path in root.iterdir()
+        if path.is_file() and path.suffix.lower() == ".csv"
+    ]
+    return _collect_paths(
+        paths,
+        region_to_source_bus=region_to_source_bus,
+        bus_ids=bus_ids,
+        generator_cost_by_id=generator_cost_by_id,
+        horizon=horizon,
+        default_generator_cost_per_mwh=default_generator_cost_per_mwh,
+        require_complete_horizon=require_complete_horizon,
+        max_generator_to_connection_ratio=max_generator_to_connection_ratio,
+        reserved_site_ids_by_team=reserved_site_ids_by_team,
+        max_team_connection_capacity_mw=max_team_connection_capacity_mw,
+    )
+
+
+def _collect_evaluation_inputs(
+    csv_paths: Sequence[str | Path] | str | Path,
+    *,
+    region_to_source_bus: Mapping[str, str] | None = None,
+    bus_ids: set[str] | frozenset[str] | None = None,
+    generator_cost_by_id: Mapping[str, float] | None = None,
+    horizon: int,
+    default_generator_cost_per_mwh: float,
+    require_complete_horizon: bool = False,
+    max_generator_to_connection_ratio: float = 1.0,
+    reserved_site_ids_by_team: Mapping[str, Iterable[str]] | None = None,
+    max_team_connection_capacity_mw: float | None = None,
+) -> BatchCollection:
+    if isinstance(csv_paths, (str, Path)):
+        root = Path(csv_paths)
+        if not root.exists():
+            raise ValueError(f"submissions directory not found: {root}")
+        if root.is_dir():
+            return collect_csv_submissions(
+                root,
+                region_to_source_bus=region_to_source_bus,
+                bus_ids=bus_ids,
+                generator_cost_by_id=generator_cost_by_id,
+                horizon=horizon,
+                default_generator_cost_per_mwh=default_generator_cost_per_mwh,
+                require_complete_horizon=require_complete_horizon,
+                max_generator_to_connection_ratio=max_generator_to_connection_ratio,
+                reserved_site_ids_by_team=reserved_site_ids_by_team,
+                max_team_connection_capacity_mw=max_team_connection_capacity_mw,
+            )
+        paths: Sequence[str | Path] = (root,)
+    else:
+        paths = csv_paths
+    return _collect_paths(
+        paths,
+        region_to_source_bus=region_to_source_bus,
+        bus_ids=bus_ids,
+        generator_cost_by_id=generator_cost_by_id,
+        horizon=horizon,
+        default_generator_cost_per_mwh=default_generator_cost_per_mwh,
+        require_complete_horizon=require_complete_horizon,
+        max_generator_to_connection_ratio=max_generator_to_connection_ratio,
+        reserved_site_ids_by_team=reserved_site_ids_by_team,
+        max_team_connection_capacity_mw=max_team_connection_capacity_mw,
+    )
+
+
+def _score_team(
+    plan: TeamPlan,
+    dispatch: BatchDispatchResult,
+    rules: BatchScoringRules,
+    *,
+    submission_key: str | None = None,
+    capital_cost_scope: CapitalCostScope | None = None,
+    site_cost_connection_count_by_team: Mapping[str, int] | None = None,
+    site_cost_connection_capacity_mw_by_team: Mapping[str, float] | None = None,
+    submission_number: int | None = None,
+    energy_cost_enabled: bool | None = None,
+) -> TeamScore:
+    """Score one team.
+
+    The game sets ``energy_cost_enabled`` per week, independently of the
+    submission number.  ``None`` (direct API callers only) charges grid
+    purchases in every submission except Submission 1.
+    """
+    if submission_number not in (None, 1, 2):
+        raise ValueError("submission_number must be 1, 2, or None")
+    charge_energy = _energy_cost_enabled(submission_number, energy_cost_enabled)
+    period_indices = tuple(period.period_index for period in dispatch.periods)
+    if len(set(period_indices)) != len(period_indices):
+        raise ValueError("dispatch contains duplicate period index entries")
+    periods_by_index = {period.period_index: period for period in dispatch.periods}
+    team_id = plan.team_id
+    generator_by_id = {generator.generator_id: generator for generator in plan.generators}
+    served = it_value = energy_cost = generator_cost = 0.0
+    for period_index, period in periods_by_index.items():
+        load = period.submitted_load_mw_by_team[team_id]
+        generation = sum(period.generator_dispatch_mw_by_team[team_id].values())
+        value = rules.it_value_per_mwh[period_index]
+        weight = rules.weight_for(period_index)
+        served += load * weight / rules.present_value_factor
+        it_value += load * value * weight
+        if charge_energy:
+            grid_purchase_by_team = getattr(period, "grid_purchase_mw_by_team", None)
+            purchases_by_bus = getattr(period, "grid_purchase_mw_by_team_by_bus", None)
+            lmp_by_bus = getattr(getattr(period, "dcopf", None), "balance_dual_by_bus", {}) or {}
+
+            def settlement_price(bus_id: str) -> float:
+                if bus_id in lmp_by_bus:
+                    return max(0.0, float(lmp_by_bus[bus_id]))
+                if period_index >= len(rules.energy_price_per_mwh):
+                    raise ValueError(
+                        "Submission 2 requires a dispatch LMP for every grid purchase "
+                        "when no static energy-price profile is configured"
+                    )
+                return rules.energy_price_per_mwh[period_index]
+
+            if purchases_by_bus is not None and team_id in purchases_by_bus:
+                energy_cost += sum(
+                    amount * settlement_price(bus_id)
+                    for bus_id, amount in purchases_by_bus[team_id].items()
+                ) * weight
+            else:
+                if grid_purchase_by_team is not None:
+                    grid_purchase = grid_purchase_by_team.get(team_id, max(0.0, load - generation))
+                else:
+                    grid_purchase = max(0.0, load - generation)
+                if plan.connections and lmp_by_bus:
+                    fallback_bus = plan.connections[0].bus_id
+                    price = settlement_price(fallback_bus)
+                else:
+                    price = rules.energy_price_per_mwh[period_index]
+                energy_cost += grid_purchase * price * weight
+        period_generator_cost = 0.0
+        for generator_id, amount in period.generator_dispatch_mw_by_team[team_id].items():
+            generator = generator_by_id.get(generator_id)
+            if generator is None:
+                if amount != 0:
+                    raise ValueError(
+                        f"team {team_id}: unknown generator dispatch {generator_id!r} "
+                        f"has nonzero amount {amount}"
+                    )
+                continue
+            remaining = max(0.0, min(float(amount), generator.capacity_mw))
+            for fraction, marginal_cost in TEAM_GENERATOR_COST_CURVE:
+                segment_amount = min(remaining, generator.capacity_mw * fraction)
+                period_generator_cost += segment_amount * marginal_cost
+                remaining -= segment_amount
+                if remaining <= 0:
+                    break
+        generator_cost += period_generator_cost * weight
+    generator_ids_for_capital = (
+        None
+        if capital_cost_scope is None
+        else capital_cost_scope.generator_ids_for(team_id)
+    )
+    storage_ids_for_capital = (
+        None
+        if capital_cost_scope is None
+        else capital_cost_scope.storage_ids_for(team_id)
+    )
+    generator_capital = sum(
+        generator.capacity_mw
+        for generator in plan.generators
+        if generator_ids_for_capital is None or generator.generator_id in generator_ids_for_capital
+    ) * rules.generator_capital_cost_per_mw
+    storage_capital = (
+        sum(
+            storage.power_mw
+            for storage in plan.storages
+            if storage_ids_for_capital is None or storage.storage_id in storage_ids_for_capital
+        ) * rules.storage_capital_cost_per_mw
+        + sum(
+            storage.energy_mwh
+            for storage in plan.storages
+            if storage_ids_for_capital is None or storage.storage_id in storage_ids_for_capital
+        ) * rules.storage_capital_cost_per_mwh
+    )
+    site_capacity = (
+        sum(connection.capacity_mw for connection in plan.connections)
+        if site_cost_connection_capacity_mw_by_team is None
+        else site_cost_connection_capacity_mw_by_team.get(
+            team_id, sum(connection.capacity_mw for connection in plan.connections)
+        )
+    )
+    if rules.site_cost_per_mw:
+        site_cost = site_capacity * rules.site_cost_per_mw
+    else:
+        site_count = (
+            len(plan.connections)
+            if site_cost_connection_count_by_team is None
+            else site_cost_connection_count_by_team.get(team_id, len(plan.connections))
+        )
+        site_cost = site_count * rules.site_cost_per_site
+    score = it_value - energy_cost - generator_cost - generator_capital - storage_capital - site_cost
+    return TeamScore(
+        team_id=team_id,
+        rank=0,
+        valid=True,
+        feasible=True,
+        score=score,
+        served_load_mwh=served,
+        it_value=it_value,
+        energy_cost=energy_cost,
+        generator_operating_cost=generator_cost,
+        generator_capital_cost=generator_capital,
+        site_cost=site_cost,
+        storage_capital_cost=storage_capital,
+        competition_scope="joint",
+        submission_key=submission_key,
+    )
+
+
+def _energy_cost_enabled(submission_number: int | None, energy_cost_enabled: bool | None) -> bool:
+    if energy_cost_enabled is None:
+        return submission_number != 1
+    if not isinstance(energy_cost_enabled, bool):
+        raise ValueError("energy_cost_enabled must be a boolean or None")
+    return energy_cost_enabled
+
+
+def _infeasible_score(
+    team_id: str,
+    rules: BatchScoringRules,
+    *,
+    valid: bool,
+    reason: str,
+    competition_scope: str = "not_evaluated",
+    submission_key: str | None = None,
+) -> TeamScore:
+    return TeamScore(
+        team_id=team_id,
+        rank=0,
+        valid=valid,
+        feasible=False,
+        score=rules.infeasible_score,
+        served_load_mwh=0.0,
+        it_value=0.0,
+        energy_cost=0.0,
+        generator_operating_cost=0.0,
+        generator_capital_cost=0.0,
+        site_cost=0.0,
+        storage_capital_cost=0.0,
+        competition_scope=competition_scope,
+        failure_reason=reason,
+        submission_key=submission_key,
+    )
+
+
+def _validate_rules(
+    rules: BatchScoringRules,
+    horizon: int,
+    period_indices: tuple[int, ...],
+    *,
+    submission_number: int | None = None,
+    energy_cost_enabled: bool | None = None,
+) -> None:
+    if horizon <= 0:
+        raise ValueError("horizon must be positive")
+    if not period_indices:
+        raise ValueError("period_indices must be non-empty")
+    if any(not isinstance(index, int) or isinstance(index, bool) for index in period_indices):
+        raise ValueError("period_indices must contain integers")
+    if any(index < 0 for index in period_indices):
+        raise ValueError("period_indices must be non-empty and non-negative")
+    if len(set(period_indices)) != len(period_indices):
+        raise ValueError("period_indices must not contain duplicates")
+    if any(index >= horizon for index in period_indices):
+        raise ValueError("period_indices must be less than horizon")
+    if max(period_indices) >= len(rules.it_value_per_mwh):
+        raise ValueError("scoring value vector must cover the selected period indices")
+    elif (
+        energy_cost_enabled is None
+        and submission_number != 2
+        and max(period_indices) >= len(rules.energy_price_per_mwh)
+    ):
+        raise ValueError("scoring energy price vector must cover the selected period indices")
+    if rules.period_weight_hours and max(period_indices) >= len(rules.period_weight_hours):
+        raise ValueError("scoring period weights must cover the selected period indices")
+    if not math.isfinite(rules.time_step_hours) or rules.time_step_hours <= 0:
+        raise ValueError("time_step_hours must be finite and positive")
+
+
+def _validate_period_mapping(
+    period_indices: tuple[int, ...],
+    source_period_indices: tuple[int, ...],
+) -> None:
+    if len(period_indices) != len(source_period_indices):
+        raise ValueError(
+            "source_period_indices must have the same length as period_indices"
+        )
+    if any(
+        not isinstance(index, int) or isinstance(index, bool)
+        for index in source_period_indices
+    ):
+        raise ValueError("source_period_indices must contain integers")
+    if any(index < 0 for index in source_period_indices):
+        raise ValueError("source_period_indices must be non-negative")
+    if len(set(source_period_indices)) != len(source_period_indices):
+        raise ValueError("source_period_indices must not contain duplicates")
+
+
+def _source_indexed_plans(
+    plans: Sequence[TeamPlan],
+    period_indices: tuple[int, ...],
+    source_period_indices: tuple[int, ...],
+) -> tuple[TeamPlan, ...]:
+    """Remap local profile positions to the source artifact row positions.
+
+    The adapter intentionally continues to receive its historical
+    ``period_indices`` argument.  This boundary adapter expands each profile
+    only when source rows differ from local scoring rows, allowing the
+    unmodified adapter to solve the correct source rows while downstream
+    scoring still sees local period numbers.
+    """
+    if period_indices == source_period_indices:
+        return tuple(plans)
+    if not source_period_indices:
+        raise ValueError("source_period_indices must be non-empty")
+    profile_length = max(source_period_indices) + 1
+    remapped: list[TeamPlan] = []
+    for plan in plans:
+        connections = []
+        for connection in plan.connections:
+            profile = tuple(connection.profile)
+            source_profile = [0.0] * profile_length
+            for local_index, source_index in zip(period_indices, source_period_indices):
+                if local_index >= len(profile):
+                    raise ValueError(
+                        f"connection {connection.connection_id} profile is too short "
+                        f"for local period {local_index}"
+                    )
+                source_profile[source_index] = profile[local_index]
+            connections.append(
+                ConnectionPlan(
+                    connection.connection_id,
+                    connection.bus_id,
+                    connection.capacity_mw,
+                    tuple(source_profile),
+                )
+            )
+        remapped.append(
+            TeamPlan(
+                plan.team_id,
+                connections=tuple(connections),
+                generators=plan.generators,
+                storages=plan.storages,
+                sites=plan.sites,
+            )
+        )
+    return tuple(remapped)
+
+
+def _expand_plans_for_horizon(
+    plans: Sequence[TeamPlan],
+    horizon: int,
+) -> tuple[TeamPlan, ...]:
+    """Materialize constant-capacity site plans for the selected horizon."""
+    try:
+        return tuple(
+            AssetLedger.empty().materialize_plan(plan, horizon=horizon)
+            for plan in plans
+        )
+    except AssetStateError as exc:
+        raise ValueError(f"could not expand site plans for evaluation: {exc}") from exc
+
+
+def _relabel_dispatch_periods(
+    dispatch: BatchDispatchResult,
+    period_indices: tuple[int, ...],
+) -> BatchDispatchResult:
+    """Expose local scoring indices after solving source-artifact rows."""
+    periods = tuple(dispatch.periods)
+    if len(periods) != len(period_indices):
+        raise ValueError(
+            "dispatch returned a different number of periods than requested"
+        )
+    relabeled_periods = []
+    for period, local_index in zip(periods, period_indices):
+        try:
+            relabeled_periods.append(replace(period, period_index=local_index))
+        except TypeError:
+            # Lightweight test doubles and legacy adapters may not use
+            # dataclasses; preserve their shape while changing only the index.
+            relabeled = copy(period)
+            relabeled.period_index = local_index
+            relabeled_periods.append(relabeled)
+    try:
+        return replace(dispatch, periods=tuple(relabeled_periods))
+    except TypeError:
+        relabeled_dispatch = copy(dispatch)
+        relabeled_dispatch.periods = tuple(relabeled_periods)
+        return relabeled_dispatch
+
+
+def _scaled_plan(plan: TeamPlan, alpha_by_site: Mapping[str, float]) -> TeamPlan:
+    """Scale each site's C, G, P and B by its allocated fraction.
+
+    Sites missing from ``alpha_by_site`` keep their request.  A battery
+    scaled to zero is removed (the adapter requires positive storage).
+    """
+
+    def alpha(site_id: str) -> float:
+        return float(alpha_by_site.get(site_id, 1.0))
+
+    connections = tuple(
+        ConnectionPlan(
+            connection.connection_id,
+            connection.bus_id,
+            connection.capacity_mw * alpha(connection.connection_id),
+            connection.profile,
+        )
+        for connection in plan.connections
+    )
+    generators = tuple(
+        replace(generator, capacity_mw=generator.capacity_mw * alpha(generator.connection_id))
+        for generator in plan.generators
+    )
+    storages = tuple(
+        replace(
+            storage,
+            power_mw=storage.power_mw * alpha(storage.connection_id),
+            energy_mwh=storage.energy_mwh * alpha(storage.connection_id),
+            initial_state_of_charge_mwh=(
+                None
+                if storage.initial_state_of_charge_mwh is None
+                else storage.initial_state_of_charge_mwh * alpha(storage.connection_id)
+            ),
+        )
+        for storage in plan.storages
+        if alpha(storage.connection_id) > 0.0
+    )
+    sites = tuple(
+        replace(
+            site,
+            connection_capacity_mw=site.connection_capacity_mw * alpha(site.site_id),
+            generator_capacity_mw=site.generator_capacity_mw * alpha(site.site_id),
+            storage_power_mw=site.storage_power_mw * alpha(site.site_id),
+            storage_energy_mwh=site.storage_energy_mwh * alpha(site.site_id),
+        )
+        for site in plan.sites
+    )
+    return TeamPlan(
+        plan.team_id,
+        connections=connections,
+        generators=generators,
+        storages=storages,
+        sites=sites,
+    )
+
+
+@dataclass(frozen=True)
+class FairProjectionResult:
+    """Allocation result with a compatibility tuple interface."""
+
+    dispatch: BatchDispatchResult
+    service_fraction_by_team: dict[str, float]
+    projected_capacity_mw_by_team: dict[str, float]
+    projected_plans: tuple[TeamPlan, ...]
+    diagnostics: ProjectionDiagnostics
+
+    @property
+    def capped_request_capacity_mw_by_team(self) -> dict[str, float]:
+        return self.diagnostics.capped_request_capacity_mw_by_team
+
+    @property
+    def total_projected_load_mwh(self) -> float:
+        return self.diagnostics.total_projected_load_mwh
+
+    @property
+    def proportional_fair_utility(self) -> float:
+        return self.diagnostics.proportional_fair_utility
+
+    def __iter__(self):
+        """Preserve the old three-value unpacking for existing callers/tests."""
+        yield self.dispatch
+        if len(self.service_fraction_by_team) == 1:
+            yield next(iter(self.service_fraction_by_team.values()))
+        else:
+            yield self.service_fraction_by_team
+        yield self.projected_plans
+
+
+_FAIR_PROJECTION_TOTAL_LOAD_TOLERANCE = 1e-6
+# The allocation fills the network to its limits.  The fractions of the sites
+# that are cut (alpha < 1) are scaled by the first factor (a 0.01% margin) so
+# that the dispatch, and a Submission 2 base load built from it, stays strictly
+# inside the limits that bind instead of on them at solver tolerance; a site
+# served in full stays at 1.  If the final dispatch still fails, every fraction
+# is scaled by the next factors in turn (the feasible set is convex and
+# contains zero).
+_ALLOCATION_MARGIN = 1.0 - 1e-4
+_ALLOCATION_BACKOFF_FACTORS = (1.0 - 1e-3, 1.0 - 1e-2)
+
+
+def _projection_request_capacity_mw(plan: TeamPlan) -> float:
+    return sum(connection.capacity_mw for connection in plan.connections)
+
+
+def _projection_requested_load_mwh(
+    plan: TeamPlan,
+    period_indices: tuple[int, ...],
+    time_step_hours: float = 1.0,
+) -> float:
+    total = 0.0
+    for connection in plan.connections:
+        for period_index in period_indices:
+            profile_value = (
+                1.0
+                if not connection.profile
+                else connection.profile[period_index]
+            )
+            total += connection.capacity_mw * profile_value * time_step_hours
+    return total
+
+
+def _projection_utility(
+    alphas: Sequence[float],
+    requested_load_mwh_by_team: Mapping[str, float],
+    team_ids: Sequence[str],
+) -> float:
+    utility = 0.0
+    for index, team_id in enumerate(team_ids):
+        if requested_load_mwh_by_team[team_id] <= 0.0:
+            continue
+        load = requested_load_mwh_by_team[team_id] * alphas[index]
+        if load <= 0.0:
+            return -math.inf
+        utility += math.log(load)
+    return utility
+
+
+def _allocation_sites(
+    plans: Sequence[TeamPlan],
+    period_indices: tuple[int, ...],
+):
+    """One allocation site per connection, with its assets summed."""
+    from tools.activsg2000.allocation import AllocationSite
+
+    sites = []
+    for plan in plans:
+        generator_mw: dict[str, float] = {}
+        storage_power: dict[str, float] = {}
+        storage_energy: dict[str, float] = {}
+        for generator in plan.generators:
+            generator_mw[generator.connection_id] = generator_mw.get(generator.connection_id, 0.0) + generator.capacity_mw
+        for storage in plan.storages:
+            storage_power[storage.connection_id] = storage_power.get(storage.connection_id, 0.0) + storage.power_mw
+            storage_energy[storage.connection_id] = storage_energy.get(storage.connection_id, 0.0) + storage.energy_mwh
+        for connection in plan.connections:
+            loads = tuple(
+                connection.capacity_mw * (connection.profile[index] if connection.profile else 1.0)
+                for index in period_indices
+            )
+            sites.append(
+                AllocationSite(
+                    team_id=plan.team_id,
+                    site_id=connection.connection_id,
+                    bus_id=connection.bus_id,
+                    capacity_mw=connection.capacity_mw,
+                    load_mw_by_period=loads,
+                    generator_mw=generator_mw.get(connection.connection_id, 0.0),
+                    storage_power_mw=storage_power.get(connection.connection_id, 0.0),
+                    storage_energy_mwh=storage_energy.get(connection.connection_id, 0.0),
+                )
+            )
+    return tuple(sites)
+
+
+def _utilitarian_allocation(
+    artifact_dir: str | Path,
+    plans: Sequence[TeamPlan],
+    period_indices: tuple[int, ...],
+    source_period_indices: tuple[int, ...],
+    *,
+    time_step_hours: float = 1.0,
+    workers: int = 1,
+    **dispatch_options,
+) -> FairProjectionResult | None:
+    """Allocate the sites when the full plans do not fit together.
+
+    Every site gets a fraction alpha in [0, 1] of its connection, generator
+    and storage capacities.  The fractions maximize the total served
+    connection capacity over all evaluated periods; ties are broken by
+    minimizing ``sum C (1 - alpha)^2``, which makes the allocation unique
+    (:func:`tools.activsg2000.allocation.allocate_sites`).  Storage cycles
+    daily.  The allocated plans are then dispatched with one exact LP per
+    day, the same model the allocation used.  ``workers`` > 1 solves the days
+    in parallel processes (same result).  ``None`` means no allocation
+    exists (the base network alone does not fit, or the artifact is not a
+    prepared network).
+    """
+    if not math.isfinite(time_step_hours) or time_step_hours <= 0:
+        raise ValueError("time_step_hours must be finite and positive")
+    if not plans or not (Path(artifact_dir) / "bus.csv").is_file():
+        return None
+    from tools.activsg2000.allocation import allocate_sites
+
+    plans = tuple(plans)
+    team_ids = tuple(plan.team_id for plan in plans)
+    block_periods = int(round(24.0 / time_step_hours))
+    try:
+        allocation = allocate_sites(
+            artifact_dir,
+            _allocation_sites(plans, period_indices),
+            period_indices=source_period_indices,
+            time_step_hours=time_step_hours,
+            block_periods=block_periods,
+            workers=workers,
+        )
+    except (DCOPFInfeasible, DCOPFUnresolved, ValueError, OSError):
+        return None
+    if allocation is None:
+        return None
+
+    options = dict(dispatch_options)
+    options["storage_solver"] = "monolithic"
+    options["storage_boundary_mode"] = "daily_exact_cycle"
+    best = None
+    candidates = [
+        # A site within the cutting-plane tolerance of full service is served
+        # in full; the margin on the cut sites leaves room for it.
+        lambda alpha: 1.0 if alpha >= 1.0 - 1e-5 else alpha * _ALLOCATION_MARGIN,
+        *(lambda alpha, factor=factor: min(alpha, 1.0) * factor for factor in _ALLOCATION_BACKOFF_FACTORS),
+    ]
+    for scale in candidates:
+        alpha_by_team = {
+            team_id: {
+                site_id: scale(alpha)
+                for (owner, site_id), alpha in allocation.alpha_by_site.items()
+                if owner == team_id
+            }
+            for team_id in team_ids
+        }
+        projected_plans = tuple(_scaled_plan(plan, alpha_by_team[plan.team_id]) for plan in plans)
+        try:
+            dispatch = _dispatch_plans(
+                artifact_dir,
+                projected_plans,
+                period_indices,
+                source_period_indices=source_period_indices,
+                time_step_hours=time_step_hours,
+                **options,
+            )
+        except (DCOPFInfeasible, DCOPFUnresolved, ValueError, NotImplementedError):
+            continue
+        best = (alpha_by_team, projected_plans, dispatch)
+        break
+    if best is None:
+        return None
+    alpha_by_team, projected_plans, dispatch = best
+
+    request_capacity = {plan.team_id: _projection_request_capacity_mw(plan) for plan in plans}
+    projected_capacity = {plan.team_id: _projection_request_capacity_mw(plan) for plan in projected_plans}
+    service_fraction = {
+        team_id: (projected_capacity[team_id] / request_capacity[team_id] if request_capacity[team_id] > 0.0 else 1.0)
+        for team_id in team_ids
+    }
+    requested_loads = {
+        plan.team_id: _projection_requested_load_mwh(plan, period_indices, time_step_hours=time_step_hours)
+        for plan in plans
+    }
+    projected_loads = {
+        plan.team_id: _projection_requested_load_mwh(plan, period_indices, time_step_hours=time_step_hours)
+        for plan in projected_plans
+    }
+    diagnostics = ProjectionDiagnostics(
+        service_fraction_by_team=service_fraction,
+        projected_capacity_mw_by_team=projected_capacity,
+        capped_request_capacity_mw_by_team=dict(request_capacity),
+        requested_load_mwh_by_team=requested_loads,
+        projected_load_mwh_by_team=projected_loads,
+        total_requested_load_mwh=sum(requested_loads.values()),
+        total_projected_load_mwh=sum(projected_loads.values()),
+        proportional_fair_utility=_projection_utility(
+            [service_fraction[team_id] for team_id in team_ids], requested_loads, team_ids
+        ),
+        total_load_tolerance_mwh=max(
+            _FAIR_PROJECTION_TOTAL_LOAD_TOLERANCE,
+            sum(requested_loads.values()) * _FAIR_PROJECTION_TOTAL_LOAD_TOLERANCE,
+        ),
+        objective="utilitarian_max_served_capacity",
+        cap_policy={
+            "max_total_capacity_mw": allocation.max_total_capacity_mw,
+            "total_capacity_mw": sum(projected_capacity.values()),
+            "requested_capacity_mw": allocation.requested_capacity_mw,
+            "iterations": float(allocation.iterations),
+            "cuts": float(allocation.cuts),
+        },
+        site_fraction_by_team=alpha_by_team,
+    )
+    try:
+        dispatch = replace(dispatch, service_fraction_by_team=service_fraction)
+    except TypeError:
+        pass
+    return FairProjectionResult(
+        dispatch=dispatch,
+        service_fraction_by_team=service_fraction,
+        projected_capacity_mw_by_team=projected_capacity,
+        projected_plans=projected_plans,
+        diagnostics=diagnostics,
+    )
+
+
+def _dispatch_plans(
+    artifact_dir: str | Path,
+    plans: Sequence[TeamPlan],
+    period_indices: tuple[int, ...],
+    *,
+    source_period_indices: tuple[int, ...] | None = None,
+    time_step_hours: float = 1.0,
+    workers: int = 1,
+    stop_on_infeasible: bool = False,
+    storage_solver: str = "benders",
+    storage_parallel_workers: int | None = None,
+    storage_solver_threads: int = 1,
+    storage_solver_backend: str = "auto",
+    storage_boundary_mode: str = "half_year_terminal_floor",
+    storage_wall_time_limit_seconds: float | None = 1500.0,
+    storage_max_iterations: int = 200,
+    storage_tighten_feasible_bounds: bool = False,
+) -> BatchDispatchResult:
+    """Call the adapter with optional performance controls.
+
+    The compatibility fallback keeps lightweight test doubles and older
+    adapters usable while production adapters receive the acceleration flags.
+    """
+    source_periods = (
+        period_indices
+        if source_period_indices is None
+        else tuple(source_period_indices)
+    )
+    _validate_period_mapping(period_indices, source_periods)
+    if not math.isfinite(time_step_hours) or time_step_hours <= 0:
+        raise ValueError("time_step_hours must be finite and positive")
+    adapter_plans = _source_indexed_plans(
+        plans,
+        period_indices,
+        source_periods,
+    )
+    optional = {}
+    effective_workers = workers if storage_parallel_workers is None else storage_parallel_workers
+    if effective_workers != 1:
+        optional["workers"] = effective_workers
+        if storage_parallel_workers is None:
+            # Hourly periods are independent and parallel-safe; Benders
+            # recourse threads warm-start models in a scheduling-dependent
+            # order, so keep them serial for reproducible scores.
+            optional["storage_recourse_workers"] = 1
+    if stop_on_infeasible:
+        optional["stop_on_infeasible"] = True
+    if storage_solver != "benders":
+        optional["storage_solver"] = storage_solver
+    if storage_solver_backend != "auto":
+        optional["storage_solver_backend"] = storage_solver_backend
+    if storage_solver_threads != 1:
+        optional["storage_solver_threads"] = storage_solver_threads
+    if storage_boundary_mode != "half_year_terminal_floor":
+        optional["storage_boundary_mode"] = storage_boundary_mode
+    if storage_wall_time_limit_seconds != 1500.0:
+        optional["storage_wall_time_limit_seconds"] = storage_wall_time_limit_seconds
+    if storage_max_iterations != 200:
+        optional["storage_max_iterations"] = storage_max_iterations
+    if storage_tighten_feasible_bounds:
+        optional["tighten_feasible_bounds"] = True
+    if time_step_hours != 1.0:
+        optional["time_step_hours"] = time_step_hours
+    if not optional:
+        dispatch = evaluate_plans_with_prepared_dcopf(
+            artifact_dir, adapter_plans, period_indices=source_periods
+        )
+    else:
+        try:
+            dispatch = evaluate_plans_with_prepared_dcopf(
+                artifact_dir, adapter_plans, period_indices=source_periods, **optional
+            )
+        except TypeError as exc:
+            if "unexpected keyword argument" not in str(exc):
+                raise
+            dispatch = evaluate_plans_with_prepared_dcopf(
+                artifact_dir, adapter_plans, period_indices=source_periods
+            )
+    return _relabel_dispatch_periods(dispatch, period_indices)
+
+
+def _evaluation_plans(
+    accepted: Sequence[SubmissionRecord],
+    plan_overrides: Mapping[str, TeamPlan] | None,
+) -> tuple[TeamPlan, ...]:
+    parsed_by_team = {
+        record.team_id: record.submission.plan
+        for record in accepted
+        if record.submission is not None
+    }
+    if plan_overrides is None:
+        return tuple(parsed_by_team[team_id] for team_id in sorted(parsed_by_team))
+    if not isinstance(plan_overrides, Mapping):
+        raise ValueError("plan_overrides must be a mapping")
+    unknown_teams = sorted(set(plan_overrides) - set(parsed_by_team))
+    if unknown_teams:
+        raise ValueError(
+            "plan_overrides contains teams without accepted submissions: "
+            + ", ".join(unknown_teams)
+        )
+    plans: dict[str, TeamPlan] = dict(parsed_by_team)
+    for team_id, plan in plan_overrides.items():
+        if not isinstance(plan, TeamPlan):
+            raise ValueError(f"plan_overrides[{team_id!r}] must be a TeamPlan")
+        if plan.team_id != team_id:
+            raise ValueError(
+                f"plan_overrides[{team_id!r}] has mismatched team_id {plan.team_id!r}"
+            )
+        plans[team_id] = plan
+    return tuple(plans[team_id] for team_id in sorted(plans))
+
+
+def _validate_capital_cost_scope(
+    scope: CapitalCostScope | None,
+    plans: Sequence[TeamPlan],
+) -> None:
+    if scope is None:
+        return
+    plan_by_team = {plan.team_id: plan for plan in plans}
+    for team_id, asset_ids in scope.generator_ids_by_team.items():
+        plan = plan_by_team.get(team_id)
+        if plan is None:
+            raise ValueError(f"capital cost scope contains unknown team {team_id!r}")
+        known_ids = {generator.generator_id for generator in plan.generators}
+        unknown_ids = sorted(asset_ids - known_ids)
+        if unknown_ids:
+            raise ValueError(
+                f"capital cost scope contains unknown generator asset(s) for {team_id}: "
+                + ", ".join(unknown_ids)
+            )
+    for team_id, asset_ids in scope.storage_ids_by_team.items():
+        plan = plan_by_team.get(team_id)
+        if plan is None:
+            raise ValueError(f"capital cost scope contains unknown team {team_id!r}")
+        known_ids = {storage.storage_id for storage in plan.storages}
+        unknown_ids = sorted(asset_ids - known_ids)
+        if unknown_ids:
+            raise ValueError(
+                f"capital cost scope contains unknown storage asset(s) for {team_id}: "
+                + ", ".join(unknown_ids)
+            )
+
+
+def _validate_site_cost_scope(
+    scope: Mapping[str, int] | None,
+    plans: Sequence[TeamPlan],
+) -> None:
+    if scope is None:
+        return
+    if not isinstance(scope, Mapping):
+        raise ValueError("site_cost_connection_count_by_team must be a mapping")
+    known_teams = {plan.team_id for plan in plans}
+    for team_id, connection_count in scope.items():
+        if team_id not in known_teams:
+            raise ValueError(
+                f"site cost scope contains unknown team {team_id!r}"
+            )
+        if (
+            not isinstance(connection_count, int)
+            or isinstance(connection_count, bool)
+            or connection_count < 0
+        ):
+            raise ValueError(
+                "site cost connection counts must be non-negative integers"
+            )
+
+
+def _validate_site_cost_capacity_scope(
+    scope: Mapping[str, float] | None,
+    plans: Sequence[TeamPlan],
+) -> None:
+    if scope is None:
+        return
+    if not isinstance(scope, Mapping):
+        raise ValueError("site_cost_connection_capacity_mw_by_team must be a mapping")
+    known_teams = {plan.team_id for plan in plans}
+    for team_id, capacity in scope.items():
+        if team_id not in known_teams:
+            raise ValueError(f"site cost scope contains unknown team {team_id!r}")
+        if isinstance(capacity, bool) or not isinstance(capacity, (int, float)):
+            raise ValueError("site cost connection capacities must be numeric")
+        if not math.isfinite(float(capacity)) or capacity < 0:
+            raise ValueError("site cost connection capacities must be finite and non-negative")
+
+
+def evaluate_csv_batch(
+    csv_paths: Sequence[str | Path] | str | Path,
+    *,
+    artifact_dir: str | Path,
+    region_to_source_bus: Mapping[str, str] | None = None,
+    bus_ids: set[str] | frozenset[str] | None = None,
+    horizon: int,
+    rules: BatchScoringRules,
+    period_indices: tuple[int, ...] | None = None,
+    source_period_indices: tuple[int, ...] | None = None,
+    source_period_offset: int | None = None,
+    default_generator_cost_per_mwh: float | None = None,
+    dispatch_workers: int = 1,
+    projection_iterations: int = 10,
+    storage_solver: str = "benders",
+    storage_parallel_workers: int | None = None,
+    storage_solver_threads: int = 1,
+    storage_solver_backend: str = "auto",
+    storage_boundary_mode: str | None = None,
+    storage_wall_time_limit_seconds: float | None = 1500.0,
+    storage_max_iterations: int = 200,
+    storage_tighten_feasible_bounds: bool = False,
+    plan_overrides: Mapping[str, TeamPlan] | None = None,
+    capital_cost_scope: CapitalCostScope | None = None,
+    site_cost_connection_count_by_team: Mapping[str, int] | None = None,
+    site_cost_connection_capacity_mw_by_team: Mapping[str, float] | None = None,
+    submission_number: int | None = None,
+    energy_cost_enabled: bool | None = None,
+    reserved_site_ids_by_team: Mapping[str, Iterable[str]] | None = None,
+) -> BatchEvaluation:
+    """Collect and score valid submissions with deterministic failure isolation.
+
+    ``plan_overrides`` changes only the evaluator-facing plans used for
+    dispatch and operational scoring. CSV parsing, accepted/rejected records,
+    and input hashes remain based on the submitted files. ``capital_cost_scope``
+    optionally limits one-time generator/storage construction charges; when it
+    is omitted, all assets in each evaluator-facing plan are charged. The
+    optional site-capacity scope lets a multi-round coordinator charge only
+    newly built connection MW; direct callers default to all plan connections.
+
+    ``energy_cost_enabled`` charges grid purchases at the dispatch LMP when
+    true and never when false; ``None`` (direct API callers only) charges
+    them in every submission except Submission 1.  ``reserved_site_ids_by_team`` rejects files
+    that reuse a team's Submission 1 site IDs (Submission 2 lists new sites
+    only; Submission 1 sites are already in the artifact's base load).
+    """
+    generator_cost = (
+        rules.default_generator_cost_per_mwh
+        if default_generator_cost_per_mwh is None
+        else default_generator_cost_per_mwh
+    )
+    selected_periods = tuple(range(horizon)) if period_indices is None else tuple(period_indices)
+    if not isinstance(dispatch_workers, int) or isinstance(dispatch_workers, bool) or dispatch_workers <= 0:
+        raise ValueError("dispatch_workers must be a positive integer")
+    if not isinstance(projection_iterations, int) or isinstance(projection_iterations, bool) or projection_iterations <= 0:
+        raise ValueError("projection_iterations must be a positive integer")
+    if storage_solver not in {"benders", "monolithic"}:
+        raise ValueError("storage_solver must be 'benders' or 'monolithic'")
+    if storage_solver_backend not in {"auto", "highs", "gurobi"}:
+        raise ValueError("storage_solver_backend must be 'auto', 'highs', or 'gurobi'")
+    effective_storage_boundary_mode = (
+        rules.storage_boundary_mode
+        if storage_boundary_mode is None
+        else storage_boundary_mode
+    )
+    if effective_storage_boundary_mode not in {"half_year_terminal_floor", "daily_exact_cycle"}:
+        raise ValueError(
+            "storage_boundary_mode must be 'half_year_terminal_floor' or 'daily_exact_cycle'"
+        )
+    if storage_parallel_workers is not None and (
+        not isinstance(storage_parallel_workers, int)
+        or isinstance(storage_parallel_workers, bool)
+        or storage_parallel_workers <= 0
+    ):
+        raise ValueError("storage_parallel_workers must be a positive integer or None")
+    if (
+        not isinstance(storage_solver_threads, int)
+        or isinstance(storage_solver_threads, bool)
+        or storage_solver_threads <= 0
+    ):
+        raise ValueError("storage_solver_threads must be a positive integer")
+    if storage_wall_time_limit_seconds is not None and (
+        isinstance(storage_wall_time_limit_seconds, bool)
+        or not isinstance(storage_wall_time_limit_seconds, (int, float))
+        or not math.isfinite(float(storage_wall_time_limit_seconds))
+        or storage_wall_time_limit_seconds < 0
+    ):
+        raise ValueError("storage_wall_time_limit_seconds must be finite, non-negative, or None")
+    if (
+        not isinstance(storage_max_iterations, int)
+        or isinstance(storage_max_iterations, bool)
+        or storage_max_iterations <= 0
+    ):
+        raise ValueError("storage_max_iterations must be a positive integer")
+    if not isinstance(storage_tighten_feasible_bounds, bool):
+        raise ValueError("storage_tighten_feasible_bounds must be a boolean")
+    if source_period_indices is not None and source_period_offset is not None:
+        raise ValueError(
+            "provide either source_period_indices or source_period_offset, not both"
+        )
+    if submission_number not in (None, 1, 2):
+        raise ValueError("submission_number must be 1, 2, or None")
+    _energy_cost_enabled(submission_number, energy_cost_enabled)
+    _validate_rules(
+        rules,
+        horizon,
+        selected_periods,
+        submission_number=submission_number,
+        energy_cost_enabled=energy_cost_enabled,
+    )
+    if source_period_indices is None:
+        offset = 0 if source_period_offset is None else source_period_offset
+        if not isinstance(offset, int) or isinstance(offset, bool) or offset < 0:
+            raise ValueError("source_period_offset must be a non-negative integer")
+        selected_source_periods = tuple(index + offset for index in selected_periods)
+    else:
+        selected_source_periods = tuple(source_period_indices)
+    _validate_period_mapping(selected_periods, selected_source_periods)
+    if bus_ids is None:
+        try:
+            bus_ids = load_bus_ids(artifact_dir)
+        except (OSError, ValueError, csv.Error) as exc:
+            raise ValueError(f"could not load production bus catalog: {exc}") from exc
+    # Team-built generator IDs are evaluator-derived canonical keys and are
+    # priced by the common classroom curve, not by the public generator catalog.
+    generator_cost_by_id = None
+    collection = _collect_evaluation_inputs(
+        csv_paths,
+        region_to_source_bus=region_to_source_bus,
+        bus_ids=bus_ids,
+        generator_cost_by_id=generator_cost_by_id,
+        horizon=horizon,
+        default_generator_cost_per_mwh=generator_cost,
+        require_complete_horizon=True,
+        max_generator_to_connection_ratio=rules.max_generator_to_connection_ratio,
+        reserved_site_ids_by_team=reserved_site_ids_by_team,
+        max_team_connection_capacity_mw=rules.max_team_connection_capacity_mw,
+    )
+    accepted = tuple(collection.accepted)
+    evaluation_plans = _evaluation_plans(accepted, plan_overrides)
+    # CSV parsing already enforced the cap; recheck plan overrides when the
+    # rules declare a cap below 1.
+    if rules.max_generator_to_connection_ratio < 1.0:
+        for plan in evaluation_plans:
+            check_generator_cap(plan, rules.max_generator_to_connection_ratio)
+    plans = _expand_plans_for_horizon(evaluation_plans, horizon)
+    _validate_capital_cost_scope(capital_cost_scope, plans)
+    _validate_site_cost_scope(site_cost_connection_count_by_team, plans)
+    _validate_site_cost_capacity_scope(site_cost_connection_capacity_mw_by_team, plans)
+    record_by_team = {record.team_id: record for record in accepted}
+    all_records = tuple(
+        sorted(
+            (*collection.accepted, *collection.rejected),
+            key=lambda record: _full_path_sort_key(record.path),
+        )
+    )
+    input_hashes = {
+        record.team_id: record.submission.sha256
+        for record in accepted
+        if record.submission is not None
+    }
+    input_hashes_by_submission = {
+        record.submission_key: record.input_sha256
+        for record in all_records
+    }
+    isolation_events: list[FailureIsolationEvent] = []
+    dispatch_records: list[DispatchRecord] = []
+    scores: list[TeamScore] = []
+    dispatch: BatchDispatchResult | None = None
+    projection_diagnostics: ProjectionDiagnostics | None = None
+    batch_scope = "not_evaluated"
+    batch_failure_reason: str | None = None
+    dispatched_plans: tuple[TeamPlan, ...] = plans
+
+    if plans:
+        attempted_ids = tuple(plan.team_id for plan in plans)
+        attempted_submission_keys = tuple(record_by_team[team_id].submission_key for team_id in attempted_ids)
+        try:
+            dispatch = _dispatch_plans(
+                artifact_dir,
+                plans,
+                selected_periods,
+                source_period_indices=selected_source_periods,
+                time_step_hours=rules.time_step_hours,
+                workers=dispatch_workers,
+                storage_solver=storage_solver,
+                storage_parallel_workers=storage_parallel_workers,
+                storage_solver_threads=storage_solver_threads,
+                storage_solver_backend=storage_solver_backend,
+                storage_boundary_mode=effective_storage_boundary_mode,
+                storage_wall_time_limit_seconds=storage_wall_time_limit_seconds,
+                storage_max_iterations=storage_max_iterations,
+                storage_tighten_feasible_bounds=storage_tighten_feasible_bounds,
+            )
+        except (DCOPFInfeasible, DCOPFUnresolved) as exc:
+            batch_failure_reason = str(exc)
+            dispatch_records.append(
+                DispatchRecord(
+                    scope="joint",
+                    attempted_team_ids=attempted_ids,
+                    attempted_submission_keys=attempted_submission_keys,
+                    status="infeasible",
+                    failure_reason=str(exc),
+                )
+            )
+            isolation_events.append(
+                FailureIsolationEvent(
+                    attempted_team_ids=attempted_ids,
+                    removed_team_id=None,
+                    outcome="joint_infeasible",
+                    reason=str(exc),
+                )
+            )
+            projection = _utilitarian_allocation(
+                artifact_dir,
+                plans,
+                selected_periods,
+                selected_source_periods,
+                time_step_hours=rules.time_step_hours,
+                workers=dispatch_workers,
+                storage_parallel_workers=storage_parallel_workers,
+                storage_solver_threads=storage_solver_threads,
+                storage_solver_backend=storage_solver_backend,
+                storage_wall_time_limit_seconds=storage_wall_time_limit_seconds,
+                storage_max_iterations=storage_max_iterations,
+            )
+            if projection is not None:
+                dispatch = projection.dispatch
+                projection_diagnostics = projection.diagnostics
+                # The allocated plans are what was dispatched: each site at
+                # alpha x its capacities (used for the Submission 2 base load).
+                dispatched_plans = projection.projected_plans
+                batch_scope = "joint_projection"
+                dispatch_records.append(
+                    DispatchRecord(
+                        scope="joint_projection",
+                        attempted_team_ids=attempted_ids,
+                        attempted_submission_keys=attempted_submission_keys,
+                        status="feasible",
+                        dispatch=dispatch,
+                    )
+                )
+                isolation_events.append(
+                    FailureIsolationEvent(
+                        attempted_team_ids=attempted_ids,
+                        removed_team_id=None,
+                        outcome="joint_projected",
+                        reason=(
+                            "utilitarian site allocation; team service fractions="
+                            + ",".join(
+                                f"{team_id}:{fraction:.12g}"
+                                for team_id, fraction in sorted(
+                                    projection.service_fraction_by_team.items()
+                                )
+                            )
+                            + "; served capacity MW="
+                            f"{projection.diagnostics.cap_policy.get('total_capacity_mw', 0.0):.12g}; "
+                            "total projected load="
+                            f"{projection.total_projected_load_mwh:.12g}"
+                        ),
+                    )
+                )
+                # Capital is charged on the allocated (alpha-scaled)
+                # capacities, so each team is scored on its projected plan.
+                projected_site_capacity = None
+                if site_cost_connection_capacity_mw_by_team is not None:
+                    projected_site_capacity = {
+                        team_id: capacity
+                        * projection.service_fraction_by_team.get(team_id, 1.0)
+                        for team_id, capacity in site_cost_connection_capacity_mw_by_team.items()
+                    }
+                scores.extend(
+                    replace(
+                        _score_team(
+                            projected_plan,
+                            dispatch,
+                            rules,
+                            submission_key=record_by_team[projected_plan.team_id].submission_key,
+                            capital_cost_scope=capital_cost_scope,
+                            site_cost_connection_count_by_team=site_cost_connection_count_by_team,
+                            site_cost_connection_capacity_mw_by_team=projected_site_capacity,
+                            submission_number=submission_number,
+                            energy_cost_enabled=energy_cost_enabled,
+                        ),
+                        competition_scope="joint_projection",
+                    )
+                    for projected_plan in projection.projected_plans
+                )
+                # Skip discrete team-removal isolation: all valid teams receive
+                # the same joint projected dispatch with team-specific fractions.
+                projection = None
+                recovered = True
+            else:
+                recovered = False
+            if recovered:
+                # Empty the legacy removal loop while preserving the existing
+                # control flow and audit records.
+                attempted_ids = ()
+            # Legacy order-dependent subset recovery is reachable only when
+            # the fair projection has no feasible endpoint.  It is kept for
+            # compatibility, but its records remain ``joint_subset`` or
+            # ``individual_fallback`` and are never labeled as a projection.
+            for removed_team_id in attempted_ids:
+                remainder = tuple(plan for plan in plans if plan.team_id != removed_team_id)
+                if not remainder:
+                    dispatch_records.append(
+                        DispatchRecord(
+                            scope="joint_subset",
+                            attempted_team_ids=(),
+                            attempted_submission_keys=(),
+                            status="not_run",
+                            failure_reason="removing the only team leaves no dispatchable plans",
+                        )
+                    )
+                    isolation_events.append(
+                        FailureIsolationEvent(
+                            attempted_team_ids=attempted_ids,
+                            removed_team_id=removed_team_id,
+                            outcome="empty_remainder",
+                            reason="removing the only team leaves no dispatchable plans",
+                        )
+                    )
+                    continue
+                try:
+                    remainder_dispatch = _dispatch_plans(
+                        artifact_dir,
+                        remainder,
+                        selected_periods,
+                        source_period_indices=selected_source_periods,
+                        time_step_hours=rules.time_step_hours,
+                        workers=dispatch_workers,
+                        storage_solver=storage_solver,
+                        storage_parallel_workers=storage_parallel_workers,
+                        storage_solver_threads=storage_solver_threads,
+                        storage_solver_backend=storage_solver_backend,
+                        storage_boundary_mode=effective_storage_boundary_mode,
+                                storage_wall_time_limit_seconds=storage_wall_time_limit_seconds,
+                        storage_max_iterations=storage_max_iterations,
+                        storage_tighten_feasible_bounds=storage_tighten_feasible_bounds,
+                    )
+                except (DCOPFInfeasible, DCOPFUnresolved) as remainder_exc:
+                    remainder_ids = tuple(plan.team_id for plan in remainder)
+                    dispatch_records.append(
+                        DispatchRecord(
+                            scope="joint_subset",
+                            attempted_team_ids=remainder_ids,
+                            attempted_submission_keys=tuple(
+                                record_by_team[team_id].submission_key for team_id in remainder_ids
+                            ),
+                            status="infeasible",
+                            failure_reason=str(remainder_exc),
+                        )
+                    )
+                    isolation_events.append(
+                        FailureIsolationEvent(
+                            attempted_team_ids=attempted_ids,
+                            removed_team_id=removed_team_id,
+                            outcome="infeasible_remainder",
+                            reason=(
+                                "legacy order-dependent team-removal fallback: "
+                                f"remainder remained infeasible ({remainder_exc})"
+                            ),
+                        )
+                    )
+                    continue
+                dispatch = remainder_dispatch
+                remainder_ids = tuple(plan.team_id for plan in remainder)
+                dispatch_records.append(
+                    DispatchRecord(
+                        scope="joint_subset",
+                        attempted_team_ids=remainder_ids,
+                        attempted_submission_keys=tuple(
+                            record_by_team[team_id].submission_key for team_id in remainder_ids
+                        ),
+                        status="feasible",
+                        dispatch=remainder_dispatch,
+                    )
+                )
+                batch_scope = "joint"
+                isolation_events.append(
+                    FailureIsolationEvent(
+                        attempted_team_ids=attempted_ids,
+                        removed_team_id=removed_team_id,
+                        outcome="feasible_remainder",
+                        reason=(
+                            "legacy order-dependent team-removal fallback: "
+                            f"{batch_failure_reason}"
+                        ),
+                    )
+                )
+                scores.extend(
+                    replace(
+                        _score_team(
+                            plan,
+                            dispatch,
+                            rules,
+                            submission_key=record_by_team[plan.team_id].submission_key,
+                            capital_cost_scope=capital_cost_scope,
+                            site_cost_connection_count_by_team=site_cost_connection_count_by_team,
+                            site_cost_connection_capacity_mw_by_team=site_cost_connection_capacity_mw_by_team,
+                            submission_number=submission_number,
+                            energy_cost_enabled=energy_cost_enabled,
+                        ),
+                        competition_scope="joint",
+                    )
+                    for plan in remainder
+                )
+                scores.append(
+                    _infeasible_score(
+                        removed_team_id,
+                        rules,
+                        valid=True,
+                        reason=batch_failure_reason,
+                        submission_key=record_by_team[removed_team_id].submission_key,
+                    )
+                )
+                recovered = True
+                break
+
+            if not recovered:
+                batch_scope = "individual_fallback"
+                isolation_events.append(
+                FailureIsolationEvent(
+                    attempted_team_ids=attempted_ids,
+                    removed_team_id=None,
+                    outcome="individual_fallback",
+                    reason=(
+                        "fair continuous projection unavailable; "
+                        f"{batch_failure_reason}"
+                    ),
+                )
+            )
+                for plan in plans:
+                    submission_key = record_by_team[plan.team_id].submission_key
+                    try:
+                        individual_dispatch = _dispatch_plans(
+                            artifact_dir,
+                            (plan,),
+                            selected_periods,
+                            source_period_indices=selected_source_periods,
+                            time_step_hours=rules.time_step_hours,
+                            workers=dispatch_workers,
+                            storage_solver=storage_solver,
+                            storage_parallel_workers=storage_parallel_workers,
+                            storage_solver_threads=storage_solver_threads,
+                            storage_solver_backend=storage_solver_backend,
+                            storage_boundary_mode=effective_storage_boundary_mode,
+                                        storage_wall_time_limit_seconds=storage_wall_time_limit_seconds,
+                            storage_max_iterations=storage_max_iterations,
+                            storage_tighten_feasible_bounds=storage_tighten_feasible_bounds,
+                        )
+                    except (DCOPFInfeasible, DCOPFUnresolved) as individual_exc:
+                        dispatch_records.append(
+                            DispatchRecord(
+                                scope="individual_fallback",
+                                attempted_team_ids=(plan.team_id,),
+                                attempted_submission_keys=(submission_key,),
+                                status="infeasible",
+                                failure_reason=str(individual_exc),
+                            )
+                        )
+                        scores.append(
+                            _infeasible_score(
+                                plan.team_id,
+                                rules,
+                                valid=True,
+                                reason=str(individual_exc),
+                                competition_scope="individual_fallback",
+                                submission_key=submission_key,
+                            )
+                        )
+                    else:
+                        dispatch_records.append(
+                            DispatchRecord(
+                                scope="individual_fallback",
+                                attempted_team_ids=(plan.team_id,),
+                                attempted_submission_keys=(submission_key,),
+                                status="feasible",
+                                dispatch=individual_dispatch,
+                            )
+                        )
+                        scores.append(
+                            replace(
+                                _score_team(
+                                    plan,
+                                    individual_dispatch,
+                                    rules,
+                                    submission_key=submission_key,
+                                    capital_cost_scope=capital_cost_scope,
+                                    site_cost_connection_count_by_team=site_cost_connection_count_by_team,
+                                    site_cost_connection_capacity_mw_by_team=site_cost_connection_capacity_mw_by_team,
+                                    submission_number=submission_number,
+                                    energy_cost_enabled=energy_cost_enabled,
+                                ),
+                                competition_scope="individual_fallback",
+                            )
+                        )
+        else:
+            batch_scope = "joint"
+            dispatch_records.append(
+                DispatchRecord(
+                    scope="joint",
+                    attempted_team_ids=attempted_ids,
+                    attempted_submission_keys=attempted_submission_keys,
+                    status="feasible",
+                    dispatch=dispatch,
+                )
+            )
+            isolation_events.append(
+                FailureIsolationEvent(
+                    attempted_team_ids=attempted_ids,
+                    removed_team_id=None,
+                    outcome="joint_feasible",
+                    reason="joint dispatch feasible",
+                )
+            )
+            scores.extend(
+                replace(
+                    _score_team(
+                        plan,
+                        dispatch,
+                        rules,
+                        submission_key=record_by_team[plan.team_id].submission_key,
+                        capital_cost_scope=capital_cost_scope,
+                        site_cost_connection_count_by_team=site_cost_connection_count_by_team,
+                        site_cost_connection_capacity_mw_by_team=site_cost_connection_capacity_mw_by_team,
+                        submission_number=submission_number,
+                        energy_cost_enabled=energy_cost_enabled,
+                    ),
+                    competition_scope="joint",
+                )
+                for plan in plans
+            )
+    else:
+        dispatch_records.append(
+            DispatchRecord(
+                scope="not_evaluated",
+                attempted_team_ids=(),
+                attempted_submission_keys=(),
+                status="not_run",
+                failure_reason="no valid submissions",
+            )
+        )
+
+    scores.extend(
+        _infeasible_score(
+            record.team_id,
+            rules,
+            valid=False,
+            reason=record.failure_reason or "submission was rejected",
+            submission_key=record.submission_key,
+        )
+        for record in collection.rejected
+    )
+    ordered = sorted(
+        scores,
+        key=lambda item: (
+            0 if item.valid and item.feasible else 1 if item.valid else 2,
+            -item.score,
+            item.team_id,
+        ),
+    )
+    ranked = tuple(
+        replace(score, rank=rank)
+        for rank, score in enumerate(ordered, start=1)
+    )
+    return BatchEvaluation(
+        rules_version=rules.rules_version,
+        competition_scope=batch_scope,
+        input_sha256_by_team=input_hashes,
+        team_scores=ranked,
+        rejected_submissions=collection.rejected,
+        isolation_events=tuple(isolation_events),
+        dispatch=dispatch,
+        failure_reason=batch_failure_reason,
+        rules_payload={
+            "rules_version": rules.rules_version,
+            "it_value_per_mwh": list(rules.it_value_per_mwh),
+            "energy_price_per_mwh": list(rules.energy_price_per_mwh),
+            "time_step_hours": rules.time_step_hours,
+            "generator_capital_cost_per_mw": rules.generator_capital_cost_per_mw,
+            "site_cost_per_mw": rules.site_cost_per_mw,
+            "site_cost_per_site": rules.site_cost_per_site,
+            "infeasible_score": rules.infeasible_score,
+            "default_generator_cost_per_mwh": generator_cost,
+            "storage_capital_cost_per_mw": rules.storage_capital_cost_per_mw,
+            "storage_capital_cost_per_mwh": rules.storage_capital_cost_per_mwh,
+            "storage_boundary_mode": rules.storage_boundary_mode,
+            "submission_number": submission_number,
+            "energy_cost_enabled": _energy_cost_enabled(submission_number, energy_cost_enabled),
+            **(
+                {
+                    "period_weight_hours": list(rules.period_weight_hours),
+                    "present_value_annuity_factor": rules.present_value_factor,
+                }
+                if rules.period_weight_hours
+                else {}
+            ),
+            "max_generator_to_connection_ratio": rules.max_generator_to_connection_ratio,
+            **(
+                {"max_team_connection_capacity_mw": rules.max_team_connection_capacity_mw}
+                if rules.max_team_connection_capacity_mw is not None
+                else {}
+            ),
+        },
+        accepted_submissions=accepted,
+        input_sha256_by_submission=input_hashes_by_submission,
+        dispatch_records=tuple(dispatch_records),
+        source_period_indices=selected_source_periods,
+        projection_diagnostics=projection_diagnostics,
+        evaluated_plans=dispatched_plans,
+    )
+
+
+_LEADERBOARD_FIELDS = (
+    "team_id",
+    "rank",
+    "valid",
+    "feasible",
+    "score",
+    "served_load_mwh",
+    "it_value",
+    "energy_cost",
+    "generator_operating_cost",
+    "generator_capital_cost",
+    "site_cost",
+    "storage_capital_cost",
+    "competition_scope",
+    "failure_reason",
+    "service_fraction",
+    "dropped",
+)
+_SUBMISSION_MANIFEST_FIELDS = (
+    "submission_key",
+    "team_id",
+    "submission_id",
+    "source_filename",
+    "input_sha256",
+    "valid",
+    "failure_reason",
+    "identity_is_fallback",
+)
+
+
+def _service_fraction(
+    score: TeamScore,
+    diagnostics: ProjectionDiagnostics | None,
+) -> float | None:
+    """Share of the requested load served (1.0 unless projected), else None."""
+    if not score.valid or not score.feasible:
+        return None
+    if diagnostics is None:
+        return 1.0
+    return float(diagnostics.service_fraction_by_team.get(score.team_id, 1.0))
+
+
+def _leaderboard_row(
+    score: TeamScore,
+    diagnostics: ProjectionDiagnostics | None,
+) -> dict[str, Any]:
+    row: dict[str, Any] = {
+        field: getattr(score, field)
+        for field in _LEADERBOARD_FIELDS
+        if field not in {"service_fraction", "dropped"}
+    }
+    fraction = _service_fraction(score, diagnostics)
+    row["service_fraction"] = "" if fraction is None else f"{fraction:.6g}"
+    # A dropped team scored but was allocated nothing.
+    row["dropped"] = "" if fraction is None else fraction <= 0.0
+    return row
+
+
+def _canonical_json_bytes(payload: Any) -> bytes:
+    def json_safe(value: Any) -> Any:
+        if isinstance(value, float):
+            if math.isnan(value):
+                return "nan"
+            if math.isinf(value):
+                return "-inf" if value < 0 else "inf"
+            return value
+        if isinstance(value, Mapping):
+            return {key: json_safe(item) for key, item in value.items()}
+        if isinstance(value, (list, tuple)):
+            return [json_safe(item) for item in value]
+        return value
+
+    return (
+        json.dumps(
+            json_safe(payload),
+            allow_nan=False,
+            ensure_ascii=False,
+            separators=(",", ":"),
+            sort_keys=True,
+        )
+        + "\n"
+    ).encode("utf-8")
+
+
+def _write_canonical_json(path: Path, payload: Any) -> None:
+    path.write_bytes(_canonical_json_bytes(payload))
+
+
+def _sorted_mapping(payload: Mapping[str, Any] | None) -> dict[str, Any]:
+    if payload is None:
+        return {}
+    return {str(key): payload[key] for key in sorted(payload, key=str)}
+
+
+def _serialized_submission_record(
+    record: SubmissionRecord,
+    input_sha256_by_submission: Mapping[str, str | None],
+) -> dict[str, Any]:
+    return {
+        "submission_key": record.submission_key,
+        "team_id": record.team_id,
+        "submission_id": record.submission_id,
+        "source_filename": record.path.name,
+        "input_sha256": input_sha256_by_submission.get(record.submission_key, record.input_sha256),
+        "valid": record.valid,
+        "failure_reason": record.failure_reason,
+        "identity_is_fallback": record.identity_is_fallback,
+    }
+
+
+def _serialized_period(period: Any) -> dict[str, Any]:
+    dcopf = period.dcopf
+    flow_by_branch = _sorted_mapping(getattr(dcopf, "flow_mw_by_branch", None))
+    balance_dual_by_bus = _sorted_mapping(getattr(dcopf, "balance_dual_by_bus", None))
+    binding_diagnostics = getattr(dcopf, "binding_diagnostics", None)
+    if binding_diagnostics is None:
+        binding_diagnostics = {}
+    elif not isinstance(binding_diagnostics, Mapping):
+        binding_diagnostics = {"available": binding_diagnostics}
+    return {
+        "period_index": period.period_index,
+        "solver_status": dcopf.status,
+        "objective_cost": dcopf.objective_cost,
+        "submitted_load_mw_by_team": _sorted_mapping(period.submitted_load_mw_by_team),
+        "generator_dispatch_mw_by_team": {
+            str(team_id): _sorted_mapping(generator_dispatch)
+            for team_id, generator_dispatch in sorted(
+                period.generator_dispatch_mw_by_team.items(), key=lambda item: str(item[0])
+            )
+        },
+        "grid_purchase_mw_by_team": _sorted_mapping(getattr(period, "grid_purchase_mw_by_team", None)),
+        "storage_charge_mw_by_team": {
+            str(team_id): _sorted_mapping(values)
+            for team_id, values in sorted((getattr(period, "storage_charge_mw_by_team", None) or {}).items(), key=lambda item: str(item[0]))
+        },
+        "storage_discharge_mw_by_team": {
+            str(team_id): _sorted_mapping(values)
+            for team_id, values in sorted((getattr(period, "storage_discharge_mw_by_team", None) or {}).items(), key=lambda item: str(item[0]))
+        },
+        "storage_soc_mwh_by_team": {
+            str(team_id): _sorted_mapping(values)
+            for team_id, values in sorted((getattr(period, "storage_soc_mwh_by_team", None) or {}).items(), key=lambda item: str(item[0]))
+        },
+        "generation_mw": _sorted_mapping(getattr(dcopf, "generation_mw", None)),
+        "flow_mw_by_branch": flow_by_branch,
+        "balance_dual_by_bus": balance_dual_by_bus,
+        "binding_diagnostics": {
+            **binding_diagnostics,
+            "flow_mw_by_branch": flow_by_branch,
+            "balance_dual_by_bus": balance_dual_by_bus,
+        },
+    }
+
+
+def _serialized_dispatch_record(record: DispatchRecord) -> dict[str, Any]:
+    periods = () if record.dispatch is None else record.dispatch.periods
+    return {
+        "scope": record.scope,
+        "attempted_team_ids": list(record.attempted_team_ids),
+        "attempted_submission_keys": list(record.attempted_submission_keys),
+        "status": record.status,
+        "failure_reason": record.failure_reason,
+        "final_storage_soc_mwh_by_team": (
+            {}
+            if record.dispatch is None
+            else getattr(record.dispatch, "final_storage_soc_mwh_by_team", None)
+        ),
+        "periods": [
+            {
+                "period_index": period.period_index,
+                "solver_status": period.dcopf.status,
+                "objective_cost": period.dcopf.objective_cost,
+            }
+            for period in periods
+        ],
+    }
+
+
+def _period_audit_payloads(
+    evaluation: BatchEvaluation,
+    period_indices: tuple[int, ...],
+    source_period_indices: tuple[int, ...] | None = None,
+) -> dict[int, dict[str, Any]]:
+    dispatch_records = [record for record in evaluation.dispatch_records if record.dispatch is not None]
+    if not dispatch_records and evaluation.dispatch is not None:
+        dispatch_records = [
+            DispatchRecord(
+                scope=evaluation.competition_scope,
+                attempted_team_ids=tuple(evaluation.dispatch.team_ids),
+                attempted_submission_keys=(),
+                status="feasible",
+                dispatch=evaluation.dispatch,
+            )
+        ]
+
+    source_by_local = dict(
+        zip(
+            period_indices,
+            period_indices
+            if source_period_indices is None
+            else source_period_indices,
+        )
+    )
+    periods_by_index: dict[int, list[dict[str, Any]]] = {}
+    for record in dispatch_records:
+        assert record.dispatch is not None
+        for period in record.dispatch.periods:
+            periods_by_index.setdefault(period.period_index, []).append(_serialized_period(period))
+
+    payloads: dict[int, dict[str, Any]] = {}
+    for period_index in period_indices:
+        entries = periods_by_index.get(period_index, [])
+        if not entries:
+            payloads[period_index] = {
+                "period_index": period_index,
+                "source_period_index": source_by_local.get(period_index, period_index),
+                "solver_status": "not_run",
+                "objective_cost": None,
+                "submitted_load_mw_by_team": {},
+                "generator_dispatch_mw_by_team": {},
+                "generation_mw": {},
+                "flow_mw_by_branch": {},
+                "balance_dual_by_bus": {},
+                "binding_diagnostics": {
+                    "status": "not_run",
+                    "reason": "no dispatch result was available",
+                },
+            }
+            continue
+        if len(entries) == 1:
+            payloads[period_index] = {
+                **entries[0],
+                "source_period_index": source_by_local.get(period_index, period_index),
+            }
+            continue
+
+        submitted_load: dict[str, float] = {}
+        generator_dispatch: dict[str, dict[str, float]] = {}
+        for entry in entries:
+            for team_id, amount in entry["submitted_load_mw_by_team"].items():
+                submitted_load[team_id] = submitted_load.get(team_id, 0.0) + amount
+            for team_id, generators in entry["generator_dispatch_mw_by_team"].items():
+                destination = generator_dispatch.setdefault(team_id, {})
+                for generator_id, amount in generators.items():
+                    destination[generator_id] = destination.get(generator_id, 0.0) + amount
+        statuses = [str(entry["solver_status"]) for entry in entries]
+        objectives = [entry["objective_cost"] for entry in entries]
+        payloads[period_index] = {
+            "period_index": period_index,
+            "source_period_index": source_by_local.get(period_index, period_index),
+            "solver_status": statuses[0] if len(set(statuses)) == 1 else "mixed",
+            "objective_cost": sum(objectives) if all(value is not None for value in objectives) else None,
+            "submitted_load_mw_by_team": _sorted_mapping(submitted_load),
+            "generator_dispatch_mw_by_team": {
+                team_id: _sorted_mapping(values)
+                for team_id, values in sorted(generator_dispatch.items())
+            },
+            "generation_mw": {},
+            "flow_mw_by_branch": {},
+            "balance_dual_by_bus": {},
+            "binding_diagnostics": {
+                "dispatch_count": len(entries),
+                "solver_statuses": statuses,
+                "objective_costs": objectives,
+                "source_period_diagnostics": [entry["binding_diagnostics"] for entry in entries],
+            },
+        }
+    return payloads
+
+
+def _aggregate_diagnostics(
+    period_payloads: Mapping[int, Mapping[str, Any]],
+    dispatch_records: Sequence[DispatchRecord],
+) -> dict[str, Any]:
+    objective_cost_by_period = {
+        str(period_index): payload["objective_cost"]
+        for period_index, payload in sorted(period_payloads.items())
+    }
+    available_objectives = [value for value in objective_cost_by_period.values() if value is not None]
+    return {
+        "dispatch_count": sum(record.dispatch is not None for record in dispatch_records),
+        "period_count": len(period_payloads),
+        "solver_status_by_period": {
+            str(period_index): payload["solver_status"]
+            for period_index, payload in sorted(period_payloads.items())
+        },
+        "objective_cost_by_period": objective_cost_by_period,
+        "total_objective_cost": sum(available_objectives) if len(available_objectives) == len(objective_cost_by_period) else None,
+        "binding_diagnostics_by_period": {
+            str(period_index): payload["binding_diagnostics"]
+            for period_index, payload in sorted(period_payloads.items())
+        },
+    }
+
+
+def _safe_output_component(value: str) -> str:
+    component = "".join(char if char.isalnum() or char in "._-" else "_" for char in value)
+    return component or "submission"
+
+
+_DIAGNOSTIC_STEM_MAX_BYTES = 96
+_DIAGNOSTIC_HASH_LENGTH = 12
+
+
+def _truncate_output_component(value: str, max_bytes: int) -> str:
+    truncated = value.encode("utf-8")[:max_bytes].decode("utf-8", errors="ignore")
+    return truncated or "submission"
+
+
+def _bounded_diagnostic_stem(record: SubmissionRecord) -> str:
+    safe_component = _safe_output_component(record.team_id)
+    if safe_component == record.team_id and len(safe_component.encode("utf-8")) <= _DIAGNOSTIC_STEM_MAX_BYTES:
+        return safe_component
+    identity = f"{record.team_id}\0{record.submission_id or ''}"
+    suffix = hashlib.sha256(identity.encode("utf-8")).hexdigest()[:_DIAGNOSTIC_HASH_LENGTH]
+    return f"{_truncate_output_component(safe_component, _DIAGNOSTIC_STEM_MAX_BYTES)}--{suffix}"
+
+
+def _diagnostic_filename_with_suffix(stem: str, suffix: str) -> str:
+    bounded_stem = _truncate_output_component(stem, _DIAGNOSTIC_STEM_MAX_BYTES)
+    return f"{bounded_stem}--{suffix[:_DIAGNOSTIC_HASH_LENGTH]}.json"
+
+
+def _diagnostic_filenames(records: Sequence[SubmissionRecord]) -> dict[str, str]:
+    team_counts = Counter(record.team_id for record in records)
+    names: dict[str, str] = {}
+    used: set[str] = set()
+    for record in sorted(records, key=lambda item: item.submission_key):
+        base = _bounded_diagnostic_stem(record)
+        filename = f"{base}.json"
+        if team_counts[record.team_id] > 1 or filename in used:
+            suffix = hashlib.sha256(record.submission_key.encode("utf-8")).hexdigest()[:12]
+            filename = _diagnostic_filename_with_suffix(base, suffix)
+        while filename in used:
+            suffix = hashlib.sha256((record.submission_key + filename).encode("utf-8")).hexdigest()[:12]
+            filename = _diagnostic_filename_with_suffix(base, suffix)
+        names[record.submission_key] = filename
+        used.add(filename)
+    return names
+
+
+def generator_energy_mwh_by_day(
+    dispatch: BatchDispatchResult | None,
+    team_id: str,
+    *,
+    time_step_hours: float = 1.0,
+) -> dict[str, list[float]]:
+    """Energy (MWh) each team generator produced per 24-hour day.
+
+    Days are consecutive blocks of ``24 / time_step_hours`` dispatch periods
+    in period order (the representative days).
+    """
+    if dispatch is None:
+        return {}
+    block = max(1, int(round(24.0 / time_step_hours)))
+    periods = sorted(dispatch.periods, key=lambda period: period.period_index)
+    energy: dict[str, list[float]] = {}
+    for offset, period in enumerate(periods):
+        day = offset // block
+        for generator_id, amount in sorted(
+            (period.generator_dispatch_mw_by_team.get(team_id) or {}).items()
+        ):
+            values = energy.setdefault(generator_id, [])
+            while len(values) <= day:
+                values.append(0.0)
+            values[day] += float(amount) * time_step_hours
+    return {
+        generator_id: [round(value, 6) for value in values]
+        for generator_id, values in energy.items()
+    }
+
+
+def _generator_energy_payload(evaluation: "BatchEvaluation", team_id: str) -> dict[str, Any] | None:
+    payload = evaluation.rules_payload or {}
+    by_day = generator_energy_mwh_by_day(
+        evaluation.dispatch,
+        team_id,
+        time_step_hours=float(payload.get("time_step_hours", 1.0)),
+    )
+    if not by_day:
+        return None
+    capacity_by_id = {
+        generator.generator_id: generator.capacity_mw
+        for plan in evaluation.evaluated_plans
+        if plan.team_id == team_id
+        for generator in plan.generators
+    }
+    return {
+        "generators": {
+            generator_id: {
+                "capacity_mw": capacity_by_id.get(generator_id),
+                "energy_mwh_by_day": values,
+            }
+            for generator_id, values in by_day.items()
+        },
+    }
+
+
+def _serialized_team_diagnostic(
+    evaluation: BatchEvaluation,
+    score: TeamScore,
+    input_sha256_by_submission: Mapping[str, str | None],
+    periods_by_team: Mapping[str, list[dict[str, Any]]],
+) -> dict[str, Any]:
+    submission = next(
+        (
+            record
+            for record in (*evaluation.accepted_submissions, *evaluation.rejected_submissions)
+            if record.submission_key == score.submission_key
+        ),
+        None,
+    )
+    return {
+        "team_score": asdict(score),
+        "projection": (
+            None
+            if evaluation.projection_diagnostics is None
+            else {
+                "service_fraction": evaluation.projection_diagnostics.service_fraction_by_team.get(score.team_id),
+                "projected_capacity_mw": evaluation.projection_diagnostics.projected_capacity_mw_by_team.get(score.team_id),
+                "capped_request_capacity_mw": evaluation.projection_diagnostics.capped_request_capacity_mw_by_team.get(score.team_id),
+                "requested_load_mwh": evaluation.projection_diagnostics.requested_load_mwh_by_team.get(score.team_id),
+                "projected_load_mwh": evaluation.projection_diagnostics.projected_load_mwh_by_team.get(score.team_id),
+                # alpha of each of this team's sites (its own sites only).
+                "site_fraction": dict(
+                    sorted(evaluation.projection_diagnostics.site_fraction_by_team.get(score.team_id, {}).items())
+                ),
+            }
+        ),
+        "submission_key": score.submission_key,
+        "input_sha256": input_sha256_by_submission.get(score.submission_key),
+        "submission": (
+            _serialized_submission_record(submission, input_sha256_by_submission)
+            if submission is not None
+            else None
+        ),
+        "periods": periods_by_team.get(score.team_id, []),
+        **(
+            {"generator_energy": energy}
+            if (energy := _generator_energy_payload(evaluation, score.team_id)) is not None
+            else {}
+        ),
+        "rejected": next(
+            (
+                _serialized_submission_record(record, input_sha256_by_submission)
+                for record in evaluation.rejected_submissions
+                if record.submission_key == score.submission_key
+            ),
+            None,
+        ),
+    }
+
+
+def _output_hashes(root: Path, generated_paths: Sequence[Path] | None = None) -> dict[str, str]:
+    files = (
+        list(generated_paths)
+        if generated_paths is not None
+        else [
+            path
+            for path in root.rglob("*")
+            if path.is_file() and path.name not in {"evaluation.json", "evaluation_sha256.txt"}
+        ]
+    )
+    return {
+        path.relative_to(root).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
+        for path in sorted(set(files), key=lambda path: path.relative_to(root).as_posix())
+    }
+
+
+def _tracked_generated_paths(root: Path) -> tuple[Path, ...]:
+    """Return paths explicitly marked as generated by a prior writer run."""
+    evaluation_path = root / "evaluation.json"
+    try:
+        payload = json.loads(evaluation_path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+        return ()
+    if not isinstance(payload, Mapping):
+        return ()
+    metadata = payload.get("evaluation_metadata")
+    if not isinstance(metadata, Mapping):
+        return ()
+    marked_paths = metadata.get("generated_artifacts")
+    if not isinstance(marked_paths, list):
+        return ()
+
+    tracked: list[Path] = []
+    for raw_path in marked_paths:
+        if not isinstance(raw_path, str) or not raw_path:
+            continue
+        relative_path = Path(raw_path)
+        if relative_path.is_absolute() or ".." in relative_path.parts:
+            continue
+        candidate = root / relative_path
+        try:
+            candidate.relative_to(root)
+        except ValueError:
+            continue
+        tracked.append(candidate)
+    return tuple(tracked)
+
+
+def _remove_tracked_generated_files(root: Path) -> None:
+    for path in _tracked_generated_paths(root):
+        if path.is_file():
+            path.unlink()
+
+
+_CLASSROOM_OUTPUT_FILES = (
+    "leaderboard.csv",
+    "submission_manifest.csv",
+    "evaluation.json",
+    "evaluation_sha256.txt",
+)
+_CLASSROOM_OUTPUT_DIRECTORIES = (
+    "dispatch",
+    "diagnostics",
+    "shared",
+    "teams",
+)
+
+
+def _remove_known_output_path(path: Path) -> None:
+    if path.is_symlink() or path.is_file():
+        path.unlink()
+    elif path.is_dir():
+        shutil.rmtree(path)
+
+
+def _clear_classroom_output_namespace(root: Path) -> None:
+    for relative_path in _CLASSROOM_OUTPUT_FILES + _CLASSROOM_OUTPUT_DIRECTORIES:
+        _remove_known_output_path(root / relative_path)
+
+
+def write_batch_outputs(
+    evaluation: BatchEvaluation,
+    output_dir: str | Path,
+    *,
+    scenario_version: str,
+    evaluator_version: str,
+    period_indices: tuple[int, ...],
+    source_period_indices: tuple[int, ...] | None = None,
+    output_mode: str = "full",
+) -> None:
+    """Write deterministic, self-auditing batch evaluation artifacts."""
+    if output_mode not in {"full", "compact"}:
+        raise ValueError("output_mode must be 'full' or 'compact'")
+    if not period_indices:
+        raise ValueError("period_indices must be non-empty")
+    if any(not isinstance(index, int) or isinstance(index, bool) for index in period_indices):
+        raise ValueError("period_indices must contain integers")
+    if len(set(period_indices)) != len(period_indices):
+        raise ValueError("period_indices must not contain duplicates")
+    if source_period_indices is None:
+        if len(evaluation.source_period_indices) == len(period_indices):
+            source_period_indices = evaluation.source_period_indices
+        else:
+            source_period_indices = period_indices
+    source_period_indices = tuple(source_period_indices)
+    _validate_period_mapping(period_indices, source_period_indices)
+
+    root = Path(output_dir)
+    diagnostics_dir = root / "diagnostics"
+    dispatch_dir = root / "dispatch"
+    diagnostics_dir.mkdir(parents=True, exist_ok=True)
+    if output_mode == "full":
+        dispatch_dir.mkdir(parents=True, exist_ok=True)
+    _remove_tracked_generated_files(root)
+
+    generated_paths: list[Path] = [root / "leaderboard.csv", root / "submission_manifest.csv"]
+
+    leaderboard_rows = [
+        _leaderboard_row(score, evaluation.projection_diagnostics)
+        for score in evaluation.team_scores
+    ]
+    with (root / "leaderboard.csv").open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=_LEADERBOARD_FIELDS,
+            lineterminator="\n",
+        )
+        writer.writeheader()
+        writer.writerows(leaderboard_rows)
+
+    records = tuple(
+        sorted(
+            (*evaluation.accepted_submissions, *evaluation.rejected_submissions),
+            key=lambda record: record.submission_key,
+        )
+    )
+    score_by_submission = {
+        score.submission_key: score
+        for score in evaluation.team_scores
+        if score.submission_key is not None
+    }
+    manifest_rows = []
+    for record in records:
+        score = score_by_submission.get(record.submission_key)
+        manifest_rows.append(
+            {
+                "submission_key": record.submission_key,
+                "team_id": record.team_id,
+                "submission_id": record.submission_id,
+                "source_filename": record.path.name,
+                "input_sha256": evaluation.input_sha256_by_submission.get(
+                    record.submission_key, record.input_sha256
+                ),
+                "valid": record.valid,
+                "failure_reason": (
+                    score.failure_reason
+                    if score is not None and score.failure_reason is not None
+                    else record.failure_reason
+                ),
+                "identity_is_fallback": record.identity_is_fallback,
+            }
+        )
+    with (root / "submission_manifest.csv").open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=_SUBMISSION_MANIFEST_FIELDS,
+            lineterminator="\n",
+        )
+        writer.writeheader()
+        writer.writerows(manifest_rows)
+
+    if getattr(evaluation, "evaluated_plans", ()):
+        # Per-site hourly net grid withdrawal: the Submission 2 base load of
+        # the ten-year release is built from this file.
+        from .base_load import (
+            SITE_NET_WITHDRAWAL_FILE,
+            site_net_withdrawal_rows,
+            write_site_net_withdrawal,
+        )
+
+        withdrawal_path = root / SITE_NET_WITHDRAWAL_FILE
+        write_site_net_withdrawal(site_net_withdrawal_rows(evaluation), withdrawal_path)
+        generated_paths.append(withdrawal_path)
+
+    selected_periods = _period_audit_payloads(
+        evaluation,
+        period_indices,
+        source_period_indices,
+    )
+    if output_mode == "full":
+        for period_index in period_indices:
+            dispatch_path = dispatch_dir / f"period_{period_index}.json"
+            _write_canonical_json(dispatch_path, selected_periods[period_index])
+            generated_paths.append(dispatch_path)
+
+    periods_by_team: dict[str, list[dict[str, Any]]] = {score.team_id: [] for score in evaluation.team_scores}
+    if output_mode == "full":
+        for period_index in period_indices:
+            period = selected_periods[period_index]
+            for team_id, load in period["submitted_load_mw_by_team"].items():
+                periods_by_team.setdefault(team_id, []).append(
+                    {
+                        "period_index": period_index,
+                        "submitted_load_mw": load,
+                        "generator_dispatch_mw": period["generator_dispatch_mw_by_team"].get(team_id, {}),
+                    }
+                )
+    diagnostic_filenames = _diagnostic_filenames(records)
+    team_diagnostics = {}
+    for score in evaluation.team_scores:
+        diagnostic = _serialized_team_diagnostic(
+            evaluation,
+            score,
+            evaluation.input_sha256_by_submission,
+            periods_by_team,
+        )
+        record_key = score.submission_key or f"team:{score.team_id}"
+        diagnostic_key = diagnostic_filenames.get(
+            record_key,
+            f"{_truncate_output_component(_safe_output_component(score.team_id), _DIAGNOSTIC_STEM_MAX_BYTES)}.json",
+        )
+        team_diagnostics[diagnostic_key.removesuffix(".json")] = diagnostic
+        diagnostic_path = diagnostics_dir / diagnostic_key
+        _write_canonical_json(
+            diagnostic_path,
+            diagnostic,
+        )
+        generated_paths.append(diagnostic_path)
+
+    output_hashes = _output_hashes(root, generated_paths)
+    aggregate_diagnostics = _aggregate_diagnostics(selected_periods, evaluation.dispatch_records)
+    serialized_dispatch_records = [
+        _serialized_dispatch_record(record) for record in evaluation.dispatch_records
+    ]
+    serialized_accepted = [
+        _serialized_submission_record(record, evaluation.input_sha256_by_submission)
+        for record in evaluation.accepted_submissions
+    ]
+    serialized_rejected = [
+        _serialized_submission_record(record, evaluation.input_sha256_by_submission)
+        for record in evaluation.rejected_submissions
+    ]
+    generated_artifacts = sorted(
+        path.relative_to(root).as_posix()
+        for path in generated_paths
+    )
+    scoring_configuration = evaluation.rules_payload or {"rules_version": evaluation.rules_version}
+    evaluation_metadata = {
+        "output_mode": output_mode,
+        "solver_diagnostics": (
+            None
+            if evaluation.dispatch is None or getattr(evaluation.dispatch, "solver_diagnostics", None) is None
+            else asdict(evaluation.dispatch.solver_diagnostics)
+        ),
+        "generator_split_fallbacks": (
+            []
+            if evaluation.dispatch is None
+            else [dict(item) for item in getattr(evaluation.dispatch, "generator_split_fallbacks", ())]
+        ),
+        "competition_scope": evaluation.competition_scope,
+        "projection_diagnostics": (
+            None
+            if evaluation.projection_diagnostics is None
+            else asdict(evaluation.projection_diagnostics)
+        ),
+        "period_indices": list(period_indices),
+        "source_period_indices": list(source_period_indices),
+        "accepted_submission_keys": [record.submission_key for record in evaluation.accepted_submissions],
+        "rejected_submission_keys": [record.submission_key for record in evaluation.rejected_submissions],
+        "scoring_configuration": scoring_configuration,
+        "generated_artifacts": generated_artifacts,
+        "subset_evaluations": serialized_dispatch_records,
+        "failure_isolation": {
+            "events": [asdict(event) for event in evaluation.isolation_events],
+            "failure_reason": evaluation.failure_reason,
+        },
+    }
+    run_seed = {
+        "rules": evaluation.rules_payload or {"rules_version": evaluation.rules_version},
+        "scoring_configuration": scoring_configuration,
+        "rules_version": evaluation.rules_version,
+        "scenario_version": scenario_version,
+        "evaluator_version": evaluator_version,
+        "period_indices": list(period_indices),
+        "source_period_indices": list(source_period_indices),
+        "input_sha256_by_team": _sorted_mapping(evaluation.input_sha256_by_team),
+        "input_sha256_by_submission": _sorted_mapping(evaluation.input_sha256_by_submission),
+        "competition_scope": evaluation.competition_scope,
+        "projection_diagnostics": (
+            None
+            if evaluation.projection_diagnostics is None
+            else asdict(evaluation.projection_diagnostics)
+        ),
+        "team_scores": [asdict(score) for score in evaluation.team_scores],
+        "accepted_submissions": serialized_accepted,
+        "rejected_submissions": serialized_rejected,
+        "dispatch_records": serialized_dispatch_records,
+        "evaluation_metadata": evaluation_metadata,
+        "aggregate_diagnostics": aggregate_diagnostics,
+        "isolation_events": [asdict(event) for event in evaluation.isolation_events],
+        "periods": [selected_periods[index] for index in period_indices] if output_mode == "full" else [],
+    }
+    run_id = hashlib.sha256(_canonical_json_bytes(run_seed)).hexdigest()
+    payload = {
+        "run_id": run_id,
+        "rules_version": evaluation.rules_version,
+        "scenario_version": scenario_version,
+        "evaluator_version": evaluator_version,
+        "period_indices": list(period_indices),
+        "source_period_indices": list(source_period_indices),
+        "input_sha256_by_team": _sorted_mapping(evaluation.input_sha256_by_team),
+        "input_sha256_by_submission": _sorted_mapping(evaluation.input_sha256_by_submission),
+        "competition_scope": evaluation.competition_scope,
+        "projection_diagnostics": (
+            None
+            if evaluation.projection_diagnostics is None
+            else asdict(evaluation.projection_diagnostics)
+        ),
+        "isolation_events": [asdict(event) for event in evaluation.isolation_events],
+        "team_scores": [asdict(score) for score in evaluation.team_scores],
+        "accepted_submissions": serialized_accepted,
+        "rejected_submissions": serialized_rejected,
+        "dispatch_records": serialized_dispatch_records,
+        "evaluation_metadata": evaluation_metadata,
+        "aggregate_diagnostics": aggregate_diagnostics,
+        "failure_reason": evaluation.failure_reason,
+        "team_diagnostics": team_diagnostics,
+        "periods": [selected_periods[index] for index in period_indices] if output_mode == "full" else [],
+        "output_sha256": output_hashes,
+        "rules": evaluation.rules_payload or {"rules_version": evaluation.rules_version},
+    }
+    _write_canonical_json(root / "evaluation.json", payload)
+    evaluation_hash = hashlib.sha256((root / "evaluation.json").read_bytes()).hexdigest()
+    (root / "evaluation_sha256.txt").write_text(evaluation_hash + "\n", encoding="utf-8")
+
+
+def write_classroom_outputs(
+    evaluation: BatchEvaluation,
+    output_dir: str | Path,
+    *,
+    week_id: str,
+    submission_number: int,
+    feedback_only: bool,
+    scored: bool,
+    scenario_version: str,
+    evaluator_version: str,
+    period_indices: tuple[int, ...],
+    source_period_indices: tuple[int, ...] | None = None,
+    team_folder_key: bytes | None = None,
+) -> dict[str, str]:
+    """Write aggregate classroom artifacts and isolated team summaries.
+
+    This writer intentionally does not call or reuse the raw audit serializer.
+    Every shared field is scalar or aggregate-only, and every team file is
+    built from one ``TeamScore`` plus that team's scalar diagnostics.
+
+    Team folders are named ``team-<HMAC-SHA256(team_folder_key, team_id)>``
+    (first 16 hex digits), so a team ID alone does not locate a folder; the
+    key must stay instructor-private.  Without a key the unsalted SHA-256 of
+    the team ID is used (legacy behavior).  Returns ``{team_id: folder}``.
+    """
+    if not period_indices:
+        raise ValueError("period_indices must be non-empty")
+    if source_period_indices is None:
+        source_period_indices = evaluation.source_period_indices or period_indices
+    source_period_indices = tuple(source_period_indices)
+    _validate_period_mapping(tuple(period_indices), source_period_indices)
+
+    root = Path(output_dir)
+    root.mkdir(parents=True, exist_ok=True)
+    _clear_classroom_output_namespace(root)
+    shared_dir = root / "shared"
+    teams_dir = root / "teams"
+    shared_dir.mkdir(parents=True, exist_ok=True)
+    teams_dir.mkdir(parents=True, exist_ok=True)
+
+    selected_periods = _period_audit_payloads(
+        evaluation,
+        tuple(period_indices),
+        source_period_indices,
+    )
+    aggregate_periods = [
+        _classroom_aggregate_period(selected_periods[index])
+        for index in period_indices
+    ]
+    scores = tuple(evaluation.team_scores)
+    shared_summary = {
+        "schema_version": "classroom-safe-v1",
+        "week_id": week_id,
+        "submission_number": submission_number,
+        "feedback_only": feedback_only,
+        "scored": scored,
+        "scenario_version": scenario_version,
+        "evaluator_version": evaluator_version,
+        "competition_scope": evaluation.competition_scope,
+        "team_count": len(scores),
+        "valid_team_count": sum(score.valid for score in scores),
+        "feasible_team_count": sum(score.valid and score.feasible for score in scores),
+        "period_count": len(aggregate_periods),
+        "projection": _classroom_aggregate_projection(evaluation.projection_diagnostics),
+    }
+    shared_paths = [shared_dir / "summary.json", shared_dir / "aggregate_periods.json"]
+    _write_canonical_json(shared_paths[0], shared_summary)
+    _write_canonical_json(shared_paths[1], {"periods": aggregate_periods})
+
+    folders: dict[str, str] = {}
+    for score in scores:
+        folders[score.team_id] = classroom_team_folder(score.team_id, team_folder_key)
+        team_dir = teams_dir / folders[score.team_id]
+        team_dir.mkdir(parents=True, exist_ok=True)
+        _write_canonical_json(
+            team_dir / "summary.json",
+            _classroom_team_summary(
+                evaluation,
+                score,
+                week_id=week_id,
+                submission_number=submission_number,
+                feedback_only=feedback_only,
+                scored=scored,
+                all_team_ids={item.team_id for item in scores},
+            ),
+        )
+
+    generated_paths = sorted(
+        path
+        for path in root.rglob("*")
+        if path.is_file() and path.name != "output_sha256.json"
+    )
+    output_hashes = _output_hashes(root, generated_paths)
+    _write_canonical_json(shared_dir / "output_sha256.json", output_hashes)
+    return folders
+
+
+def classroom_team_folder(team_id: str, key: bytes | None = None) -> str:
+    """Private folder name of one team (salted with ``key`` when given)."""
+    import hmac
+
+    data = team_id.encode("utf-8")
+    digest = (
+        hashlib.sha256(data).hexdigest()
+        if key is None
+        else hmac.new(key, data, hashlib.sha256).hexdigest()
+    )
+    return f"team-{digest[:16]}"
+
+
+def _classroom_aggregate_period(period: Mapping[str, Any]) -> dict[str, Any]:
+    def total_values(values: Mapping[str, Any]) -> float:
+        return sum(float(value) for value in values.values())
+
+    def total_nested_values(values: Mapping[str, Any]) -> float:
+        return sum(total_values(nested) for nested in values.values() if isinstance(nested, Mapping))
+
+    flow_values = period.get("flow_mw_by_branch", {})
+    dual_values = period.get("balance_dual_by_bus", {})
+    return {
+        "period_index": period.get("period_index"),
+        "source_period_index": period.get("source_period_index"),
+        "solver_status": period.get("solver_status"),
+        "objective_cost": period.get("objective_cost"),
+        "total_submitted_load_mw": total_values(period.get("submitted_load_mw_by_team", {})),
+        "total_generator_dispatch_mw": total_nested_values(
+            period.get("generator_dispatch_mw_by_team", {})
+        ),
+        "total_grid_purchase_mw": total_values(period.get("grid_purchase_mw_by_team", {})),
+        "total_storage_charge_mw": total_nested_values(
+            period.get("storage_charge_mw_by_team", {})
+        ),
+        "total_storage_discharge_mw": total_nested_values(
+            period.get("storage_discharge_mw_by_team", {})
+        ),
+        "network_branch_count": len(flow_values),
+        "maximum_absolute_flow_mw": max(
+            (abs(float(value)) for value in flow_values.values()),
+            default=0.0,
+        ),
+        "constraint_bus_count": len(dual_values),
+        "maximum_absolute_constraint_dual": max(
+            (abs(float(value)) for value in dual_values.values()),
+            default=0.0,
+        ),
+        "binding_diagnostic_available": bool(period.get("binding_diagnostics")),
+    }
+
+
+def _classroom_aggregate_projection(diagnostics: Any) -> dict[str, Any] | None:
+    if diagnostics is None:
+        return None
+    return {
+        "total_requested_load_mwh": diagnostics.total_requested_load_mwh,
+        "total_projected_load_mwh": diagnostics.total_projected_load_mwh,
+        "proportional_fair_utility": diagnostics.proportional_fair_utility,
+        "total_load_tolerance_mwh": diagnostics.total_load_tolerance_mwh,
+    }
+
+
+def _classroom_team_summary(
+    evaluation: BatchEvaluation,
+    score: TeamScore,
+    *,
+    week_id: str,
+    submission_number: int,
+    feedback_only: bool,
+    scored: bool,
+    all_team_ids: set[str],
+) -> dict[str, Any]:
+    diagnostics = evaluation.projection_diagnostics
+    projection = None
+    if diagnostics is not None:
+        projection = {
+            "service_fraction": diagnostics.service_fraction_by_team.get(score.team_id),
+            "projected_capacity_mw": diagnostics.projected_capacity_mw_by_team.get(score.team_id),
+            "capped_request_capacity_mw": diagnostics.capped_request_capacity_mw_by_team.get(score.team_id),
+            "requested_load_mwh": diagnostics.requested_load_mwh_by_team.get(score.team_id),
+            "projected_load_mwh": diagnostics.projected_load_mwh_by_team.get(score.team_id),
+            # alpha of each of this team's sites; other teams' sites are never listed.
+            "site_fraction": dict(sorted(diagnostics.site_fraction_by_team.get(score.team_id, {}).items())),
+        }
+    score_payload = _classroom_public_score(score)
+    failure_reason = score_payload.get("failure_reason")
+    if isinstance(failure_reason, str) and any(
+        team_id != score.team_id and team_id in failure_reason
+        for team_id in all_team_ids
+    ):
+        score_payload["failure_reason"] = "team-specific diagnostic withheld"
+    return {
+        "schema_version": "classroom-private-v1",
+        "team_id": score.team_id,
+        "week_id": week_id,
+        "submission_number": submission_number,
+        "feedback_only": feedback_only,
+        "scored": scored,
+        "score": score_payload,
+        "projection": projection,
+        **(
+            {"generator_energy": energy}
+            if (energy := _generator_energy_payload(evaluation, score.team_id)) is not None
+            else {}
+        ),
+    }
+
+
+def _classroom_public_score(score: TeamScore) -> dict[str, Any]:
+    payload = asdict(score)
+    payload.pop("submission_key", None)
+    return payload
