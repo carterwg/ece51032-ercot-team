@@ -1,0 +1,593 @@
+from __future__ import annotations
+
+import csv
+import json
+from pathlib import Path
+from types import SimpleNamespace
+
+from ercot_game import batch_evaluation
+from ercot_game import batch_cli
+from ercot_game.batch_cli import main
+from ercot_game.csv_submission import CANONICAL_CSV_COLUMNS, LEGACY_CSV_COLUMNS
+
+
+def _write_submission(path: Path, team_id: str, *, load_mw: str = "2") -> None:
+    with path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=LEGACY_CSV_COLUMNS)
+        writer.writeheader()
+        writer.writerow(
+            {
+                "team_id": team_id,
+                "submission_id": "week-1",
+                "period": "1",
+                "site_id": "PANHANDLE",
+                "load_mw": load_mw,
+                "generator_id": "",
+                "generator_capacity_mw": "",
+                "storage_id": "",
+                "storage_power_mw": "",
+                "storage_energy_mwh": "",
+            }
+        )
+
+
+def _write_canonical_submission(path: Path, team_id: str) -> None:
+    with path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=CANONICAL_CSV_COLUMNS)
+        writer.writeheader()
+        writer.writerow(
+            {
+                "team_id": team_id,
+                "site_id": "site-north",
+                "bus_id": "3002041",
+                "connection_capacity_mw": "2",
+                "generator_capacity_mw": "1",
+                "storage_power_mw": "1",
+                "storage_energy_mwh": "4",
+            }
+        )
+
+
+def _write_inputs(tmp_path: Path) -> tuple[Path, Path, Path, Path]:
+    submissions_dir = tmp_path / "submissions"
+    submissions_dir.mkdir()
+    artifact_dir = tmp_path / "artifact"
+    artifact_dir.mkdir()
+    (artifact_dir / "bus.csv").write_text("bus_id\n3002041\n", encoding="utf-8")
+    (artifact_dir / "generator_limits.csv").write_text(
+        "generator_id,marginal_cost_c1_per_mwh\nG1,42.5\n",
+        encoding="utf-8",
+    )
+    rules_path = tmp_path / "rules.json"
+    rules_path.write_text(
+        json.dumps(
+            {
+                "rules_version": "test-v1",
+                "it_value_per_mwh": [200.0],
+                "energy_price_per_mwh": [50.0],
+                "infeasible_score": -999.0,
+            }
+        ),
+        encoding="utf-8",
+    )
+    region_map_path = tmp_path / "regions.json"
+    region_map_path.write_text(
+        json.dumps({"regions": {"PANHANDLE": {"source_bus_id": "3002041"}}}),
+        encoding="utf-8",
+    )
+    return submissions_dir, artifact_dir, rules_path, region_map_path
+
+
+def _fake_dispatch(_artifact_dir, plans, *, period_indices):
+    team_ids = tuple(sorted(plan.team_id for plan in plans))
+    periods = tuple(
+        SimpleNamespace(
+            period_index=period_index,
+            dcopf=SimpleNamespace(
+                status="optimal",
+                objective_cost=0.0,
+                generation_mw={},
+                flow_mw_by_branch={},
+                balance_dual_by_bus={},
+            ),
+            submitted_load_mw_by_team={team_id: 2.0 for team_id in team_ids},
+            generator_dispatch_mw_by_team={team_id: {} for team_id in team_ids},
+        )
+        for period_index in period_indices
+    )
+    return SimpleNamespace(team_ids=team_ids, periods=periods)
+
+
+def _run_args(
+    submissions_dir: Path,
+    artifact_dir: Path,
+    rules_path: Path,
+    region_map_path: Path,
+    output_dir: Path,
+    *,
+    period_indices: str = "0",
+    submission_number: str | None = None,
+    energy_cost: str | None = "on",
+) -> list[str]:
+    args = [
+        "run",
+        "--submissions-dir",
+        str(submissions_dir),
+        "--artifact-dir",
+        str(artifact_dir),
+        "--rules",
+        str(rules_path),
+        "--output-dir",
+        str(output_dir),
+        "--horizon",
+        "1",
+        "--period-indices",
+        period_indices,
+        "--region-map",
+        str(region_map_path),
+    ]
+    if energy_cost is not None:
+        args.extend(["--energy-cost", energy_cost])
+    if submission_number is not None:
+        args.extend(["--submission-number", submission_number])
+    return args
+
+
+def test_help_is_available_without_optional_solver_dependencies(capsys):
+    assert main(["run", "--help"]) == 0
+
+    captured = capsys.readouterr()
+    assert "run" in captured.out
+    assert "--submissions-dir" in captured.out
+    assert "--workers" in captured.out
+    assert "--projection-iterations" in captured.out
+    assert "--submission-number" in captured.out
+    assert "--solver-threads" in captured.out
+
+
+def test_cli_defaults_to_submission_number_one(tmp_path, monkeypatch, capsys):
+    submissions_dir, artifact_dir, rules_path, region_map_path = _write_inputs(tmp_path)
+    _write_submission(submissions_dir / "team-a.csv", "team-a")
+    observed: list[int | None] = []
+
+    def fake_evaluate(*_args, submission_number, **_kwargs):
+        observed.append(submission_number)
+        return SimpleNamespace(
+            team_scores=(), competition_scope="test", source_period_indices=()
+        )
+
+    monkeypatch.setattr(batch_cli, "evaluate_csv_batch", fake_evaluate)
+    monkeypatch.setattr(batch_cli, "write_batch_outputs", lambda *_args, **_kwargs: None)
+
+    assert main(
+        _run_args(submissions_dir, artifact_dir, rules_path, region_map_path, tmp_path / "output")
+    ) == 0
+
+    assert observed == [1]
+    assert "summary: 0 teams scored, 0 rejected" in capsys.readouterr().out
+
+
+def test_cli_requires_an_energy_setting_and_rejects_retired_flags(tmp_path, capsys):
+    submissions_dir, artifact_dir, rules_path, region_map_path = _write_inputs(tmp_path)
+    _write_submission(submissions_dir / "team-a.csv", "team-a")
+    args = _run_args(
+        submissions_dir, artifact_dir, rules_path, region_map_path, tmp_path / "output", energy_cost=None
+    )
+    assert main(args) == 2
+    assert "--energy-cost on|off or --week" in capsys.readouterr().err
+    for retired in (["--year", "2028"], ["--round", "jan_jun"], ["--time-step-hours", "6"], ["--source-period-offset", "0"]):
+        assert main(args + ["--energy-cost", "on"] + retired) == 2
+        assert "unrecognized arguments" in capsys.readouterr().err
+
+
+def test_cli_forwards_submission_number_one(tmp_path, monkeypatch, capsys):
+    submissions_dir, artifact_dir, rules_path, region_map_path = _write_inputs(tmp_path)
+    _write_submission(submissions_dir / "team-a.csv", "team-a")
+    observed: list[int | None] = []
+
+    def fake_evaluate(*_args, submission_number, **_kwargs):
+        observed.append(submission_number)
+        return SimpleNamespace(
+            team_scores=(), competition_scope="test", source_period_indices=()
+        )
+
+    monkeypatch.setattr(batch_cli, "evaluate_csv_batch", fake_evaluate)
+    monkeypatch.setattr(batch_cli, "write_batch_outputs", lambda *_args, **_kwargs: None)
+
+    assert main(
+        _run_args(
+            submissions_dir,
+            artifact_dir,
+            rules_path,
+            region_map_path,
+            tmp_path / "output",
+            submission_number="1",
+        )
+    ) == 0
+
+    assert observed == [1]
+    assert "summary: 0 teams scored, 0 rejected" in capsys.readouterr().out
+
+
+def test_cli_rejects_submission_number_other_than_one_or_two(capsys):
+    assert main(["run", "--submission-number", "3"]) == 2
+
+    assert "invalid choice" in capsys.readouterr().err
+
+
+def test_missing_run_arguments_return_exit_code_two(capsys):
+    assert main(["run"]) == 2
+
+    assert "error:" in capsys.readouterr().err
+
+
+def test_valid_run_uses_mocked_dispatch_and_writes_metadata(tmp_path, monkeypatch, capsys):
+    submissions_dir, artifact_dir, rules_path, region_map_path = _write_inputs(tmp_path)
+    _write_submission(submissions_dir / "team-a.csv", "team-a")
+    output_dir = tmp_path / "output"
+    monkeypatch.setattr(batch_evaluation, "evaluate_plans_with_prepared_dcopf", _fake_dispatch)
+
+    assert main(
+        _run_args(submissions_dir, artifact_dir, rules_path, region_map_path, output_dir)
+    ) == 0
+
+    captured = capsys.readouterr()
+    assert f"output directory: {output_dir}" in captured.out
+    assert "summary: 1 team" in captured.out
+    payload = json.loads((output_dir / "evaluation.json").read_text(encoding="utf-8"))
+    assert payload["period_indices"] == [0]
+    assert payload["scenario_version"] == artifact_dir.name
+    assert payload["evaluator_version"]
+
+
+def test_compact_output_omits_full_dispatch_payload(tmp_path, monkeypatch, capsys):
+    submissions_dir, artifact_dir, rules_path, region_map_path = _write_inputs(tmp_path)
+    _write_submission(submissions_dir / "team-a.csv", "team-a")
+    output_dir = tmp_path / "compact-output"
+    monkeypatch.setattr(batch_evaluation, "evaluate_plans_with_prepared_dcopf", _fake_dispatch)
+
+    assert main(
+        _run_args(submissions_dir, artifact_dir, rules_path, region_map_path, output_dir)
+        + ["--output-mode", "compact"]
+    ) == 0
+
+    payload = json.loads((output_dir / "evaluation.json").read_text(encoding="utf-8"))
+    assert payload["evaluation_metadata"]["output_mode"] == "compact"
+    assert payload["periods"] == []
+    assert not (output_dir / "dispatch").exists()
+    assert (output_dir / "leaderboard.csv").is_file()
+
+
+def test_malformed_submission_is_isolated_and_valid_team_is_scored(
+    tmp_path, monkeypatch, capsys
+):
+    submissions_dir, artifact_dir, rules_path, region_map_path = _write_inputs(tmp_path)
+    _write_submission(submissions_dir / "valid.csv", "team-valid")
+    (submissions_dir / "malformed.csv").write_text("not,a,valid,submission\n", encoding="utf-8")
+    output_dir = tmp_path / "output"
+    monkeypatch.setattr(batch_evaluation, "evaluate_plans_with_prepared_dcopf", _fake_dispatch)
+
+    assert main(
+        _run_args(submissions_dir, artifact_dir, rules_path, region_map_path, output_dir)
+    ) == 0
+
+    captured = capsys.readouterr()
+    assert "summary: 1 team scored, 1 rejected" in captured.out
+    leaderboard = (output_dir / "leaderboard.csv").read_text(encoding="utf-8")
+    assert "team-valid" in leaderboard
+    assert "UNPARSED::malformed.csv" in leaderboard
+
+
+def test_oversized_submission_is_isolated_and_valid_team_is_scored(
+    tmp_path, monkeypatch, capsys
+):
+    submissions_dir, artifact_dir, rules_path, region_map_path = _write_inputs(tmp_path)
+    _write_submission(submissions_dir / "valid.csv", "team-valid")
+    (submissions_dir / "oversized.csv").write_text(
+        ",".join(LEGACY_CSV_COLUMNS) + "\n"
+        + ("team-bad,week-1,1,PANHANDLE," + ("9" * 131073) + ",,,,,\n"),
+        encoding="utf-8",
+    )
+    output_dir = tmp_path / "output"
+    monkeypatch.setattr(batch_evaluation, "evaluate_plans_with_prepared_dcopf", _fake_dispatch)
+
+    assert main(
+        _run_args(submissions_dir, artifact_dir, rules_path, region_map_path, output_dir)
+    ) == 0
+
+    captured = capsys.readouterr()
+    assert "summary: 1 team scored, 1 rejected" in captured.out
+    leaderboard = (output_dir / "leaderboard.csv").read_text(encoding="utf-8")
+    assert "team-valid" in leaderboard
+    assert "UNPARSED::oversized.csv" in leaderboard
+
+
+def test_legacy_bus_submission_runs_without_legacy_region_map(
+    tmp_path, monkeypatch, capsys
+):
+    submissions_dir, artifact_dir, rules_path, _region_map_path = _write_inputs(tmp_path)
+    (artifact_dir / "bus.csv").write_text("bus_id\n3002041\n", encoding="utf-8")
+    (artifact_dir / "generator_limits.csv").write_text(
+        "generator_id,marginal_cost_c1_per_mwh\nG1,42.5\n",
+        encoding="utf-8",
+    )
+    with (submissions_dir / "team-canonical.csv").open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=(
+            "team_id", "submission_id", "period", "bus_id", "load_mw",
+            "generator_id", "generator_capacity_mw", "storage_id",
+            "storage_power_mw", "storage_energy_mwh",
+        ))
+        writer.writeheader()
+        writer.writerow({
+            "team_id": "team-canonical", "submission_id": "submission-1", "period": "1",
+            "bus_id": "3002041", "load_mw": "2", "generator_id": "G1",
+            "generator_capacity_mw": "1", "storage_id": "S1",
+            "storage_power_mw": "1", "storage_energy_mwh": "2",
+        })
+    output_dir = tmp_path / "output"
+    monkeypatch.setattr(batch_evaluation, "evaluate_plans_with_prepared_dcopf", _fake_dispatch)
+
+    assert main([
+        "run", "--submissions-dir", str(submissions_dir),
+        "--artifact-dir", str(artifact_dir), "--rules", str(rules_path),
+        "--output-dir", str(output_dir), "--horizon", "1", "--energy-cost", "on",
+    ]) == 0
+
+    assert "team-canonical" in (output_dir / "leaderboard.csv").read_text(encoding="utf-8")
+    assert "storage_capital_cost" in (output_dir / "leaderboard.csv").read_text(encoding="utf-8").splitlines()[0]
+    assert json.loads((output_dir / "evaluation.json").read_text(encoding="utf-8"))["period_indices"] == [0]
+    assert "summary: 1 team scored" in capsys.readouterr().out
+
+
+def test_canonical_site_submission_is_accepted_without_asset_id_columns(
+    tmp_path, monkeypatch, capsys
+):
+    submissions_dir, artifact_dir, rules_path, _region_map_path = _write_inputs(tmp_path)
+    _write_canonical_submission(submissions_dir / "team-canonical.csv", "team-canonical")
+    output_dir = tmp_path / "output"
+    monkeypatch.setattr(batch_evaluation, "evaluate_plans_with_prepared_dcopf", _fake_dispatch)
+
+    assert main([
+        "run", "--submissions-dir", str(submissions_dir),
+        "--artifact-dir", str(artifact_dir), "--rules", str(rules_path),
+        "--output-dir", str(output_dir), "--horizon", "1", "--energy-cost", "on",
+    ]) == 0
+
+    leaderboard = (output_dir / "leaderboard.csv").read_text(encoding="utf-8")
+    assert "team-canonical" in leaderboard
+    assert "storage_capital_cost" in leaderboard.splitlines()[0]
+    assert json.loads((output_dir / "evaluation.json").read_text(encoding="utf-8"))["period_indices"] == [0]
+    assert "summary: 1 team scored" in capsys.readouterr().out
+
+
+def test_invalid_rules_are_reported_as_input_error(tmp_path, capsys):
+    submissions_dir, artifact_dir, rules_path, region_map_path = _write_inputs(tmp_path)
+    _write_submission(submissions_dir / "team-a.csv", "team-a")
+    rules_path.write_text("{}", encoding="utf-8")
+
+    assert main(
+        _run_args(
+            submissions_dir,
+            artifact_dir,
+            rules_path,
+            region_map_path,
+            tmp_path / "output",
+        )
+    ) == 2
+
+    assert "error:" in capsys.readouterr().err
+
+
+def test_missing_artifact_is_reported_as_input_error(tmp_path, capsys):
+    submissions_dir, artifact_dir, rules_path, region_map_path = _write_inputs(tmp_path)
+    _write_submission(submissions_dir / "team-a.csv", "team-a")
+
+    assert main(
+        _run_args(
+            submissions_dir,
+            artifact_dir,
+            rules_path,
+            region_map_path,
+            tmp_path / "output",
+        )
+    ) == 2
+
+    assert "error:" in capsys.readouterr().err
+
+
+def test_classroom_command_runs_all_six_rounds_and_writes_public_summary(
+    tmp_path, monkeypatch, capsys
+):
+    manifest_path = tmp_path / "classroom.json"
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "rounds": [
+                    {
+                        "round_key": round_key,
+                        "submissions_dir": f"submissions/{index}",
+                        "artifact_dir": f"artifacts/{index}",
+                        "rules": f"rules/{index}.json",
+                        "horizon": 1,
+                    }
+                    for index, round_key in enumerate(
+                        (
+                            "week-1-submission-1",
+                            "week-1-submission-2",
+                            "week-2-submission-1",
+                            "week-2-submission-2",
+                            "week-3-submission-1",
+                            "week-3-submission-2",
+                        )
+                    )
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    for index in range(6):
+        (tmp_path / "artifacts" / str(index)).mkdir(parents=True)
+    seen = {}
+
+    class _Result:
+        submissions = tuple(
+            SimpleNamespace(
+                round_key=round_key,
+                week_id=f"week-{index // 2 + 1}",
+                submission_number=index % 2 + 1,
+                feedback_only=index < 2,
+                scored=index >= 2,
+                evaluation=SimpleNamespace(
+                    dispatch=SimpleNamespace(periods=()),
+                    source_period_indices=(),
+                ),
+            )
+            for index, round_key in enumerate(
+                (
+                    "week-1-submission-1",
+                    "week-1-submission-2",
+                    "week-2-submission-1",
+                    "week-2-submission-2",
+                    "week-3-submission-1",
+                    "week-3-submission-2",
+                )
+            )
+        )
+
+        def to_public_dict(self):
+            return {
+                "submissions": [{"round_key": "week-1-submission-1", "team_results": []}],
+                "weekly_rankings": {},
+                "final_rankings": [],
+                "state_metadata": {},
+            }
+
+    def fake_evaluate_classroom(*, rounds, **kwargs):
+        seen["rounds"] = tuple(rounds)
+        return _Result()
+
+    monkeypatch.setattr(
+        batch_cli,
+        "load_scoring_rules",
+        lambda *args, **kwargs: SimpleNamespace(),
+    )
+    monkeypatch.setattr(batch_cli, "evaluate_classroom", fake_evaluate_classroom)
+    monkeypatch.setattr(batch_cli, "write_classroom_outputs", lambda *args, **kwargs: None)
+    output_dir = tmp_path / "classroom-output"
+    assert main(
+        [
+            "classroom",
+            "--manifest",
+            str(manifest_path),
+            "--state-path",
+            str(tmp_path / "state.json"),
+            "--output-dir",
+            str(output_dir),
+        ]
+    ) == 0
+
+    assert [item.round_key for item in seen["rounds"]] == [
+        "week-1-submission-1",
+        "week-1-submission-2",
+        "week-2-submission-1",
+        "week-2-submission-2",
+        "week-3-submission-1",
+        "week-3-submission-2",
+    ]
+    payload = json.loads((output_dir / "classroom_evaluation.json").read_text(encoding="utf-8"))
+    assert payload["submissions"][0]["round_key"] == "week-1-submission-1"
+    assert "plans" not in payload
+    assert "summary: 6 submissions evaluated" in capsys.readouterr().out
+
+
+def test_classroom_cli_writes_only_resumed_suffix(tmp_path, monkeypatch, capsys):
+    round_keys = (
+        "week-1-submission-1",
+        "week-1-submission-2",
+        "week-2-submission-1",
+        "week-2-submission-2",
+        "week-3-submission-1",
+        "week-3-submission-2",
+    )
+    round_inputs = tuple(
+        batch_cli.ClassroomRoundInput(
+            round_key=round_key,
+            submissions=tmp_path / f"submissions-{index}",
+            artifact_dir=tmp_path / f"artifact-{index}",
+            horizon=1,
+            rules=SimpleNamespace(),
+        )
+        for index, round_key in enumerate(round_keys)
+    )
+    round_result = SimpleNamespace(
+        round_key="week-1-submission-2",
+        week_id="week-1",
+        submission_number=2,
+        feedback_only=True,
+        scored=False,
+        evaluation=SimpleNamespace(
+            dispatch=SimpleNamespace(periods=(SimpleNamespace(period_index=0),)),
+            source_period_indices=(),
+        ),
+    )
+    classroom_result = SimpleNamespace(
+        submissions=(round_result,),
+        to_public_dict=lambda: {
+            "submissions": [{"round_key": "week-1-submission-2", "team_results": []}],
+            "weekly_rankings": {},
+            "final_rankings": [],
+            "state_metadata": {},
+        },
+    )
+    writes = []
+
+    monkeypatch.setattr(batch_cli, "_classroom_round_inputs", lambda path: round_inputs)
+    monkeypatch.setattr(
+        batch_cli,
+        "evaluate_classroom",
+        lambda **kwargs: classroom_result,
+    )
+    monkeypatch.setattr(
+        batch_cli,
+        "write_classroom_outputs",
+        lambda evaluation, output_dir, **kwargs: writes.append(
+            (Path(output_dir), kwargs["scenario_version"])
+        ),
+    )
+
+    assert main(
+        [
+            "classroom",
+            "--manifest",
+            str(tmp_path / "classroom.json"),
+            "--output-dir",
+            str(tmp_path / "classroom-output"),
+        ]
+    ) == 0
+
+    assert writes == [
+        (tmp_path / "classroom-output" / "week-1" / "submission-2", "artifact-1")
+    ]
+    assert "summary: 1 submission evaluated" in capsys.readouterr().out
+
+
+def test_batch_does_not_use_generator_catalog_as_submission_registry(tmp_path, capsys):
+    submissions_dir, artifact_dir, rules_path, region_map_path = _write_inputs(tmp_path)
+    _write_submission(submissions_dir / "team-a.csv", "team-a")
+    (artifact_dir / "generator_limits.csv").write_text(
+        "generator_id,marginal_cost_c1_per_mwh\nG1,nan\n",
+        encoding="utf-8",
+    )
+
+    assert main(
+        _run_args(
+            submissions_dir,
+            artifact_dir,
+            rules_path,
+            region_map_path,
+            tmp_path / "output",
+        )
+    ) == 2
+
+    captured = capsys.readouterr()
+    assert "demand_bus.csv" in captured.err
