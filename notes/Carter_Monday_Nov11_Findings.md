@@ -420,4 +420,99 @@ The following questions remain unanswered:
 
 # 12. Recommended Next Experiments
 
-## 
+## Priority 1: Generator Sweep
+
+Candidate Bus:
+
+```text
+1079
+```
+
+Study:
+
+| Data Center | Generator |
+|------------|------------|
+| 1000 MW | 0 MW |
+| 1000 MW | 250 MW |
+| 1000 MW | 500 MW |
+| 1000 MW | 750 MW |
+
+Measure:
+
+- score
+- allocation factor
+- served fraction
+- curtailment
+
+---
+
+## Priority 2: Battery Sweep
+
+Candidate Bus:
+
+```text
+1079
+```
+
+Study:
+
+| Data Center | Battery |
+|------------|------------|
+| 1000 MW | 0 MW |
+| 1000 MW | 250 MW |
+| 1000 MW | 500 MW |
+
+Measure:
+
+- score
+- Period 109 demand reduction
+- allocation factor
+- served fraction
+
+---
+
+## Priority 3: Alternative Bus Strategy
+
+Investigate buses ranked approximately:
+
+```text
+20–100
+```
+
+that:
+
+- have strong hosting capacity
+- avoid common bottlenecks
+- are not obvious choices
+
+---
+
+# 13. Current Strategic Conclusion
+
+The project is no longer about identifying the largest hosting-capacity bus.
+
+The evidence collected so far suggests the central challenge is:
+
+```text
+Managing competition for scarce generation
+and transmission resources.
+```
+
+The most valuable future work is likely understanding how onsite generation and storage change a site's dependence on those scarce resources, rather than continuing standalone hosting-capacity studies.
+
+---
+
+# 14. Team Recommendations Entering Week 1
+
+1. Do not overreact to hosting-capacity rankings alone.
+2. Treat the 3024 MW reserve margin as a critical system-level resource.
+3. Assume many teams will identify the same top buses.
+4. Use Week 1 results to identify crowding behavior.
+5. Delay major generation and battery decisions until competitor behavior is observed.
+6. Focus future studies on:
+   - allocation factors
+   - competition effects
+   - generator sensitivity
+   - battery sensitivity
+
+The team's current understanding is that competition for shared generation and transmission resources is likely a larger strategic lever than incremental differences in standalone hosting-capacity rankings.
