@@ -54,3 +54,42 @@ Saved the report to bottleneck_diversity_analysis.csv and validated its 20 uniqu
 At their individual hosting limits, 12 buses are transmission-limited across four binding branches: b02579 is shared by 8 shortlisted buses, b02136 by 2, while b01773 and b01758 are unique corridors for buses 6062 and 6298. Those two rank highest for corridor uniqueness. The other 8 buses have no binding branch in their hosting-limit solution; their limit is system generation capacity.
 
 The CSV includes binding branch details and sharing counts, uniqueness ranks, and the full lists of generator Pmin/Pmax bounds active at each solution. No source files were changed; the existing untracked test.py was left untouched.
+
+
+
+
+Prompt: 
+Create four candidate portfolio plans.
+
+Plan A:
+One site at bus 1079
+
+Plan B:
+Two equal sites at buses 1079 and 2054
+
+Plan C:
+Two equal sites at buses 6062 and 6298
+
+Plan D:
+Four equal sites at:
+1079
+6062
+6298
+7414
+
+For each plan:
+
+1. Maximize total feasible added load.
+2. Report limiting period.
+3. Report binding constraints.
+4. Report interaction ratio relative to the sum of individual hosting capacities.
+5. Compare all four plans in a table.
+
+Save results to:
+analysis/experiments/portfolio_comparison.md
+
+
+Output:
+Evaluated all four equal-site plans across the 120 representative periods. Each is limited at period 109. Plans A, B, and D reach the generation ceiling; Plan C also binds branch b02136.
+
+The comparison, including per-site allocations, binding constraints, and interaction ratios, is saved in portfolio_comparison.md.
