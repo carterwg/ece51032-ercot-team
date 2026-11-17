@@ -1,0 +1,25 @@
+name: Team strategy checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  team-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install local instructor engine and team package
+        run: |
+          python -m pip install -e ./ercot-connection-game
+          python -m pip install -e '.[test,plot]'
+      - name: Run team contracts and instructor integration checks
+        run: python -m pytest -q
+      - name: Verify instructor subtree is unchanged by checks
+        run: git diff --exit-code -- ercot-connection-game

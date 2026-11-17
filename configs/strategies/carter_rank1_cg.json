@@ -1,0 +1,7 @@
+{
+  "strategy": "full_generation",
+  "params": {
+    "site_count": 1,
+    "bus_ids": ["6141"]
+  }
+}
