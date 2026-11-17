@@ -1,0 +1,14 @@
+{
+  "capacity_per_submission_mw": 500.0,
+  "lower_anchor_billions": 49.67,
+  "upper_anchor_billions": 73.0525,
+  "formula": "100 * (S_billions - 49.67) / (73.0525 - 49.67)",
+  "clip": false,
+  "graded_submissions": ["week-2-submission-1", "week-2-submission-2", "week-3-submission-1", "week-3-submission-2"],
+  "assumptions": [
+    "A full new 500 MW capacity budget is built in each graded submission.",
+    "Lower anchor is the analytical full-output C=G comparison case, distinct from the instructor's grading reference.",
+    "Upper anchor assumes full allocation, zero grid-energy prices, and no private generation or storage.",
+    "Week 3 prices come from joint dispatch; normalized scores remain unclipped."
+  ]
+}
