@@ -16,6 +16,7 @@ and [Carter's bus 6141 strategy](notebooks/02_carter_rank1_cg.ipynb).
 - `runs/`: generated candidate/report bundles (ignored by Git).
 - `submissions/`: deliberately selected submission bundles.
 - `analysis/`: team bus-screening and hosting-capacity results.
+- [`notes/`](notes/README.md): Carter's research notes and [Saket's initial 500 MW findings](notes/Saket_Initial_Findings.md).
 - `ercot-connection-game/`: complete course repository, imported as a Git subtree.
   See its [README](ercot-connection-game/README.md) and
   [tutorial](ercot-connection-game/docs/student_tutorial/tutorial.pdf).
