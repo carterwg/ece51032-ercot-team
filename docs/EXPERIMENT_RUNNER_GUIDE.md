@@ -552,10 +552,298 @@ will not capture charge/discharge value, storage dispatch, or the battery's
 effect on served load. Therefore this runner cannot provide a meaningful
 performance comparison of battery operating strategies.
 
-For battery analysis, use the full course batch evaluator with the intended
-joint submission set and full 120-period horizon. Compare its dispatch and
-score outputs, not the runner's `preview.json`. The repository strategy guide
-also recommends full-horizon evaluation for storage; see
+#### End-to-end battery experiment: solo and crowded evaluations
+
+This procedure separates two questions:
+
+1. **What does the battery do for our plan by itself?** Run a one-team full
+   evaluation.
+2. **What does our plan do when the system is crowded?** Run a multi-team
+   evaluation with explicit opponent plans.
+
+The runner is the plan builder and validator in this workflow. The full batch
+evaluator—not the runner preview—dispatches the batteries and computes the
+scores. All example commands below run in PowerShell from the team-repository
+root. The example uses a 250 MW site and a 25 MW / 100 MWh four-hour battery;
+change these values to test the design you care about, subject to the active
+release limits.
+
+##### 1. Define the experiment before running it
+
+Decide what you want to learn and vary one thing at a time. A useful first
+experiment compares the same site with and without storage. For example:
+
+```json
+{
+  "experiment_id": "battery-6141-initial",
+  "team_id": "YOUR_TEAM_ID",
+  "week": 2,
+  "submission": 1,
+  "plans": [
+    {
+      "plan_name": "bus6141-no-battery",
+      "scenario_id": "representative-v1",
+      "sites": [
+        {
+          "site_id": "site-6141",
+          "bus_id": 6141,
+          "connection_capacity_mw": 250,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "bus6141-battery-25mw-100mwh",
+      "scenario_id": "representative-v1",
+      "sites": [
+        {
+          "site_id": "site-6141",
+          "bus_id": 6141,
+          "connection_capacity_mw": 250,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 25,
+          "storage_energy_mwh": 100
+        }
+      ]
+    }
+  ]
+}
+```
+
+In this first comparison, only storage changes. In later experiments, compare
+several battery sizes (for example 10 MW / 40 MWh and 25 MW / 100 MWh), or
+repeat the comparison at a different bus. Keep the scenario, week, connection
+capacity, generator, and all other assumptions fixed when you want to attribute
+a score difference to the battery. The plans' **total connection capacity**
+must meet the active team cap; opponents each have their own per-team cap.
+
+##### 2. Generate and validate the candidate CSVs with the runner
+
+Save the JSON above as `battery-plans.json`, then run:
+
+```powershell
+python .\src\experiment_runner.py `
+  --plans .\battery-plans.json `
+  --runs-dir .\runs\battery-study\candidate-generation `
+  --database .\runs\battery-study\candidate-generation\run_database.csv `
+  --experiment-log .\runs\battery-study\candidate-generation\experiment_log.csv
+```
+
+Using study-local database and log paths keeps this example from changing the
+shared `analysis/` records. Check that both plans have `valid=true`. Find each
+candidate's `candidate_csv_path` in the study-local `run_database.csv`, or find
+the run folder containing a matching `plan.json`. Save those two paths for the
+next steps.
+
+The runner's preview score is **not** the battery result: storage is idle in
+that preview. Here the runner is only checking the plan and creating canonical
+CSV files.
+
+##### 3. Compare the two plans in solo full-evaluator runs
+
+Make a separate, otherwise empty input folder for each run. Each folder should
+contain exactly one team's candidate CSV:
+
+```powershell
+New-Item -ItemType Directory -Force .\runs\battery-study\solo-no-battery\inputs | Out-Null
+New-Item -ItemType Directory -Force .\runs\battery-study\solo-battery\inputs | Out-Null
+Copy-Item '<path-to-bus6141-no-battery-candidate.csv>' `
+  .\runs\battery-study\solo-no-battery\inputs\our-team.csv
+Copy-Item '<path-to-bus6141-battery-candidate.csv>' `
+  .\runs\battery-study\solo-battery\inputs\our-team.csv
+```
+
+Replace the two placeholders with the actual `candidate_csv_path` values from
+step 2. Run each candidate as a separate full evaluation:
+
+```powershell
+ercot-game-batch run `
+  --submissions-dir .\runs\battery-study\solo-no-battery\inputs `
+  --artifact-dir .\ercot-connection-game\data\processed\activsg2000_representative_v1 `
+  --rules .\configs\scoring\dispatch_scoring_rules_500mw.json `
+  --week 2 `
+  --submission-number 1 `
+  --solver-backend highs `
+  --workers 1 `
+  --output-mode full `
+  --output-dir .\runs\battery-study\solo-no-battery\results
+
+ercot-game-batch run `
+  --submissions-dir .\runs\battery-study\solo-battery\inputs `
+  --artifact-dir .\ercot-connection-game\data\processed\activsg2000_representative_v1 `
+  --rules .\configs\scoring\dispatch_scoring_rules_500mw.json `
+  --week 2 `
+  --submission-number 1 `
+  --solver-backend highs `
+  --workers 1 `
+  --output-mode full `
+  --output-dir .\runs\battery-study\solo-battery\results
+```
+
+Both use all 120 representative periods by default. `--output-mode full`
+writes per-period dispatch JSON so that you can inspect battery charge,
+discharge, and state of charge. The one-team run answers the battery question
+for an isolated plan; it does not estimate the effect of other teams.
+
+##### 4. Construct a ten-team crowding scenario
+
+Yes: you can assess both your plan alone and a crowded system. They are two
+different evaluator runs with different input folders. A submissions folder
+with ten CSVs models ten teams. If seven of those teams use the same plan,
+make seven CSVs with identical site and asset capacities but distinct team
+and site IDs. Do not put ten rows with different team IDs in one file; provide
+one team submission file per CSV.
+
+For a reproducible example, use the following scenario:
+
+- Our team uses the battery candidate.
+- Six mock teams use the exact same battery plan as our team.
+- Three other mock teams use the no-battery plan at the same bus and
+  connection capacity.
+
+This makes **seven of ten teams** use the battery plan in the crowded battery
+run. It is an assumption-based stress test, not a prediction that seven
+classmates will choose that plan. The remaining three plans are deliberately
+specified so the ten-team scenario is complete.
+
+First, set the two source paths from step 2 and define a helper that copies a
+plan's actual site capacities while replacing its identity fields:
+
+```powershell
+$batteryCsv = '<path-to-bus6141-battery-candidate.csv>'
+$noBatteryCsv = '<path-to-bus6141-no-battery-candidate.csv>'
+$opponents = '.\runs\battery-study\crowded\opponents'
+$ourTeam = 'YOUR_TEAM_ID'
+
+function Copy-PlanForTeam {
+  param(
+    [string]$SourceCsv,
+    [string]$DestinationCsv,
+    [string]$TeamId
+  )
+
+  $rows = @(Import-Csv -LiteralPath $SourceCsv)
+  foreach ($row in $rows) {
+    $row.team_id = $TeamId
+    $row.site_id = "$TeamId-$($row.site_id)"
+  }
+  $rows | Export-Csv -LiteralPath $DestinationCsv -NoTypeInformation -Encoding utf8
+}
+
+New-Item -ItemType Directory -Force $opponents | Out-Null
+for ($n = 2; $n -le 7; $n++) {
+  $team = 'mock-{0:D2}' -f $n
+  Copy-PlanForTeam $batteryCsv (Join-Path $opponents "$team.csv") $team
+}
+for ($n = 8; $n -le 10; $n++) {
+  $team = 'mock-{0:D2}' -f $n
+  Copy-PlanForTeam $noBatteryCsv (Join-Path $opponents "$team.csv") $team
+}
+```
+
+The site IDs are changed only to make each simulated team's identifiers
+distinct; bus IDs and all capacities remain unchanged. The mock teams are
+independent submissions, so each plan must satisfy the per-team validation
+rules. In this example every team requests 250 MW, below the configured
+per-team cap, even though their combined requested load can be much larger.
+The evaluator will determine whether the joint request is feasible or needs
+allocation.
+
+##### 5. Compare our battery and no-battery plans under the same opponents
+
+To measure the battery's effect in the crowded scenario, keep the nine mock
+opponent CSVs exactly the same in both runs and change only our team's file.
+This is the controlled comparison:
+
+```powershell
+$crowdedNoBattery = '.\runs\battery-study\crowded-no-battery'
+$crowdedBattery = '.\runs\battery-study\crowded-battery'
+New-Item -ItemType Directory -Force "$crowdedNoBattery\inputs" | Out-Null
+New-Item -ItemType Directory -Force "$crowdedBattery\inputs" | Out-Null
+Copy-PlanForTeam $noBatteryCsv "$crowdedNoBattery\inputs\$ourTeam.csv" $ourTeam
+Copy-PlanForTeam $batteryCsv "$crowdedBattery\inputs\$ourTeam.csv" $ourTeam
+Copy-Item "$opponents\*.csv" "$crowdedNoBattery\inputs\"
+Copy-Item "$opponents\*.csv" "$crowdedBattery\inputs\"
+```
+
+Run the full evaluator once for each folder:
+
+```powershell
+ercot-game-batch run `
+  --submissions-dir .\runs\battery-study\crowded-no-battery\inputs `
+  --artifact-dir .\ercot-connection-game\data\processed\activsg2000_representative_v1 `
+  --rules .\configs\scoring\dispatch_scoring_rules_500mw.json `
+  --week 2 `
+  --submission-number 1 `
+  --solver-backend highs `
+  --workers 1 `
+  --output-mode full `
+  --output-dir .\runs\battery-study\crowded-no-battery\results
+
+ercot-game-batch run `
+  --submissions-dir .\runs\battery-study\crowded-battery\inputs `
+  --artifact-dir .\ercot-connection-game\data\processed\activsg2000_representative_v1 `
+  --rules .\configs\scoring\dispatch_scoring_rules_500mw.json `
+  --week 2 `
+  --submission-number 1 `
+  --solver-backend highs `
+  --workers 1 `
+  --output-mode full `
+  --output-dir .\runs\battery-study\crowded-battery\results
+```
+
+The first crowded run has six battery-copy rivals plus three no-battery rivals;
+our team is the tenth team and uses no battery. The second has the same nine
+opponents, while our team changes to the battery plan, making seven of ten
+teams use the battery plan. Thus the difference in **our team's** two scores
+isolates the effect of adding the battery against that fixed opponent set.
+The scores of the other teams can also change because our plan affects the
+shared dispatch.
+
+To test a different crowding assumption—for example, only one other team
+copies us—change the opponent list accordingly and keep it fixed between the
+our-battery and our-no-battery runs. Do not interpret one hand-built opponent
+mix as the actual class outcome.
+
+##### 6. Read the full-evaluator results
+
+For each output folder:
+
+- `leaderboard.csv` contains the team-level score and service/allocation
+  summary. Compare the row for `YOUR_TEAM_ID` across battery and no-battery
+  outputs. Compare opponent rows too if you want to see the effect on the
+  rest of the simulated field.
+- `diagnostics/` contains per-team score and dispatch diagnostics. Read our
+  team's diagnostic JSON to understand score components, allocation, and
+  warnings.
+- `dispatch/period_<n>.json` contains per-period system and team dispatch for
+  the full output mode. Inspect the entries
+  `storage_charge_mw_by_team`, `storage_discharge_mw_by_team`, and
+  `storage_soc_mwh_by_team` for our team ID. These show whether and when the
+  evaluator charged/discharged the battery and its state of charge.
+- `submission_manifest.csv` confirms which candidate files were accepted and
+  records each input hash. If a team was rejected, inspect its failure reason
+  before interpreting the leaderboard.
+- `site_net_withdrawal.csv` records the resulting site withdrawals; it is
+  especially relevant if you later model Submission 2.
+
+Compare more than the headline score: served load/fraction, allocation factor
+and curtailed capacity, IT value, energy cost, generator operating cost,
+capital costs, and the battery dispatch pattern. Attribute the **difference**
+between matched runs, not the battery run's score alone. Week 2 is useful for
+isolating operational effects without a grid-energy charge; repeat the final
+comparison for Week 3 if Week-3 energy prices matter to the decision. Use the
+same 120-period horizon, rules, scenario, and opponent files within each
+comparison.
+
+The batch evaluator performs the full game dispatch, including storage
+recourse and capacity allocation when needed. It is the right local tool for
+understanding plan-level storage value, but a simulated opponent set remains
+an assumption; only the instructor's run with the actual class submissions
+shows the realized classroom competition result. The repository strategy
+guide also recommends full-horizon evaluation for storage; see
 [`docs/STRATEGY_DEVELOPMENT.md`](STRATEGY_DEVELOPMENT.md#9-evaluate-the-candidate-with-the-instructor-tools).
 
 ## Best Practices
