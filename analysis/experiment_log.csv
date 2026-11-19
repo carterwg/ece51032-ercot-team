@@ -1,0 +1,1 @@
+event_id,timestamp_utc,experiment_id,run_id,plan_name,phase,event_type,status,elapsed_seconds,candidate_csv_path,validation_output_path,preview_output_path,official_output_path,details_path,message,git_revision,scenario_sha256,rules_sha256,base_load_sha256
