@@ -9,6 +9,8 @@ the reusable plot notebook for all strategies. See its [usage guide](notebooks/R
 for notebook dependencies, inputs, and exports.
 Executed reports are available for the [bus 1001 baseline](notebooks/01_full_generation_baseline.ipynb)
 and [Carter's bus 6141 strategy](notebooks/02_carter_rank1_cg.ipynb).
+See the [strategy findings for team discussion](notes/Saket_Strategy_Discussion.md)
+for the ten-team corridor, S1 equipment, and S2 carryover results.
 
 - `src/team_strategy/`: team interfaces, full-generation baseline, validation,
   campaign normalization, and risk–return comparisons.
