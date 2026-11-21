@@ -69,6 +69,15 @@ is dominated only if another is at least as good on both measures and strictly
 better on one. Ties remain. There is no weighted composite score or automatic
 winner selection. These summaries are not calibrated forecasts.
 
+The separate Part 2 experiment reports a conditional maximin choice within its
+primary, resource-matched portfolio menu. It maximizes the worst stress-campaign
+Q, retaining the best mean and minimax-regret alternatives separately. Its
+C = G benchmark is excluded from the grid-only siting choice because resource
+mix differs. Solo campaigns are reference observations, excluded from competitive
+risk averages. Equal scenario weights describe the declared stress set, not
+estimated probabilities of rival behavior. All summaries require all four graded
+submissions with the candidate-specific S1-to-S2 history and weekly resets.
+
 ## Report input
 
 Supply JSON with `capacity_per_submission_mw: 500`. Each strategy must have the

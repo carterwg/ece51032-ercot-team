@@ -403,10 +403,17 @@ references needed to explain the decision.
 ## Current automation boundary
 
 Candidate generation, shared validation, CSV export, normalization, and frontier
-reporting are implemented. Opponent generation, parameter-search orchestration,
-and the automatic evaluator adapter remain future work. Their interfaces exist,
-but evaluation currently uses the instructor commands above. Reporting consumes
-scores already obtained from evaluations; it does not run the campaign itself.
+reporting are implemented. The separate
+`python -m team_strategy.experiments.concentration` command now runs matched
+four-submission corridor experiments using `evaluation/campaign.py` and the
+unchanged instructor evaluator. Its fixed opponent hypotheses are declared in
+`configs/experiments/corridor_part2.json`; see the repository README for invocation,
+resume, and result locations. The ordinary `team-strategy report` command still
+consumes supplied scores rather than running simulations.
+
+Adaptive opponent models, continuous parameter search, and automatic classroom
+submission remain future work. Part 2's primary comparison holds the resource
+mix constant; the C = G plan is a separately labeled benchmark.
 
 ## Checklist for each idea
 

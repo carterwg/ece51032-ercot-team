@@ -7,3 +7,6 @@ __pycache__/
 .DS_Store
 runs/*
 !runs/.gitkeep
+/findings/*
+/analysis/strategy/battery-s1-500mw/summary.json
+/analysis/strategy/ten-teams-500mw/cells.json

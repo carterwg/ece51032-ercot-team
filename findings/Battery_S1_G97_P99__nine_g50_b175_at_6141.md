@@ -44,7 +44,7 @@ Each of the nine rivals requests 500 MW split equally across 6141, with 50 MW of
 
 The hourly table shows dispatched power and lines at their limits. Storage feasibility depends on charge and discharge across the day.
 
-Full result (local solver artifact) · Solver audit (local solver artifact)
+[Full result](<../runs/battery-s1-500mw/sweep/g97_p99/nine_g50_b175_at_6141/attempt-01/result.json>) · [Solver audit](<../runs/battery-s1-500mw/sweep/g97_p99/nine_g50_b175_at_6141/attempt-01/execution.json>)
 
 ## Personal notes
 

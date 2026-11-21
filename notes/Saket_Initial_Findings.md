@@ -1,9 +1,7 @@
 # Saket Initial Findings for the 500 MW Game
 
-**Prepared by:** Saket
-
-**Date:** November 16, 2026
-
+**Prepared by:** Saket  
+**Date:** November 16, 2026  
 **Scope:** Full instructor-evaluator runs for two solo strategies at the finalized
 500 MW per-team, per-submission limit.
 
@@ -33,7 +31,7 @@ the next question to test.
 The baseline used **bus 1001**, the first catalog ID in lexical order. It was a
 simple reference, not an optimized siting decision. The second strategy used
 **bus 6141**, which ranks first by composite score in Carter's
-[bus-screening analysis](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/analysis/bus_screening_metrics.csv). Capacity,
+[bus-screening analysis](../analysis/bus_screening_metrics.csv). Capacity,
 generation, battery size, and evaluation settings were held constant. Each
 strategy's S2 base followed its own S1 dispatch.
 

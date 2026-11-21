@@ -1,3 +1,4 @@
+<!-- findings-record: {"schema":1,"kind":"campaign","stem":"G_eq_125_S1_C_eq_G_S2_500_6141","policy":"G_eq_125_S1_C_eq_G_S2","portfolio":"bottleneck_ptdf_1_s1_125_s2_cg","buses":["6141"],"weights":[1.0],"scenario":"nine_grid_at_6141","risk":true,"exploratory":false,"bundle":"analysis/strategy/ten-teams-500mw","campaign_output":"runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_6141/attempt-02/campaign","campaign_sha256":"35447952727ba11104e835b69d86357a2af0083b67310abb6b3f53b83b7af1b6","score_usd":69433215501.58987,"it_value_usd":123053148597.11996,"grid_mwh":17516073.801749866,"generation_mwh":3926.1982464814537,"modeled_generator_hours":16.0,"annual_generator_hours":16.00000000015263,"required_annual_hours":16.00000000015263,"minimum_admission":1.0,"scenario_count_in_bundle":4,"bundle_status":"complete","diagnostic_cache":"runs/findings-diagnostics/cases/35447952727ba11104e835b69d86357a2af0083b67310abb6b3f53b83b7af1b6-3eea05334a1d.json"} -->
 # G_eq_125_S1_C_eq_G_S2_500_6141 — nine_grid_at_6141
 
 | Round | Requested C MW | Requested G MW | Admitted new C MW | Own operating C incl. S1 MW | Gross IT value $B | Net score $B |
@@ -55,19 +56,19 @@ The generation-only lower bound uses native Pmax plus all admitted rival private
 
 ### Snapshot counterfactuals for this round
 
-- Period 108: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **7.075195 MW**; maximum nodal residual 1.75e-08 MW. diagnostic evidence (local solver artifact).
+- Period 108: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **7.075195 MW**; maximum nodal residual 1.75e-08 MW. [diagnostic evidence](<../runs/findings-diagnostics/probes/54a73bc74a3b0207b9d60c10973e0ba66e324827ee465423f9484f08a4e75b69.json>).
 
 | Rating increased by 1 MW on | Status | Objective before MW | Objective after MW | Improvement MW | Causal effect observed |
 | --- | --- | --- | --- | --- | --- |
 | b02136 | verified | 7.075195 | 0.000000 | 7.075195 | True |
 
-- Period 109: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **124.737989 MW**; maximum nodal residual 6.23e-09 MW. diagnostic evidence (local solver artifact).
+- Period 109: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **124.737989 MW**; maximum nodal residual 6.23e-09 MW. [diagnostic evidence](<../runs/findings-diagnostics/probes/4fc9b564a31f7152ad5946bf9fc63f0f70efdfc9e703ca22aaf83d896671c923.json>).
 
 | Rating increased by 1 MW on | Status | Objective before MW | Objective after MW | Improvement MW | Causal effect observed |
 | --- | --- | --- | --- | --- | --- |
 | b02136 | verified | 124.737989 | 104.628905 | 20.109084 | True |
 
-- Period 110: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **7.075195 MW**; maximum nodal residual 1.75e-08 MW. diagnostic evidence (local solver artifact).
+- Period 110: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **7.075195 MW**; maximum nodal residual 1.75e-08 MW. [diagnostic evidence](<../runs/findings-diagnostics/probes/54a73bc74a3b0207b9d60c10973e0ba66e324827ee465423f9484f08a4e75b69.json>).
 
 | Rating increased by 1 MW on | Status | Objective before MW | Objective after MW | Improvement MW | Causal effect observed |
 | --- | --- | --- | --- | --- | --- |
@@ -98,31 +99,31 @@ The generation-only lower bound uses native Pmax plus all admitted rival private
 
 ### Snapshot counterfactuals for this round
 
-- Period 107: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **162.105372 MW**; maximum nodal residual 4.74e-08 MW. diagnostic evidence (local solver artifact).
+- Period 107: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **162.105372 MW**; maximum nodal residual 4.74e-08 MW. [diagnostic evidence](<../runs/findings-diagnostics/probes/a550bd2a2af4877643edb9845b983ec50bfeb8b0bfe62ef85275b4f8264138d8.json>).
 
 | Rating increased by 1 MW on | Status | Objective before MW | Objective after MW | Improvement MW | Causal effect observed |
 | --- | --- | --- | --- | --- | --- |
 | b02136 | verified | 162.105372 | 129.354669 | 32.750703 | True |
 
-- Period 108: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **500.000000 MW**; maximum nodal residual 8.28e-09 MW. The identical LP required a solver feasibility-tolerance retry at 0.00001 MW; independent balance, limit, and duality errors still passed the 0.0001 MW acceptance threshold. diagnostic evidence (local solver artifact).
+- Period 108: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **500.000000 MW**; maximum nodal residual 8.28e-09 MW. The identical LP required a solver feasibility-tolerance retry at 0.00001 MW; independent balance, limit, and duality errors still passed the 0.0001 MW acceptance threshold. [diagnostic evidence](<../runs/findings-diagnostics/probes/3c7060df87fed20b7d1319393e6598e34551159cf1b106373dd33860b2f8bbce.json>).
 
 | Rating increased by 1 MW on | Status | Objective before MW | Objective after MW | Improvement MW | Causal effect observed |
 | --- | --- | --- | --- | --- | --- |
 | b02136 | verified | 500.000000 | 467.249297 | 32.750703 | True |
 
-- Period 109: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **499.999999 MW**; maximum nodal residual 6.85e-09 MW. diagnostic evidence (local solver artifact).
+- Period 109: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **499.999999 MW**; maximum nodal residual 6.85e-09 MW. [diagnostic evidence](<../runs/findings-diagnostics/probes/54bfa136f724d3bb1fbe104355a65fc572e844f16ca0f90df0f917db4576df5e.json>).
 
 | Rating increased by 1 MW on | Status | Objective before MW | Objective after MW | Improvement MW | Causal effect observed |
 | --- | --- | --- | --- | --- | --- |
 | b02136 | verified | 499.999999 | 479.890915 | 20.109084 | True |
 
-- Period 110: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **500.000000 MW**; maximum nodal residual 8.28e-09 MW. The identical LP required a solver feasibility-tolerance retry at 0.00001 MW; independent balance, limit, and duality errors still passed the 0.0001 MW acceptance threshold. diagnostic evidence (local solver artifact).
+- Period 110: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **500.000000 MW**; maximum nodal residual 8.28e-09 MW. The identical LP required a solver feasibility-tolerance retry at 0.00001 MW; independent balance, limit, and duality errors still passed the 0.0001 MW acceptance threshold. [diagnostic evidence](<../runs/findings-diagnostics/probes/3c7060df87fed20b7d1319393e6598e34551159cf1b106373dd33860b2f8bbce.json>).
 
 | Rating increased by 1 MW on | Status | Objective before MW | Objective after MW | Improvement MW | Causal effect observed |
 | --- | --- | --- | --- | --- | --- |
 | b02136 | verified | 500.000000 | 467.249297 | 32.750703 | True |
 
-- Period 111: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **162.105372 MW**; maximum nodal residual 4.74e-08 MW. diagnostic evidence (local solver artifact).
+- Period 111: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **162.105372 MW**; maximum nodal residual 4.74e-08 MW. [diagnostic evidence](<../runs/findings-diagnostics/probes/a550bd2a2af4877643edb9845b983ec50bfeb8b0bfe62ef85275b4f8264138d8.json>).
 
 | Rating increased by 1 MW on | Status | Objective before MW | Objective after MW | Improvement MW | Causal effect observed |
 | --- | --- | --- | --- | --- | --- |
@@ -153,19 +154,19 @@ The generation-only lower bound uses native Pmax plus all admitted rival private
 
 ### Snapshot counterfactuals for this round
 
-- Period 108: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **7.075195 MW**; maximum nodal residual 1.75e-08 MW. diagnostic evidence (local solver artifact).
+- Period 108: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **7.075195 MW**; maximum nodal residual 1.75e-08 MW. [diagnostic evidence](<../runs/findings-diagnostics/probes/54a73bc74a3b0207b9d60c10973e0ba66e324827ee465423f9484f08a4e75b69.json>).
 
 | Rating increased by 1 MW on | Status | Objective before MW | Objective after MW | Improvement MW | Causal effect observed |
 | --- | --- | --- | --- | --- | --- |
 | b02136 | verified | 7.075195 | 0.000000 | 7.075195 | True |
 
-- Period 109: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **124.737989 MW**; maximum nodal residual 6.23e-09 MW. diagnostic evidence (local solver artifact).
+- Period 109: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **124.737989 MW**; maximum nodal residual 6.23e-09 MW. [diagnostic evidence](<../runs/findings-diagnostics/probes/4fc9b564a31f7152ad5946bf9fc63f0f70efdfc9e703ca22aaf83d896671c923.json>).
 
 | Rating increased by 1 MW on | Status | Objective before MW | Objective after MW | Improvement MW | Causal effect observed |
 | --- | --- | --- | --- | --- | --- |
 | b02136 | verified | 124.737989 | 104.628905 | 20.109084 | True |
 
-- Period 110: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **7.075195 MW**; maximum nodal residual 1.75e-08 MW. diagnostic evidence (local solver artifact).
+- Period 110: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **7.075195 MW**; maximum nodal residual 1.75e-08 MW. [diagnostic evidence](<../runs/findings-diagnostics/probes/54a73bc74a3b0207b9d60c10973e0ba66e324827ee465423f9484f08a4e75b69.json>).
 
 | Rating increased by 1 MW on | Status | Objective before MW | Objective after MW | Improvement MW | Causal effect observed |
 | --- | --- | --- | --- | --- | --- |
@@ -199,31 +200,31 @@ The generation-only lower bound uses native Pmax plus all admitted rival private
 
 ### Snapshot counterfactuals for this round
 
-- Period 107: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **162.105372 MW**; maximum nodal residual 4.74e-08 MW. diagnostic evidence (local solver artifact).
+- Period 107: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **162.105372 MW**; maximum nodal residual 4.74e-08 MW. [diagnostic evidence](<../runs/findings-diagnostics/probes/a550bd2a2af4877643edb9845b983ec50bfeb8b0bfe62ef85275b4f8264138d8.json>).
 
 | Rating increased by 1 MW on | Status | Objective before MW | Objective after MW | Improvement MW | Causal effect observed |
 | --- | --- | --- | --- | --- | --- |
 | b02136 | verified | 162.105372 | 129.354669 | 32.750703 | True |
 
-- Period 108: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **500.000000 MW**; maximum nodal residual 8.28e-09 MW. The identical LP required a solver feasibility-tolerance retry at 0.00001 MW; independent balance, limit, and duality errors still passed the 0.0001 MW acceptance threshold. diagnostic evidence (local solver artifact).
+- Period 108: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **500.000000 MW**; maximum nodal residual 8.28e-09 MW. The identical LP required a solver feasibility-tolerance retry at 0.00001 MW; independent balance, limit, and duality errors still passed the 0.0001 MW acceptance threshold. [diagnostic evidence](<../runs/findings-diagnostics/probes/3c7060df87fed20b7d1319393e6598e34551159cf1b106373dd33860b2f8bbce.json>).
 
 | Rating increased by 1 MW on | Status | Objective before MW | Objective after MW | Improvement MW | Causal effect observed |
 | --- | --- | --- | --- | --- | --- |
 | b02136 | verified | 500.000000 | 467.249297 | 32.750703 | True |
 
-- Period 109: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **499.999999 MW**; maximum nodal residual 6.85e-09 MW. diagnostic evidence (local solver artifact).
+- Period 109: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **499.999999 MW**; maximum nodal residual 6.85e-09 MW. [diagnostic evidence](<../runs/findings-diagnostics/probes/54bfa136f724d3bb1fbe104355a65fc572e844f16ca0f90df0f917db4576df5e.json>).
 
 | Rating increased by 1 MW on | Status | Objective before MW | Objective after MW | Improvement MW | Causal effect observed |
 | --- | --- | --- | --- | --- | --- |
 | b02136 | verified | 499.999999 | 479.890915 | 20.109084 | True |
 
-- Period 110: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **500.000000 MW**; maximum nodal residual 8.28e-09 MW. The identical LP required a solver feasibility-tolerance retry at 0.00001 MW; independent balance, limit, and duality errors still passed the 0.0001 MW acceptance threshold. diagnostic evidence (local solver artifact).
+- Period 110: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **500.000000 MW**; maximum nodal residual 8.28e-09 MW. The identical LP required a solver feasibility-tolerance retry at 0.00001 MW; independent balance, limit, and duality errors still passed the 0.0001 MW acceptance threshold. [diagnostic evidence](<../runs/findings-diagnostics/probes/3c7060df87fed20b7d1319393e6598e34551159cf1b106373dd33860b2f8bbce.json>).
 
 | Rating increased by 1 MW on | Status | Objective before MW | Objective after MW | Improvement MW | Causal effect observed |
 | --- | --- | --- | --- | --- | --- |
 | b02136 | verified | 500.000000 | 467.249297 | 32.750703 | True |
 
-- Period 111: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **162.105372 MW**; maximum nodal residual 4.74e-08 MW. diagnostic evidence (local solver artifact).
+- Period 111: minimum total own private generation, allowing native/rival redispatch. Status **verified**. Objective = **162.105372 MW**; maximum nodal residual 4.74e-08 MW. [diagnostic evidence](<../runs/findings-diagnostics/probes/a550bd2a2af4877643edb9845b983ec50bfeb8b0bfe62ef85275b4f8264138d8.json>).
 
 | Rating increased by 1 MW on | Status | Objective before MW | Objective after MW | Improvement MW | Causal effect observed |
 | --- | --- | --- | --- | --- | --- |
@@ -239,21 +240,21 @@ This is one fixed opponent hypothesis. It supplies no competitor probability est
 
 ## Reproducibility and numerical history
 
-This accepted campaign used a recorded numerical retry: `audited_numerical_retry`. retry audit (local solver artifact).
+This accepted campaign used a recorded numerical retry: `audited_numerical_retry`. [retry audit](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_6141/attempt-02/execution.json>).
 
-The evaluator reused identical physical inputs across weeks and applied each week’s scoring rules. Any changed network or plan required a separate solve. execution audit (local solver artifact).
+The evaluator reused identical physical inputs across weeks and applied each week’s scoring rules. Any changed network or plan required a separate solve. [execution audit](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_6141/attempt-02/execution.json>).
 
 | Earlier attempt | Outcome | Log |
 | --- | --- | --- |
-| official | evaluator exited 1 | evaluation log (local solver artifact) |
+| official | evaluator exited 1 | [evaluation log](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_6141/attempt-01/evaluation.log>) |
 Campaign SHA-256: `35447952727ba11104e835b69d86357a2af0083b67310abb6b3f53b83b7af1b6`.
 
-accepted campaign (local solver artifact) · [experiment bundle](https://github.com/carterwg/ece51032-ercot-team/tree/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/analysis/strategy/ten-teams-500mw) · [source/input manifest](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/analysis/strategy/ten-teams-500mw/manifest.json)
+[accepted campaign](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_6141/attempt-02/campaign/campaign.json>) · [experiment bundle](<../analysis/strategy/ten-teams-500mw>) · [source/input manifest](<../analysis/strategy/ten-teams-500mw/manifest.json>)
 
-- week-2-submission-1: official evaluation and flows (local solver artifact); hourly energy ledger (local solver artifact); requested CSVs (local solver artifact).
-- week-2-submission-2: official evaluation and flows (local solver artifact); hourly energy ledger (local solver artifact); requested CSVs (local solver artifact).
-- week-3-submission-1: official evaluation and flows (local solver artifact); hourly energy ledger (local solver artifact); requested CSVs (local solver artifact).
-- week-3-submission-2: official evaluation and flows (local solver artifact); hourly energy ledger (local solver artifact); requested CSVs (local solver artifact).
+- week-2-submission-1: [official evaluation and flows](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_6141/attempt-02/campaign/week-2-submission-1/canonical/evaluation.json>); [hourly energy ledger](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_6141/attempt-02/campaign/week-2-submission-1/canonical/site_net_withdrawal.csv>); [requested CSVs](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_6141/attempt-02/campaign/week-2-submission-1/inputs>).
+- week-2-submission-2: [official evaluation and flows](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_6141/attempt-02/campaign/week-2-submission-2/canonical/evaluation.json>); [hourly energy ledger](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_6141/attempt-02/campaign/week-2-submission-2/canonical/site_net_withdrawal.csv>); [requested CSVs](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_6141/attempt-02/campaign/week-2-submission-2/inputs>).
+- week-3-submission-1: [official evaluation and flows](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_6141/attempt-02/campaign/week-3-submission-1/canonical/evaluation.json>); [hourly energy ledger](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_6141/attempt-02/campaign/week-3-submission-1/canonical/site_net_withdrawal.csv>); [requested CSVs](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_6141/attempt-02/campaign/week-3-submission-1/inputs>).
+- week-3-submission-2: [official evaluation and flows](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_6141/attempt-02/campaign/week-3-submission-2/canonical/evaluation.json>); [hourly energy ledger](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_6141/attempt-02/campaign/week-3-submission-2/canonical/site_net_withdrawal.csv>); [requested CSVs](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_6141/attempt-02/campaign/week-3-submission-2/inputs>).
 
 ## Personal notes
 

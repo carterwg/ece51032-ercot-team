@@ -1,0 +1,157 @@
+<!-- findings-record: {"schema":1,"kind":"campaign","stem":"G_eq_125_S1_C_eq_G_S2_500_6141","policy":"G_eq_125_S1_C_eq_G_S2","portfolio":"bottleneck_ptdf_1_s1_125_s2_cg","buses":["6141"],"weights":[1.0],"scenario":"nine_grid_at_hosting_1","risk":true,"exploratory":false,"bundle":"analysis/strategy/ten-teams-500mw","campaign_output":"runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_hosting_1/attempt-01/campaign","campaign_sha256":"4255311261942633f61c29d6add64db25e0092fe2fe8f26a8920188165f6e691","score_usd":69436246972.78474,"it_value_usd":123053148597.11996,"grid_mwh":17516459.269019566,"generation_mwh":3540.7309767107768,"modeled_generator_hours":12.0,"annual_generator_hours":12.000000000114472,"required_annual_hours":12.000000000114472,"minimum_admission":1.0,"scenario_count_in_bundle":4,"bundle_status":"complete","diagnostic_cache":"runs/findings-diagnostics/cases/4255311261942633f61c29d6add64db25e0092fe2fe8f26a8920188165f6e691-3eea05334a1d.json"} -->
+# G_eq_125_S1_C_eq_G_S2_500_6141 — nine_grid_at_hosting_1
+
+| Round | Requested C MW | Requested G MW | Admitted new C MW | Own operating C incl. S1 MW | Gross IT value $B | Net score $B |
+| --- | --- | --- | --- | --- | --- | --- |
+| week-2-submission-1 | 500.000 | 125.000 | 500.000000 | 500.000000 | 30.763287 | 18.013149 |
+| week-2-submission-2 | 500.000 | 500.000 | 500.000000 | 1,000.000000 | 30.763287 | 17.261576 |
+| week-3-submission-1 | 500.000 | 125.000 | 500.000000 | 500.000000 | 30.763287 | 17.457106 |
+| week-3-submission-2 | 500.000 | 500.000 | 500.000000 | 1,000.000000 | 30.763287 | 16.704415 |
+| Campaign total | — | — | — | — | 123.053149 | 69.436247 |
+
+| Round | Grid MWh/year | Private gen MWh/year | Grid energy share | Gen on: modeled h | Gen on: annual h | Verified required-on annual h | Unresolved-on annual h | Peak private MW |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| week-2-submission-1 | 4,379,875.264 | 124.736 | 99.997152% | 1.000 | 1.000 | 1.000 | 0.000 | 124.735984 |
+| week-2-submission-2 | 4,378,354.370 | 1,645.630 | 99.962429% | 5.000 | 5.000 | 5.000 | 0.000 | 500.000000 |
+| week-3-submission-1 | 4,379,875.264 | 124.736 | 99.997152% | 1.000 | 1.000 | 1.000 | 0.000 | 124.735984 |
+| week-3-submission-2 | 4,378,354.370 | 1,645.630 | 99.962429% | 5.000 | 5.000 | 5.000 | 0.000 | 500.000000 |
+
+| Round | Grid energy $B | Generator operation $B | Generator capital $B | Site capital $B | Storage capital $B |
+| --- | --- | --- | --- | --- | --- |
+| week-2-submission-1 | 0.000000 | 0.000138 | 0.250000 | 12.500000 | 0.000000 |
+| week-2-submission-2 | 0.000000 | 0.001711 | 1.000000 | 12.500000 | 0.000000 |
+| week-3-submission-1 | 0.556043 | 0.000138 | 0.250000 | 12.500000 | 0.000000 |
+| week-3-submission-2 | 0.557160 | 0.001711 | 1.000000 | 12.500000 | 0.000000 |
+
+**Scope:** Score and energy tables refer to the **new sites in each submission**. S1 sites remain operating in S2; the operating-capacity column includes them, but their value/capital is not scored again. Each year-energy column describes that build’s represented annual operation; four builds are not one continuous year. Scores are the game’s ten-year present-value economics. Weeks reset.
+
+**Hours:** A generator is counted on when our combined output exceeds 0.000001 MW. Modeled hours count distinct periods, not the number of generator units. Annual hours use representative-day weights; they are not 120 equally weighted hours. Required-on hours are verified for the **admitted load**, allowing rival generation to redispatch. Zero required hours for a curtailed plan does not mean the original 500 MW request could be served without backup. Unresolved hours are not counted as unnecessary.
+
+## Test setup
+
+- Policy: `G_eq_125_S1_C_eq_G_S2`.
+- Layout: 6141: 500 MW per submission.
+- Opponents: 9. Each uses 1079 (500 MW) per submission. G/C is 0 in S1 and 0 in S2.
+- Seed: 17. Included in competitive means: True. No calibrated probability is assigned to this hypothesis.
+- Full 120-period joint evaluation; S1 actual withdrawals of **all** teams carry into S2.
+
+## What happened and why
+
+### week-2-submission-1
+
+Requested 500 MW load and 125 MW generation; admitted **500.000000 MW** (100.000000%). All requested load was admitted. Private generation ran at periods 109; represented annual output was 124.736 MWh. Own generation was physically necessary for admitted load at verified periods 109. Week 2 does not charge grid purchases, but network constraints still apply.
+
+| Period (zero-based) | Annual h represented | Actual private MW | Actual grid MW | Native spare after admitted net loads MW | Generation-only min own MW | Verified min own MW | Weighted grid bill $M | Actual tight lines |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 109 (day 5, h13) | 1.000 | 124.735984 | 375.264016 | -0.000000 | 124.735984 | 124.735984 | 0.000000 | none |
+
+The generation-only lower bound uses native Pmax plus all admitted rival private capacity. If it matches observed private output, the aggregate limit and the recorded feasible solution certify the minimum. A line touching its limit is an observation, not proof that it caused generator use.
+
+| Observed binding branch | Endpoints | Direction | Rating MW | Max absolute flow MW | Binding periods | Binding while our gen on | Part 1 candidate |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| b02579 | 8004 → 7150 | lower | 647.000 | 647.000000 | 9, 10, 11, 12, 13, 14, 15, 16, 17, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 85, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 113, 114, 115, 116, 117, 118, 119 | none | False |
+
+### Snapshot counterfactuals for this round
+
+No additional LP replay was needed: private output was zero or its minimum was certified by the aggregate generation bound. No line-relaxation claim is made.
+
+These are selected **hourly** physical counterfactuals at fixed admitted loads/resources. They do not rerun allocation across the horizon and do not change this campaign’s score. Up to three likely binding branches, prioritized using Part 1 and diagnostic shadows, are tested individually and together. No improvement from a single-line test does not rule out other or jointly binding lines.
+
+### week-2-submission-2
+
+Requested 500 MW load and 500 MW generation; admitted **500.000000 MW** (100.000000%). All requested load was admitted. Private generation ran at periods 107, 108, 109, 110, 111; represented annual output was 1,645.630 MWh. Own generation was physically necessary for admitted load at verified periods 107, 108, 109, 110, 111. Week 2 does not charge grid purchases, but network constraints still apply.
+
+| Period (zero-based) | Annual h represented | Actual private MW | Actual grid MW | Native spare after admitted net loads MW | Generation-only min own MW | Verified min own MW | Weighted grid bill $M | Actual tight lines |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 107 (day 5, h11) | 1.000 | 85.280221 | 414.719779 | -0.000000 | 85.280221 | 85.280221 | 0.000000 | none |
+| 108 (day 5, h12) | 1.000 | 487.534531 | 12.465469 | -0.000000 | 487.534531 | 487.534531 | 0.000000 | none |
+| 109 (day 5, h13) | 1.000 | 500.000000 | 0.000000 | -0.000000 | 500.000000 | 500.000000 | 0.000000 | none |
+| 110 (day 5, h14) | 1.000 | 487.534531 | 12.465469 | -0.000000 | 487.534531 | 487.534531 | 0.000000 | none |
+| 111 (day 5, h15) | 1.000 | 85.280221 | 414.719779 | -0.000000 | 85.280221 | 85.280221 | 0.000000 | none |
+
+The generation-only lower bound uses native Pmax plus all admitted rival private capacity. If it matches observed private output, the aggregate limit and the recorded feasible solution certify the minimum. A line touching its limit is an observation, not proof that it caused generator use.
+
+| Observed binding branch | Endpoints | Direction | Rating MW | Max absolute flow MW | Binding periods | Binding while our gen on | Part 1 candidate |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| b02355 | 7058 → 7095 | lower | 2,295.000 | 2,295.000000 | 24, 25, 26 | none | False |
+| b02579 | 8004 → 7150 | lower | 647.000 | 647.000000 | 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 37, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 115, 116, 117, 118, 119 | none | False |
+
+### Snapshot counterfactuals for this round
+
+No additional LP replay was needed: private output was zero or its minimum was certified by the aggregate generation bound. No line-relaxation claim is made.
+
+These are selected **hourly** physical counterfactuals at fixed admitted loads/resources. They do not rerun allocation across the horizon and do not change this campaign’s score. Up to three likely binding branches, prioritized using Part 1 and diagnostic shadows, are tested individually and together. No improvement from a single-line test does not rule out other or jointly binding lines.
+
+### week-3-submission-1
+
+Requested 500 MW load and 125 MW generation; admitted **500.000000 MW** (100.000000%). All requested load was admitted. Private generation ran at periods 109; represented annual output was 124.736 MWh. Own generation was physically necessary for admitted load at verified periods 109.
+
+| Period (zero-based) | Annual h represented | Actual private MW | Actual grid MW | Native spare after admitted net loads MW | Generation-only min own MW | Verified min own MW | Weighted grid bill $M | Actual tight lines |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 84 (day 4, h12) | 97.732 | 0.000000 | 500.000000 | 2,103.020880 | 0.000000 | 0.000000 | 6.717357 | none |
+| 85 (day 4, h13) | 97.732 | 0.000000 | 500.000000 | 1,965.819448 | 0.000000 | 0.000000 | 6.717357 | b02579:lower |
+| 86 (day 4, h14) | 97.732 | 0.000000 | 500.000000 | 2,103.020880 | 0.000000 | 0.000000 | 6.717357 | none |
+| 109 (day 5, h13) | 1.000 | 124.735984 | 375.264016 | -0.000000 | 124.735984 | 124.735984 | 0.658924 | none |
+
+The generation-only lower bound uses native Pmax plus all admitted rival private capacity. If it matches observed private output, the aggregate limit and the recorded feasible solution certify the minimum. A line touching its limit is an observation, not proof that it caused generator use.
+
+| Observed binding branch | Endpoints | Direction | Rating MW | Max absolute flow MW | Binding periods | Binding while our gen on | Part 1 candidate |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| b02579 | 8004 → 7150 | lower | 647.000 | 647.000000 | 9, 10, 11, 12, 13, 14, 15, 16, 17, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 85, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 113, 114, 115, 116, 117, 118, 119 | none | False |
+
+### Snapshot counterfactuals for this round
+
+No additional LP replay was needed: private output was zero or its minimum was certified by the aggregate generation bound. No line-relaxation claim is made.
+
+These are selected **hourly** physical counterfactuals at fixed admitted loads/resources. They do not rerun allocation across the horizon and do not change this campaign’s score. Up to three likely binding branches, prioritized using Part 1 and diagnostic shadows, are tested individually and together. No improvement from a single-line test does not rule out other or jointly binding lines.
+
+### week-3-submission-2
+
+Requested 500 MW load and 500 MW generation; admitted **500.000000 MW** (100.000000%). All requested load was admitted. Private generation ran at periods 107, 108, 109, 110, 111; represented annual output was 1,645.630 MWh. Own generation was physically necessary for admitted load at verified periods 107, 108, 109, 110, 111.
+
+| Period (zero-based) | Annual h represented | Actual private MW | Actual grid MW | Native spare after admitted net loads MW | Generation-only min own MW | Verified min own MW | Weighted grid bill $M | Actual tight lines |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 83 (day 4, h11) | 97.732 | 0.000000 | 500.000000 | 2,005.275202 | 0.000000 | 0.000000 | 6.717357 | none |
+| 84 (day 4, h12) | 97.732 | 0.000000 | 500.000000 | 1,603.020880 | 0.000000 | 0.000000 | 6.717357 | none |
+| 85 (day 4, h13) | 97.732 | 0.000000 | 500.000000 | 1,465.819448 | 0.000000 | 0.000000 | 6.725594 | none |
+| 107 (day 5, h11) | 1.000 | 85.280221 | 414.719779 | -0.000000 | 85.280221 | 85.280221 | 0.233025 | none |
+| 108 (day 5, h12) | 1.000 | 487.534531 | 12.465469 | -0.000000 | 487.534531 | 487.534531 | 0.021888 | none |
+| 109 (day 5, h13) | 1.000 | 500.000000 | 0.000000 | -0.000000 | 500.000000 | 500.000000 | 0.000000 | none |
+| 110 (day 5, h14) | 1.000 | 487.534531 | 12.465469 | -0.000000 | 487.534531 | 487.534531 | 0.021888 | none |
+| 111 (day 5, h15) | 1.000 | 85.280221 | 414.719779 | -0.000000 | 85.280221 | 85.280221 | 0.233025 | none |
+
+The generation-only lower bound uses native Pmax plus all admitted rival private capacity. If it matches observed private output, the aggregate limit and the recorded feasible solution certify the minimum. A line touching its limit is an observation, not proof that it caused generator use.
+
+| Observed binding branch | Endpoints | Direction | Rating MW | Max absolute flow MW | Binding periods | Binding while our gen on | Part 1 candidate |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| b02355 | 7058 → 7095 | lower | 2,295.000 | 2,295.000000 | 24, 25, 26 | none | False |
+| b02579 | 8004 → 7150 | lower | 647.000 | 647.000000 | 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 37, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 115, 116, 117, 118, 119 | none | False |
+
+### Snapshot counterfactuals for this round
+
+No additional LP replay was needed: private output was zero or its minimum was certified by the aggregate generation bound. No line-relaxation claim is made.
+
+These are selected **hourly** physical counterfactuals at fixed admitted loads/resources. They do not rerun allocation across the horizon and do not change this campaign’s score. Up to three likely binding branches, prioritized using Part 1 and diagnostic shadows, are tested individually and together. No improvement from a single-line test does not rule out other or jointly binding lines.
+
+## Part 1 hypotheses and interpretation limits
+
+Potential signatures from the electrical grouping: `b02136:lower`. These are screening hypotheses; only the observed-flow and finite-relaxation evidence above pertains to this run.
+This is one fixed opponent hypothesis. It supplies no competitor probability estimate, no global optimum over all buses/resources, and no evidence that S1 generation is unnecessary in a stronger untested field.
+
+## Reproducibility and numerical history
+
+No per-cell numerical retry is recorded in this cell.
+
+The evaluator reused identical physical inputs across weeks and applied each week’s scoring rules. Any changed network or plan required a separate solve. [execution audit](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_hosting_1/attempt-01/execution.json>).
+Campaign SHA-256: `4255311261942633f61c29d6add64db25e0092fe2fe8f26a8920188165f6e691`.
+
+[accepted campaign](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_hosting_1/attempt-01/campaign/campaign.json>) · [experiment bundle](<../analysis/strategy/ten-teams-500mw>) · [source/input manifest](<../analysis/strategy/ten-teams-500mw/manifest.json>)
+
+- week-2-submission-1: [official evaluation and flows](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_hosting_1/attempt-01/campaign/week-2-submission-1/canonical/evaluation.json>); [hourly energy ledger](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_hosting_1/attempt-01/campaign/week-2-submission-1/canonical/site_net_withdrawal.csv>); [requested CSVs](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_hosting_1/attempt-01/campaign/week-2-submission-1/inputs>).
+- week-2-submission-2: [official evaluation and flows](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_hosting_1/attempt-01/campaign/week-2-submission-2/canonical/evaluation.json>); [hourly energy ledger](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_hosting_1/attempt-01/campaign/week-2-submission-2/canonical/site_net_withdrawal.csv>); [requested CSVs](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_hosting_1/attempt-01/campaign/week-2-submission-2/inputs>).
+- week-3-submission-1: [official evaluation and flows](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_hosting_1/attempt-01/campaign/week-3-submission-1/canonical/evaluation.json>); [hourly energy ledger](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_hosting_1/attempt-01/campaign/week-3-submission-1/canonical/site_net_withdrawal.csv>); [requested CSVs](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_hosting_1/attempt-01/campaign/week-3-submission-1/inputs>).
+- week-3-submission-2: [official evaluation and flows](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_hosting_1/attempt-01/campaign/week-3-submission-2/canonical/evaluation.json>); [hourly energy ledger](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_hosting_1/attempt-01/campaign/week-3-submission-2/canonical/site_net_withdrawal.csv>); [requested CSVs](<../runs/ten-teams-500mw/campaigns/bottleneck_ptdf_1_s1_125_s2_cg/nine_grid_at_hosting_1/attempt-01/campaign/week-3-submission-2/inputs>).
+
+## Personal notes
+
+<!-- USER_NOTES -->

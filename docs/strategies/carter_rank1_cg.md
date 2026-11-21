@@ -29,25 +29,4 @@ The finalized cap is **500 MW per submission**. The CLI uses the finalized team
 profile; batch evaluation must use `configs/scoring/dispatch_scoring_rules_500mw.json`.
 The imported instructor code and original files remain unchanged.
 
-## Finalized 500 MW solo evaluation
-
-One new 500 MW C = G site was built at bus `6141` in each graded submission.
-All 120 periods were evaluated, with validated S1-to-S2 carryover, weekly resets,
-and no opponents. Every new site received 100% allocation.
-
-| Strategy | Combined score | Normalized Q |
-| --- | --- | --- |
-| Baseline, bus 1001 | $55.271B | 23.96 |
-| Carter rank 1, bus 6141 | $67.955B | 78.20 |
-
-The gain is $12.684B (22.95%). The grid supplied all
-energy in Carter's four submissions, so private-generator operating cost was
-zero; generator capital was still charged. This is a solo comparison, not a
-competitive robustness estimate.
-
-Evidence:
-
-- [Executed strategy report](../../notebooks/02_carter_rank1_cg.ipynb)
-- [Per-round scores and energy shares](../../analysis/carter_rank1_cg_500mw.csv)
-- [Baseline comparison](../../analysis/cg_bus_comparison_500mw.csv)
-- [Campaign totals and verification](../../analysis/carter_rank1_cg_500mw.json)
+See the [ten-team comparison](../../findings/Ten_teams_500_MW_comparison.md) for the current results.

@@ -8,12 +8,18 @@ from team_strategy.experiments.interpretation import (
     ResultSource, assert_comparable, campaign_records, load_result_records,
 )
 
-from conftest import ROOT
-
-
 @pytest.fixture
-def source():
-    return ResultSource('full_generation', 'Baseline', ROOT / 'analysis/baseline_cg_500mw.json')
+def source(tmp_path):
+    rounds = [dict(round=f'week-{week}-submission-{submission}', valid=True, feasible=True,
+                   service_fraction=1, score=15e9, it_value=30e9, site_cost=13e9, energy_cost=1e9,
+                   generator_capital_cost=1e9, generator_operating_cost=0, storage_capital_cost=0)
+              for week in (2, 3) for submission in (1, 2)]
+    campaign = dict(experiment='finalized-500mw', capacity_per_submission_mw=500,
+                    hypothetical_capacity_override=False, source_scenario_sha256='test-network',
+                    effective_rules_sha256='test-rules', effective_release_sha256='test-release', rounds=rounds)
+    summary = tmp_path / 'baseline_test_fixture.json'
+    summary.write_text(json.dumps({'campaigns': [campaign]}))
+    return ResultSource('full_generation', 'Baseline', summary)
 
 
 def modified_source(source, tmp_path, mutate):
@@ -24,15 +30,17 @@ def modified_source(source, tmp_path, mutate):
     return replace(source, summary_json=path)
 
 
-def test_saved_campaigns_reproduce_existing_totals_and_q(source):
-    carter = ResultSource('carter_rank1_cg', 'Carter', ROOT / 'analysis/carter_rank1_cg_500mw.json',
-                          ROOT / 'analysis/carter_rank1_cg_500mw.csv')
+def test_saved_campaigns_reproduce_totals_and_q(source, tmp_path):
+    def reduce_grid_cost(data):
+        for r in data['campaigns'][0]['rounds']:
+            r.update(energy_cost=0, score=16e9)
+    carter = replace(modified_source(source, tmp_path, reduce_grid_cost), strategy='carter_rank1_cg', label='Carter')
     records = load_result_records([source, carter])
     selected = [row for row in records if row['experiment'] == 'finalized-500mw']
     assert_comparable(selected)
     totals = {row['strategy']: row for row in campaign_records(selected)}
-    assert totals['full_generation']['score_billions'] == pytest.approx(55.27141599407376)
-    assert totals['carter_rank1_cg']['normalized_score'] == pytest.approx(78.20051739483006)
+    assert totals['full_generation']['score_billions'] == pytest.approx(60.)
+    assert totals['carter_rank1_cg']['normalized_score'] == pytest.approx(100*(64.-49.67)/(73.0525-49.67))
     assert len(records) == 8
 
 
@@ -94,17 +102,11 @@ def test_missing_or_nonfinite_score_is_not_zero(source, tmp_path, invalid_score)
 
 
 def test_mismatched_csv_and_summary_are_rejected(source, tmp_path):
-    original = ROOT / 'analysis/baseline_cg_500mw.csv'
-    with original.open() as handle:
-        reader = csv.DictReader(handle)
-        fields = reader.fieldnames
-        rows = list(reader)
-    rows[0]['score_billions'] = '0'
     path = tmp_path / 'details.csv'
     with path.open('w', newline='') as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields)
-        writer.writeheader()
-        writer.writerows(rows)
+        writer = csv.writer(handle)
+        writer.writerow(['experiment', 'capacity_per_submission_mw', 'round', 'score_billions'])
+        writer.writerow(['finalized-500mw', 500, 'week-2-submission-1', 0])
     with pytest.raises(ValueError, match='disagree'):
         load_result_records([replace(source, details_csv=path)])
 

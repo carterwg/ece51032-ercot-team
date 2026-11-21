@@ -7,7 +7,8 @@ for setup, what to edit, testing, evaluation, and choosing a submission.
 Interpret saved results with [main_template.ipynb](notebooks/main_template.ipynb),
 the reusable plot notebook for all strategies. See its [usage guide](notebooks/README.md)
 for notebook dependencies, inputs, and exports.
-Executed reports are available for the [bus 1001 baseline](notebooks/01_full_generation_baseline.ipynb)
+The [ten-team findings](findings/Ten_teams_500_MW_comparison.md) cover the current field of nine opponents.
+Executed reports are also available for the [bus 1001 baseline](notebooks/01_full_generation_baseline.ipynb)
 and [Carter's bus 6141 strategy](notebooks/02_carter_rank1_cg.ipynb).
 See the [strategy findings for team discussion](notes/Saket_Strategy_Discussion.md)
 for the ten-team corridor, S1 equipment, and S2 carryover results.
@@ -18,6 +19,10 @@ for the ten-team corridor, S1 equipment, and S2 carryover results.
 - `runs/`: generated candidate/report bundles (ignored by Git).
 - `submissions/`: deliberately selected submission bundles.
 - `analysis/`: team bus-screening and hosting-capacity results.
+- [`findings/`](findings/README.md): Markdown run records, with scores, grid/private
+  energy, generator runtime, binding lines, and independently checked hourly
+  counterfactuals. Experiment commands update these records automatically.
+- [`notes/`](notes/README.md): Carter's research notes and [Saket's initial 500 MW findings](notes/Saket_Initial_Findings.md).
 - `ercot-connection-game/`: complete course repository, imported as a Git subtree.
   See its [README](ercot-connection-game/README.md) and
   [tutorial](ercot-connection-game/docs/student_tutorial/tutorial.pdf).
@@ -62,6 +67,44 @@ The finalized cap is **500 MW per team per submission**. The default CLI uses
 capacity to the older imported course package without editing instructor files.
 Only 500 MW runs and reports are retained. Comparison anchors are $49.67B and
 $73.0525B; negative normalized scores remain visible.
+
+## Corridor analysis and strategy comparison
+
+[Part 1](analysis/clustering/part1/report.html) records signed bottleneck groups,
+PTDF similarity, and directional electrical interactions for 101 candidates.
+Its groups describe shared constraints; they do not predict competitors' choices.
+
+Part 2 evaluates ten teams at **500 MW per team per submission**. It compares
+one, two, and five sites using standalone hosting rank and Part 1 bottleneck/PTDF
+selection. The matched policies are grid only, C = G in S2, and C = G in both
+submissions. A separate sizing comparison tests 125, 250, and 375 MW of S1
+generation with full S2 backup. All nine rivals use the same plan within each field.
+
+From the repository root:
+
+```bash
+export PYTHONPATH=src:ercot-connection-game:ercot-connection-game/src
+.venv/bin/python -m team_strategy.experiments.ten_teams --jobs 7
+```
+
+The report verifies the request CSVs and all ten teams' S1 carryover before
+writing the [comparison](findings/Ten_teams_500_MW_comparison.md) and each
+campaign's findings. Saved game scores and hourly line-relief results appear
+with their respective evidence. Regenerating findings preserves personal notes.
+Raw evaluations and diagnostic caches live under `runs/`. Links to local
+solver evidence work after generating the corresponding runs. To use a new
+experiment directory, set `--output` and `--summary`. To regenerate reporting
+from saved dispatch, run `python -m team_strategy.experiments.ten_team_report`
+and point `--run` at the saved experiment.
+
+The [S1 battery study](findings/Battery_S1_comparison.md) compares generator and
+four-hour storage sizes at bus 6141 against fields with rival generation and
+storage. The [targeted optimization](findings/Battery_S1_targeted_optimization.md)
+compares three finalists and two benchmarks across 36 distinct four-round
+campaign fields. The [1 MW refinement](findings/Battery_S1_1MW_local_search.md)
+records the cheaper S1 build and its exact allocation in each field. Run the
+initial sweep with `python -m team_strategy.experiments.battery_s1` and regenerate
+the Markdown from saved evaluations with `python -m team_strategy.experiments.battery_s1_report`.
 
 ## Instructor tools and updates
 

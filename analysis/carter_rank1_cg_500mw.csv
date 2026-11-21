@@ -1,5 +1,0 @@
-experiment,capacity_per_submission_mw,round,bus_id,service_fraction,score_billions,it_value_billions,grid_energy_cost_billions,generator_operating_cost_billions,generator_capital_cost_billions,site_cost_billions,private_generation_share,grid_supply_share
-finalized-500mw,500.0,week-2-submission-1,6141,1.0,17.263287149279993,30.763287149279993,0.0,0.0,1.0,12.5,0.0,1.0
-finalized-500mw,500.0,week-2-submission-2,6141,1.0,17.263287149279993,30.763287149279993,0.0,0.0,1.0,12.5,0.0,1.0
-finalized-500mw,500.0,week-3-submission-1,6141,1.0,16.714939369730164,30.763287149279993,0.548347779549829,0.0,1.0,12.5,0.0,1.0
-finalized-500mw,500.0,week-3-submission-2,6141,1.0,16.713722311555987,30.763287149279993,0.5495648377240041,0.0,1.0,12.5,0.0,1.0

@@ -1,0 +1,1045 @@
+{
+  "comparisons_by_added_load_mw": {
+    "250.0": {
+      "shared_signed_bottleneck": {
+        "within": {
+          "directed_test_count": 116,
+          "unordered_pair_count": 58,
+          "mean_raw_interaction": 0.0726747343797257,
+          "mean_excess_per_added_mw": 0.37978286800032696,
+          "median_excess_per_added_mw": 0.3692863558442768,
+          "fraction_above_5pct_excess": 0.7327586206896551
+        },
+        "across": {
+          "directed_test_count": 76,
+          "unordered_pair_count": 38,
+          "mean_raw_interaction": 0.06283099221827401,
+          "mean_excess_per_added_mw": 0.0739989579939229,
+          "median_excess_per_added_mw": 1.0426356311654672e-10,
+          "fraction_above_5pct_excess": 0.2631578947368421
+        },
+        "mean_excess_separation": 0.30578391000640404,
+        "status": "supported_in_sample"
+      },
+      "same_initial_cohort": {
+        "within": {
+          "directed_test_count": 72,
+          "unordered_pair_count": 36,
+          "mean_raw_interaction": 0.08426721263254074,
+          "mean_excess_per_added_mw": 0.41990308868346765,
+          "median_excess_per_added_mw": 0.4136583583878283,
+          "fraction_above_5pct_excess": 0.7638888888888888
+        },
+        "across": {
+          "directed_test_count": 120,
+          "unordered_pair_count": 60,
+          "mean_raw_interaction": 0.059484877392450605,
+          "mean_excess_per_added_mw": 0.16204759258638662,
+          "median_excess_per_added_mw": 2.513057552278042e-09,
+          "fraction_above_5pct_excess": 0.4166666666666667
+        },
+        "mean_excess_separation": 0.257855496097081,
+        "status": "supported_in_sample"
+      },
+      "same_refined_cohort": {
+        "within": {
+          "directed_test_count": 26,
+          "unordered_pair_count": 13,
+          "mean_raw_interaction": 0.08856539884331192,
+          "mean_excess_per_added_mw": 0.5910259351020469,
+          "median_excess_per_added_mw": 0.5835466847607549,
+          "fraction_above_5pct_excess": 0.8846153846153846
+        },
+        "across": {
+          "directed_test_count": 166,
+          "unordered_pair_count": 83,
+          "mean_raw_interaction": 0.06567906160669215,
+          "mean_excess_per_added_mw": 0.20669915170435452,
+          "median_excess_per_added_mw": 0.041550892451796245,
+          "fraction_above_5pct_excess": 0.4939759036144578
+        },
+        "mean_excess_separation": 0.38432678339769244,
+        "status": "supported_in_sample"
+      },
+      "capacity_matched_shared_bottleneck": {
+        "within": {
+          "directed_test_count": 64,
+          "unordered_pair_count": 32,
+          "mean_raw_interaction": 0.08206821797576203,
+          "mean_excess_per_added_mw": 0.3698391828587642,
+          "median_excess_per_added_mw": 0.3692863558442768,
+          "fraction_above_5pct_excess": 0.734375
+        },
+        "across": {
+          "directed_test_count": 42,
+          "unordered_pair_count": 21,
+          "mean_raw_interaction": 0.07225007183275775,
+          "mean_excess_per_added_mw": 0.04614400872848581,
+          "median_excess_per_added_mw": 6.332720658974721e-11,
+          "fraction_above_5pct_excess": 0.14285714285714285
+        },
+        "mean_excess_separation": 0.32369517413027843,
+        "status": "supported_in_sample"
+      }
+    },
+    "500.0": {
+      "shared_signed_bottleneck": {
+        "within": {
+          "directed_test_count": 116,
+          "unordered_pair_count": 58,
+          "mean_raw_interaction": 0.15190803059319008,
+          "mean_excess_per_added_mw": 0.24218311217104996,
+          "median_excess_per_added_mw": 0.20559283866968417,
+          "fraction_above_5pct_excess": 0.7672413793103449
+        },
+        "across": {
+          "directed_test_count": 76,
+          "unordered_pair_count": 38,
+          "mean_raw_interaction": 0.13539299145242162,
+          "mean_excess_per_added_mw": 0.030357802507022524,
+          "median_excess_per_added_mw": 1.4677425497211514e-11,
+          "fraction_above_5pct_excess": 0.11842105263157894
+        },
+        "mean_excess_separation": 0.21182530966402743,
+        "status": "supported_in_sample"
+      },
+      "same_initial_cohort": {
+        "within": {
+          "directed_test_count": 72,
+          "unordered_pair_count": 36,
+          "mean_raw_interaction": 0.1704802426702179,
+          "mean_excess_per_added_mw": 0.2568467167217486,
+          "median_excess_per_added_mw": 0.21475682152124864,
+          "fraction_above_5pct_excess": 0.75
+        },
+        "across": {
+          "directed_test_count": 120,
+          "unordered_pair_count": 60,
+          "mean_raw_interaction": 0.13030517855782003,
+          "mean_excess_per_added_mw": 0.09922891998674675,
+          "median_excess_per_added_mw": 1.1043084668926895e-10,
+          "fraction_above_5pct_excess": 0.36666666666666664
+        },
+        "mean_excess_separation": 0.1576177967350018,
+        "status": "supported_in_sample"
+      },
+      "same_refined_cohort": {
+        "within": {
+          "directed_test_count": 26,
+          "unordered_pair_count": 13,
+          "mean_raw_interaction": 0.17713079769378626,
+          "mean_excess_per_added_mw": 0.35516540936797336,
+          "median_excess_per_added_mw": 0.29333541093930215,
+          "fraction_above_5pct_excess": 0.8846153846153846
+        },
+        "across": {
+          "directed_test_count": 166,
+          "unordered_pair_count": 83,
+          "mean_raw_interaction": 0.1403963744527449,
+          "mean_excess_per_added_mw": 0.12750682746269998,
+          "median_excess_per_added_mw": 0.01378432711676851,
+          "fraction_above_5pct_excess": 0.45180722891566266
+        },
+        "mean_excess_separation": 0.22765858190527338,
+        "status": "supported_in_sample"
+      },
+      "capacity_matched_shared_bottleneck": {
+        "within": {
+          "directed_test_count": 64,
+          "unordered_pair_count": 32,
+          "mean_raw_interaction": 0.16650164411396196,
+          "mean_excess_per_added_mw": 0.21597097427671627,
+          "median_excess_per_added_mw": 0.20176571784135378,
+          "fraction_above_5pct_excess": 0.71875
+        },
+        "across": {
+          "directed_test_count": 42,
+          "unordered_pair_count": 21,
+          "mean_raw_interaction": 0.15081892541379763,
+          "mean_excess_per_added_mw": 0.015140557677854391,
+          "median_excess_per_added_mw": 2.4479049898218364e-12,
+          "fraction_above_5pct_excess": 0.07142857142857142
+        },
+        "mean_excess_separation": 0.2008304165988619,
+        "status": "supported_in_sample"
+      }
+    }
+  },
+  "overlapping_group_validation": [
+    {
+      "group_id": "b00148:upper",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 8,
+        "unordered_pair_count": 2,
+        "mean_raw_interaction": 0.0664828702787547,
+        "mean_excess_per_added_mw": 0.226289490756365,
+        "median_excess_per_added_mw": 0.10836192755802494,
+        "fraction_above_5pct_excess": 0.5
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b00400:lower",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 8,
+        "unordered_pair_count": 2,
+        "mean_raw_interaction": 0.11591340402812118,
+        "mean_excess_per_added_mw": 3.6249048207537274e-11,
+        "median_excess_per_added_mw": 0.0,
+        "fraction_above_5pct_excess": 0.0
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b00404:upper",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 8,
+        "unordered_pair_count": 2,
+        "mean_raw_interaction": 0.11591340402812118,
+        "mean_excess_per_added_mw": 3.6249048207537274e-11,
+        "median_excess_per_added_mw": 0.0,
+        "fraction_above_5pct_excess": 0.0
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b00435:upper",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 8,
+        "unordered_pair_count": 2,
+        "mean_raw_interaction": 0.11591340402812118,
+        "mean_excess_per_added_mw": 3.6249048207537274e-11,
+        "median_excess_per_added_mw": 0.0,
+        "fraction_above_5pct_excess": 0.0
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b00455:upper",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 4,
+        "unordered_pair_count": 1,
+        "mean_raw_interaction": 0.0627446811866664,
+        "mean_excess_per_added_mw": 0.29671492026872376,
+        "median_excess_per_added_mw": 0.18543111241809945,
+        "fraction_above_5pct_excess": 0.5
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b00577:upper",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 8,
+        "unordered_pair_count": 2,
+        "mean_raw_interaction": 0.11591340402812118,
+        "mean_excess_per_added_mw": 3.6249048207537274e-11,
+        "median_excess_per_added_mw": 0.0,
+        "fraction_above_5pct_excess": 0.0
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b00865:lower",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 8,
+        "unordered_pair_count": 2,
+        "mean_raw_interaction": 0.08700744889909692,
+        "mean_excess_per_added_mw": 0.19232063646749883,
+        "median_excess_per_added_mw": 0.20799751027600588,
+        "fraction_above_5pct_excess": 0.75
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b00941:upper",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 8,
+        "unordered_pair_count": 2,
+        "mean_raw_interaction": 0.07969902103032182,
+        "mean_excess_per_added_mw": 0.0441611695512313,
+        "median_excess_per_added_mw": 0.011527548348559322,
+        "fraction_above_5pct_excess": 0.375
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b00965:upper",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 12,
+        "unordered_pair_count": 3,
+        "mean_raw_interaction": 0.08043334153310441,
+        "mean_excess_per_added_mw": 0.08415264975334087,
+        "median_excess_per_added_mw": 0.038724839258584325,
+        "fraction_above_5pct_excess": 0.5
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b00994:lower",
+      "member_count": 2,
+      "within": {
+        "directed_test_count": 4,
+        "unordered_pair_count": 1,
+        "mean_raw_interaction": 0.1432705920403557,
+        "mean_excess_per_added_mw": 0.8392584901292623,
+        "median_excess_per_added_mw": 0.8749997482435138,
+        "fraction_above_5pct_excess": 1.0
+      },
+      "across": {
+        "directed_test_count": 4,
+        "unordered_pair_count": 1,
+        "mean_raw_interaction": 0.10204672983053814,
+        "mean_excess_per_added_mw": 0.2874804414950122,
+        "median_excess_per_added_mw": 0.2935386476677786,
+        "fraction_above_5pct_excess": 0.5
+      },
+      "mean_excess_separation": 0.5517780486342502,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b01075:lower",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 12,
+        "unordered_pair_count": 3,
+        "mean_raw_interaction": 0.04288987070964509,
+        "mean_excess_per_added_mw": 0.18413691255852843,
+        "median_excess_per_added_mw": 0.054460671062599886,
+        "fraction_above_5pct_excess": 0.5
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b01076:lower",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 12,
+        "unordered_pair_count": 3,
+        "mean_raw_interaction": 0.04288987070964509,
+        "mean_excess_per_added_mw": 0.18413691255852843,
+        "median_excess_per_added_mw": 0.054460671062599886,
+        "fraction_above_5pct_excess": 0.5
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b01347:lower",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 8,
+        "unordered_pair_count": 2,
+        "mean_raw_interaction": 0.11359258697547135,
+        "mean_excess_per_added_mw": 0.0038462160817146016,
+        "median_excess_per_added_mw": 0.0,
+        "fraction_above_5pct_excess": 0.0
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b01380:lower",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 8,
+        "unordered_pair_count": 2,
+        "mean_raw_interaction": 0.04887749455721215,
+        "mean_excess_per_added_mw": 0.10719044964386444,
+        "median_excess_per_added_mw": 0.05078931695475785,
+        "fraction_above_5pct_excess": 0.5
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b01381:lower",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 4,
+        "unordered_pair_count": 1,
+        "mean_raw_interaction": 0.07851943713209436,
+        "mean_excess_per_added_mw": 0.20251501538113711,
+        "median_excess_per_added_mw": 0.1502083538137663,
+        "fraction_above_5pct_excess": 0.75
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b01455:lower",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 12,
+        "unordered_pair_count": 3,
+        "mean_raw_interaction": 0.11115161210327172,
+        "mean_excess_per_added_mw": 0.268214502387379,
+        "median_excess_per_added_mw": 0.15302926347377432,
+        "fraction_above_5pct_excess": 0.75
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b01514:lower",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 12,
+        "unordered_pair_count": 3,
+        "mean_raw_interaction": 0.05806396490640546,
+        "mean_excess_per_added_mw": 0.0004121213633340328,
+        "median_excess_per_added_mw": 0.0,
+        "fraction_above_5pct_excess": 0.0
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b01537:lower",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 8,
+        "unordered_pair_count": 2,
+        "mean_raw_interaction": 0.08757750287479096,
+        "mean_excess_per_added_mw": 0.3750881082975236,
+        "median_excess_per_added_mw": 0.31379033945752965,
+        "fraction_above_5pct_excess": 1.0
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b01548:lower",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 4,
+        "unordered_pair_count": 1,
+        "mean_raw_interaction": 0.11310197188064142,
+        "mean_excess_per_added_mw": 0.26617685379395994,
+        "median_excess_per_added_mw": 0.15906763529504814,
+        "fraction_above_5pct_excess": 0.5
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b01548:upper",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 8,
+        "unordered_pair_count": 2,
+        "mean_raw_interaction": 0.0704092743569,
+        "mean_excess_per_added_mw": 0.3746731920370122,
+        "median_excess_per_added_mw": 0.3255494596062467,
+        "fraction_above_5pct_excess": 1.0
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b01564:upper",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 4,
+        "unordered_pair_count": 1,
+        "mean_raw_interaction": 0.05620968007199716,
+        "mean_excess_per_added_mw": 0.34312234000512265,
+        "median_excess_per_added_mw": 0.30412326490635405,
+        "fraction_above_5pct_excess": 1.0
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b01607:upper",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 4,
+        "unordered_pair_count": 1,
+        "mean_raw_interaction": 0.10000923738776459,
+        "mean_excess_per_added_mw": 0.24078577532351186,
+        "median_excess_per_added_mw": 0.23141077848475336,
+        "fraction_above_5pct_excess": 0.5
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b01690:upper",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 4,
+        "unordered_pair_count": 1,
+        "mean_raw_interaction": 0.11133770139652495,
+        "mean_excess_per_added_mw": 0.6932816186215589,
+        "median_excess_per_added_mw": 0.7849810767698959,
+        "fraction_above_5pct_excess": 1.0
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b01695:lower",
+      "member_count": 2,
+      "within": {
+        "directed_test_count": 4,
+        "unordered_pair_count": 1,
+        "mean_raw_interaction": 0.11133770139652495,
+        "mean_excess_per_added_mw": 0.6932816186215589,
+        "median_excess_per_added_mw": 0.7849810767698959,
+        "fraction_above_5pct_excess": 1.0
+      },
+      "across": {
+        "directed_test_count": 4,
+        "unordered_pair_count": 1,
+        "mean_raw_interaction": 0.03857423896043412,
+        "mean_excess_per_added_mw": 0.2526273700328761,
+        "median_excess_per_added_mw": 0.2452307309226935,
+        "fraction_above_5pct_excess": 0.5
+      },
+      "mean_excess_separation": 0.4406542485886828,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b01756:upper",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 4,
+        "unordered_pair_count": 1,
+        "mean_raw_interaction": 0.10100817643349183,
+        "mean_excess_per_added_mw": 0.03605441462171666,
+        "median_excess_per_added_mw": 1.7560523701831698e-11,
+        "fraction_above_5pct_excess": 0.25
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b01758:lower",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 4,
+        "unordered_pair_count": 1,
+        "mean_raw_interaction": 0.05971171335671293,
+        "mean_excess_per_added_mw": 0.04968552245562432,
+        "median_excess_per_added_mw": 0.05108140760783908,
+        "fraction_above_5pct_excess": 0.5
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b01773:upper",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 8,
+        "unordered_pair_count": 2,
+        "mean_raw_interaction": 0.08697982961740042,
+        "mean_excess_per_added_mw": 0.024842761571653226,
+        "median_excess_per_added_mw": 1.3598883015220053e-09,
+        "fraction_above_5pct_excess": 0.25
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b01775:lower",
+      "member_count": 6,
+      "within": {
+        "directed_test_count": 8,
+        "unordered_pair_count": 2,
+        "mean_raw_interaction": 0.14998702091104818,
+        "mean_excess_per_added_mw": 0.9413060068263794,
+        "median_excess_per_added_mw": 0.9540642416507834,
+        "fraction_above_5pct_excess": 1.0
+      },
+      "across": {
+        "directed_test_count": 28,
+        "unordered_pair_count": 7,
+        "mean_raw_interaction": 0.08560090435944613,
+        "mean_excess_per_added_mw": 0.28657222380631303,
+        "median_excess_per_added_mw": 0.26435975891232555,
+        "fraction_above_5pct_excess": 0.7142857142857143
+      },
+      "mean_excess_separation": 0.6547337830200664,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b01796:lower",
+      "member_count": 6,
+      "within": {
+        "directed_test_count": 8,
+        "unordered_pair_count": 2,
+        "mean_raw_interaction": 0.14998702091104818,
+        "mean_excess_per_added_mw": 0.9413060068263794,
+        "median_excess_per_added_mw": 0.9540642416507834,
+        "fraction_above_5pct_excess": 1.0
+      },
+      "across": {
+        "directed_test_count": 28,
+        "unordered_pair_count": 7,
+        "mean_raw_interaction": 0.08560090435944613,
+        "mean_excess_per_added_mw": 0.28657222380631303,
+        "median_excess_per_added_mw": 0.26435975891232555,
+        "fraction_above_5pct_excess": 0.7142857142857143
+      },
+      "mean_excess_separation": 0.6547337830200664,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b01841:lower",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 4,
+        "unordered_pair_count": 1,
+        "mean_raw_interaction": 0.10000923738776459,
+        "mean_excess_per_added_mw": 0.24078577532351186,
+        "median_excess_per_added_mw": 0.23141077848475336,
+        "fraction_above_5pct_excess": 0.5
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b01983:upper",
+      "member_count": 2,
+      "within": {
+        "directed_test_count": 4,
+        "unordered_pair_count": 1,
+        "mean_raw_interaction": 0.11133770139652495,
+        "mean_excess_per_added_mw": 0.6932816186215589,
+        "median_excess_per_added_mw": 0.7849810767698959,
+        "fraction_above_5pct_excess": 1.0
+      },
+      "across": {
+        "directed_test_count": 4,
+        "unordered_pair_count": 1,
+        "mean_raw_interaction": 0.03857423896043412,
+        "mean_excess_per_added_mw": 0.2526273700328761,
+        "median_excess_per_added_mw": 0.2452307309226935,
+        "fraction_above_5pct_excess": 0.5
+      },
+      "mean_excess_separation": 0.4406542485886828,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b02136:lower",
+      "member_count": 21,
+      "within": {
+        "directed_test_count": 52,
+        "unordered_pair_count": 13,
+        "mean_raw_interaction": 0.12202020448003927,
+        "mean_excess_per_added_mw": 0.4451400090352361,
+        "median_excess_per_added_mw": 0.3891544700677054,
+        "fraction_above_5pct_excess": 0.8846153846153846
+      },
+      "across": {
+        "directed_test_count": 60,
+        "unordered_pair_count": 15,
+        "mean_raw_interaction": 0.09146432067815045,
+        "mean_excess_per_added_mw": 0.06287562147047364,
+        "median_excess_per_added_mw": 1.975195118575357e-11,
+        "fraction_above_5pct_excess": 0.23333333333333334
+      },
+      "mean_excess_separation": 0.38226438756476244,
+      "status": "supported_in_sample"
+    },
+    {
+      "group_id": "b02451:lower",
+      "member_count": 1,
+      "within": {
+        "directed_test_count": 0,
+        "unordered_pair_count": 0,
+        "mean_raw_interaction": null,
+        "mean_excess_per_added_mw": null,
+        "median_excess_per_added_mw": null,
+        "fraction_above_5pct_excess": null
+      },
+      "across": {
+        "directed_test_count": 8,
+        "unordered_pair_count": 2,
+        "mean_raw_interaction": 0.13005743522078583,
+        "mean_excess_per_added_mw": 0.762775021456702,
+        "median_excess_per_added_mw": 0.8640542976057495,
+        "fraction_above_5pct_excess": 1.0
+      },
+      "mean_excess_separation": null,
+      "status": "limited_evidence"
+    },
+    {
+      "group_id": "b02579:lower",
+      "member_count": 60,
+      "within": {
+        "directed_test_count": 176,
+        "unordered_pair_count": 44,
+        "mean_raw_interaction": 0.10943863237676187,
+        "mean_excess_per_added_mw": 0.26265708383841596,
+        "median_excess_per_added_mw": 0.2179042105370154,
+        "fraction_above_5pct_excess": 0.7045454545454546
+      },
+      "across": {
+        "directed_test_count": 100,
+        "unordered_pair_count": 25,
+        "mean_raw_interaction": 0.09192491380475067,
+        "mean_excess_per_added_mw": 0.05983279175846902,
+        "median_excess_per_added_mw": 2.738579496508464e-11,
+        "fraction_above_5pct_excess": 0.23
+      },
+      "mean_excess_separation": 0.20282429207994696,
+      "status": "supported_in_sample"
+    },
+    {
+      "group_id": "b02849:lower",
+      "member_count": 3,
+      "within": {
+        "directed_test_count": 4,
+        "unordered_pair_count": 1,
+        "mean_raw_interaction": 0.1413475693934523,
+        "mean_excess_per_added_mw": 0.8824285190549847,
+        "median_excess_per_added_mw": 0.8745026517140326,
+        "fraction_above_5pct_excess": 1.0
+      },
+      "across": {
+        "directed_test_count": 12,
+        "unordered_pair_count": 3,
+        "mean_raw_interaction": 0.09570871144869585,
+        "mean_excess_per_added_mw": 0.3179522446174803,
+        "median_excess_per_added_mw": 0.27944220855422053,
+        "fraction_above_5pct_excess": 0.8333333333333334
+      },
+      "mean_excess_separation": 0.5644762744375044,
+      "status": "limited_evidence"
+    }
+  ],
+  "candidate_test_counts": {
+    "1079": 4,
+    "2002": 8,
+    "2011": 8,
+    "2017": 4,
+    "2054": 8,
+    "2101": 12,
+    "2113": 8,
+    "2127": 4,
+    "3046": 4,
+    "3048": 8,
+    "3058": 8,
+    "3088": 4,
+    "5015": 16,
+    "5018": 12,
+    "5021": 4,
+    "5033": 8,
+    "5045": 4,
+    "5047": 8,
+    "5049": 4,
+    "5055": 8,
+    "5063": 4,
+    "5083": 4,
+    "5102": 8,
+    "5103": 12,
+    "5120": 4,
+    "5131": 8,
+    "5137": 8,
+    "5164": 12,
+    "5179": 12,
+    "5196": 12,
+    "5204": 8,
+    "5236": 4,
+    "5239": 8,
+    "5260": 12,
+    "5262": 8,
+    "5263": 4,
+    "5279": 8,
+    "5295": 12,
+    "5304": 8,
+    "5317": 8,
+    "5322": 4,
+    "5323": 12,
+    "5350": 12,
+    "5358": 8,
+    "5360": 12,
+    "5361": 4,
+    "5380": 8,
+    "5384": 4,
+    "5385": 8,
+    "5388": 4,
+    "5394": 8,
+    "5395": 4,
+    "5401": 12,
+    "5410": 4,
+    "5413": 8,
+    "5444": 8,
+    "5448": 4,
+    "5451": 16,
+    "5464": 12,
+    "5479": 4,
+    "6003": 4,
+    "6004": 4,
+    "6021": 8,
+    "6033": 8,
+    "6038": 16,
+    "6045": 8,
+    "6056": 12,
+    "6062": 8,
+    "6066": 4,
+    "6075": 8,
+    "6107": 4,
+    "6118": 8,
+    "6141": 12,
+    "6161": 8,
+    "6197": 8,
+    "6210": 8,
+    "6234": 4,
+    "6239": 12,
+    "6254": 12,
+    "6292": 12,
+    "6298": 4,
+    "6342": 4,
+    "6349": 4,
+    "7018": 4,
+    "7042": 8,
+    "7047": 8,
+    "7058": 4,
+    "7095": 8,
+    "7098": 12,
+    "7099": 8,
+    "7159": 8,
+    "7199": 8,
+    "7304": 8,
+    "7341": 4,
+    "7346": 8,
+    "7414": 4,
+    "8043": 12,
+    "8057": 4,
+    "8082": 4,
+    "8126": 4,
+    "8155": 8
+  },
+  "support_rule": "At least 3 unordered pairs on each side and within-minus-across excess/q > 0.02; descriptive only.",
+  "sampling_note": "Deterministic coverage sample, group-balanced when originally selected; retained unchanged when backgrounds expand. Not population-random; directions and sizes are dependent."
+}

@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "capacity_per_submission_mw": 500,
+  "part1_directory": "analysis/clustering/part1",
+  "release_file": "configs/rounds/finalized_release_500mw.json",
+  "scenario_directory": "ercot-connection-game/data/processed/activsg2000_representative_v1",
+  "rules_file": "configs/scoring/dispatch_scoring_rules_500mw.json",
+  "decision_rule": "maximin_primary",
+  "seed": 17,
+  "assumptions": "Fixed repeated S1/S2 portfolios; full 120-period game evaluator, all-team net-withdrawal carryover, weekly resets. Stress scenarios equally weighted for comparison, not forecast probabilities. No storage or generator-sizing optimization. Additional hosting-ranking crowding patterns, pooled only after source/rules/portfolio compatibility checks.",
+  "portfolios": [
+    {
+      "name": "concentrate_6141",
+      "bus_ids": [
+        "6141"
+      ],
+      "weights": [
+        1.0
+      ],
+      "generator_fraction": 0.0,
+      "role": "primary",
+      "description": "Composite-rank-1 bus; b02136-associated"
+    },
+    {
+      "name": "concentrate_5413",
+      "bus_ids": [
+        "5413"
+      ],
+      "weights": [
+        1.0
+      ],
+      "generator_fraction": 0.0,
+      "role": "primary",
+      "description": "High standalone capacity in b02579 group"
+    },
+    {
+      "name": "concentrate_1079",
+      "bus_ids": [
+        "1079"
+      ],
+      "weights": [
+        1.0
+      ],
+      "generator_fraction": 0.0,
+      "role": "primary",
+      "description": "Generation-ceiling reference"
+    },
+    {
+      "name": "concentrate_6298",
+      "bus_ids": [
+        "6298"
+      ],
+      "weights": [
+        1.0
+      ],
+      "generator_fraction": 0.0,
+      "role": "primary",
+      "description": "Alternative individual bottleneck; also b02136 under stress"
+    },
+    {
+      "name": "split_major",
+      "bus_ids": [
+        "6141",
+        "5413"
+      ],
+      "weights": [
+        0.5,
+        0.5
+      ],
+      "generator_fraction": 0.0,
+      "role": "primary",
+      "description": "Split between the two dominant signed groups"
+    },
+    {
+      "name": "split_alternative",
+      "bus_ids": [
+        "5413",
+        "6298"
+      ],
+      "weights": [
+        0.5,
+        0.5
+      ],
+      "generator_fraction": 0.0,
+      "role": "primary",
+      "description": "Dominant shared group plus alternative site"
+    },
+    {
+      "name": "split_6062_6298",
+      "bus_ids": [
+        "6062",
+        "6298"
+      ],
+      "weights": [
+        0.5,
+        0.5
+      ],
+      "generator_fraction": 0.0,
+      "role": "primary",
+      "description": "Distinct individual limits, shared b02136 under stress"
+    },
+    {
+      "name": "spread_four",
+      "bus_ids": [
+        "1079",
+        "5413",
+        "6062",
+        "6298"
+      ],
+      "weights": [
+        0.25,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "generator_fraction": 0.0,
+      "role": "primary",
+      "description": "Four-bus portfolio; not four independent resources"
+    },
+    {
+      "name": "carter_cg_benchmark",
+      "bus_ids": [
+        "6141"
+      ],
+      "weights": [
+        1.0
+      ],
+      "generator_fraction": 1.0,
+      "role": "benchmark",
+      "description": "Existing C = G benchmark; separate resource mix"
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "crowded_1079_five",
+      "include_in_risk": true,
+      "rival_bus_ids": [
+        "1079",
+        "1079",
+        "1079",
+        "1079",
+        "1079"
+      ],
+      "rival_generator_fraction": 0.0,
+      "description": "Five grid-only rivals select the maximum-class generation-ceiling bus"
+    },
+    {
+      "name": "hosting_rank_five",
+      "include_in_risk": true,
+      "rival_bus_ids": [
+        "6349",
+        "5131",
+        "5279",
+        "5358",
+        "5410"
+      ],
+      "rival_generator_fraction": 0.0,
+      "description": "Five grid-only rivals choose the first five buses in the existing hosting-capacity CSV; numerical near-ties are a preference hypothesis, not meaningful capacity differences"
+    }
+  ]
+}

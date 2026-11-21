@@ -1,0 +1,51 @@
+# 500 MW at bus 6141, S1 generator 75 MW and battery 150 MW / 600 MWh
+
+| Round | Our admitted MW | All teams admitted MW | Net score $B | IT value $B | Grid cost $B | Generator fuel $B | Generator capital $B | Battery capital $B |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| week-3-submission-1 | 500.000000 | 4,138.963838 | 17.333467 | 30.763287 | 0.569250 | 0.000570 | 0.150000 | 0.210000 |
+
+| Round | Grid purchased MWh/yr | Generator MWh/yr | Battery charged MWh/yr | Battery discharged MWh/yr | Gen on h/yr | Discharge h/yr | Charge h/yr |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| week-3-submission-1 | 4,379,481.073 | 518.927 | 283,633.361 | 283,633.361 | 7.000 | 2,307.674 | 2,304.682 |
+
+Battery discharge is shifted energy. Annual grid purchases include charging. The hours use representative-day weights.
+
+Each of the nine rivals requests 500 MW split equally across 6141, with 0 MW of S1 generation and 125 MW / 500 MWh of S1 storage. The recorded S1 battery cycles were checked site by site.
+
+| Round | Rival battery sites checked | Rival storage admitted MW | Rival batteries charged MWh/yr | Rival batteries discharged MWh/yr |
+| --- | --- | --- | --- | --- |
+| week-3-submission-1 | 9 | 909.741 | 1,997,790.799 | 1,997,790.799 |
+
+## week-3-submission-1 dispatch
+
+| Day | Start SOC MWh | End SOC MWh | Minimum SOC MWh | Maximum SOC MWh | Charged MWh | Discharged MWh |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | 300.000 | 300.000 | -0.000 | 600.000 | 718.735 | 718.735 |
+| 2 | 300.000 | 300.000 | 0.000 | 600.000 | 1,064.106 | 1,064.106 |
+| 3 | 300.000 | 300.000 | 0.000 | 600.000 | 607.807 | 607.807 |
+| 4 | 300.000 | 300.000 | 0.000 | 600.000 | 677.838 | 677.838 |
+| 5 | 300.000 | 300.000 | 0.000 | 600.000 | 750.000 | 750.000 |
+
+| Hour | Grid MW | Our generator MW | Charge MW | Discharge MW | End SOC MWh | Rival charge MW | Rival discharge MW | All-team spare native generation MW | Binding lines |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 0 | 650.000000 | 0.000000 | 150.000000 | 0.000000 | 450.000000 | 575.984417 | 303.246987 | 15,160.922199 | b01921:upper, b02355:lower |
+| 13 | 350.000000 | 0.000000 | 0.000000 | 150.000000 | 416.478165 | 69.656788 | 761.530916 | 8,509.630000 | none |
+| 104 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 600.000000 | 0.000000 | 0.000000 | 1,870.044302 | none |
+| 105 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 600.000000 | 0.000000 | 0.000000 | 898.916520 | b02136:lower |
+| 106 | 425.000000 | 75.000000 | 0.000000 | 0.000000 | 600.000000 | 0.000000 | 48.068490 | 188.058673 | b02136:lower |
+| 107 | 425.000000 | 75.000000 | 0.000000 | 0.000000 | 600.000000 | 0.000000 | 596.836247 | 96.932230 | b02136:lower |
+| 108 | 275.000000 | 75.000000 | 0.000000 | 150.000000 | 450.000000 | 0.000000 | 791.806069 | 39.647743 | b02136:lower |
+| 109 | 275.000000 | 75.000000 | 0.000000 | 150.000000 | 300.000000 | 0.000000 | 909.468864 | 20.109084 | b02136:lower |
+| 110 | 281.073364 | 68.926636 | 0.000000 | 150.000000 | 150.000000 | 0.000000 | 797.879433 | 39.647743 | b02136:lower |
+| 111 | 275.000000 | 75.000000 | 0.000000 | 150.000000 | 0.000000 | 0.000000 | 446.836246 | 96.932230 | b02136:lower |
+| 112 | 425.000000 | 75.000000 | 0.000000 | 0.000000 | 0.000000 | 0.000000 | 48.068489 | 188.058673 | b02136:lower |
+| 113 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 0.000000 | 0.000000 | 0.000000 | 898.916520 | b02136:lower |
+| 114 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 0.000000 | 0.000000 | 0.000000 | 1,870.044302 | none |
+
+The hourly table shows dispatched power and lines at their limits. Storage feasibility depends on charge and discharge across the day.
+
+[Full result](<../runs/battery-s1-500mw/sweep/g75_p150/nine_b125_at_6141/attempt-01/result.json>) · [Solver audit](<../runs/battery-s1-500mw/sweep/g75_p150/nine_b125_at_6141/attempt-01/execution.json>)
+
+## Personal notes
+
+<!-- USER_NOTES -->

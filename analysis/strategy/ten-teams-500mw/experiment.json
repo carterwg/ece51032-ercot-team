@@ -1,0 +1,739 @@
+{
+  "schema_version": 1,
+  "team_count": 10,
+  "capacity_per_submission_mw": 500,
+  "seed": 17,
+  "part1_directory": "analysis/clustering/part1",
+  "release_file": "configs/rounds/finalized_release_500mw.json",
+  "scenario_directory": "ercot-connection-game/data/processed/activsg2000_representative_v1",
+  "rules_file": "configs/scoring/dispatch_scoring_rules_500mw.json",
+  "candidate_selection": {
+    "1079": {
+      "minimum_stress_hc_mw": 524.6040589975223,
+      "signed_constraints": [
+        "b02579:lower"
+      ]
+    },
+    "2054": {
+      "minimum_stress_hc_mw": 524.60405899708,
+      "signed_constraints": [
+        "b02579:lower"
+      ]
+    },
+    "2127": {
+      "minimum_stress_hc_mw": 523.1464377373555,
+      "signed_constraints": [
+        "b02579:lower"
+      ]
+    },
+    "3046": {
+      "minimum_stress_hc_mw": 524.6040589977803,
+      "signed_constraints": [
+        "b02579:lower"
+      ]
+    },
+    "3048": {
+      "minimum_stress_hc_mw": 524.6040589975996,
+      "signed_constraints": [
+        "b02579:lower"
+      ]
+    },
+    "6141": {
+      "minimum_stress_hc_mw": 504.4949744869191,
+      "signed_constraints": [
+        "b02136:lower"
+      ]
+    },
+    "5395": {
+      "minimum_stress_hc_mw": 524.6040589975082,
+      "signed_constraints": [
+        "b01548:lower",
+        "b02579:lower"
+      ]
+    },
+    "6342": {
+      "minimum_stress_hc_mw": 524.6040589568215,
+      "signed_constraints": [
+        "b01690:upper",
+        "b01695:lower",
+        "b01983:upper"
+      ]
+    },
+    "5451": {
+      "minimum_stress_hc_mw": 524.6040589957363,
+      "signed_constraints": []
+    },
+    "6004": {
+      "minimum_stress_hc_mw": 524.6040589573751,
+      "signed_constraints": [
+        "b01607:upper",
+        "b01841:lower"
+      ]
+    }
+  },
+  "layouts": {
+    "hosting_1": {
+      "bus_ids": [
+        "1079"
+      ],
+      "weights": [
+        1.0
+      ]
+    },
+    "hosting_2": {
+      "bus_ids": [
+        "1079",
+        "2054"
+      ],
+      "weights": [
+        0.5,
+        0.5
+      ]
+    },
+    "hosting_5": {
+      "bus_ids": [
+        "1079",
+        "2054",
+        "2127",
+        "3046",
+        "3048"
+      ],
+      "weights": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ]
+    },
+    "bottleneck_ptdf_1": {
+      "bus_ids": [
+        "6141"
+      ],
+      "weights": [
+        1.0
+      ]
+    },
+    "bottleneck_ptdf_2": {
+      "bus_ids": [
+        "6141",
+        "5395"
+      ],
+      "weights": [
+        0.5,
+        0.5
+      ]
+    },
+    "bottleneck_ptdf_5": {
+      "bus_ids": [
+        "6141",
+        "5395",
+        "6342",
+        "5451",
+        "6004"
+      ],
+      "weights": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ]
+    }
+  },
+  "scenarios": [
+    {
+      "name": "nine_grid_at_6141",
+      "rival_count": 9,
+      "rival_plan": {
+        "bus_ids": [
+          "6141"
+        ],
+        "weights": [
+          1.0
+        ],
+        "generation_schedule": {
+          "1": 0.0,
+          "2": 0.0
+        }
+      },
+      "rival_bus_ids": [
+        "6141"
+      ],
+      "rival_generator_fraction": 0.0,
+      "include_in_risk": true
+    },
+    {
+      "name": "nine_grid_at_hosting_1",
+      "rival_count": 9,
+      "rival_plan": {
+        "bus_ids": [
+          "1079"
+        ],
+        "weights": [
+          1.0
+        ],
+        "generation_schedule": {
+          "1": 0.0,
+          "2": 0.0
+        }
+      },
+      "rival_bus_ids": [
+        "1079"
+      ],
+      "rival_generator_fraction": 0.0,
+      "include_in_risk": true
+    },
+    {
+      "name": "nine_s2_cg_hosting_2",
+      "rival_count": 9,
+      "rival_plan": {
+        "bus_ids": [
+          "1079",
+          "2054"
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "generation_schedule": {
+          "1": 0.0,
+          "2": 1.0
+        }
+      },
+      "rival_bus_ids": [
+        "1079",
+        "2054"
+      ],
+      "rival_generator_fraction": 1.0,
+      "include_in_risk": true
+    },
+    {
+      "name": "nine_both_cg_ptdf_5",
+      "rival_count": 9,
+      "rival_plan": {
+        "bus_ids": [
+          "6141",
+          "5395",
+          "6342",
+          "5451",
+          "6004"
+        ],
+        "weights": [
+          0.2,
+          0.2,
+          0.2,
+          0.2,
+          0.2
+        ],
+        "generation_schedule": {
+          "1": 1.0,
+          "2": 1.0
+        }
+      },
+      "rival_bus_ids": [
+        "6141",
+        "5395",
+        "6342",
+        "5451",
+        "6004"
+      ],
+      "rival_generator_fraction": 1.0,
+      "include_in_risk": true
+    }
+  ],
+  "portfolios": [
+    {
+      "name": "hosting_1_grid",
+      "layout": "hosting_1",
+      "policy": "grid",
+      "bus_ids": [
+        "1079"
+      ],
+      "weights": [
+        1.0
+      ],
+      "role": "primary",
+      "generation_schedule": {
+        "1": 0.0,
+        "2": 0.0
+      },
+      "generator_fraction": 0.0
+    },
+    {
+      "name": "hosting_1_s2_cg",
+      "layout": "hosting_1",
+      "policy": "s2_cg",
+      "bus_ids": [
+        "1079"
+      ],
+      "weights": [
+        1.0
+      ],
+      "role": "primary",
+      "generation_schedule": {
+        "1": 0.0,
+        "2": 1.0
+      },
+      "generator_fraction": 1.0
+    },
+    {
+      "name": "hosting_1_both_cg",
+      "layout": "hosting_1",
+      "policy": "both_cg",
+      "bus_ids": [
+        "1079"
+      ],
+      "weights": [
+        1.0
+      ],
+      "role": "primary",
+      "generation_schedule": {
+        "1": 1.0,
+        "2": 1.0
+      },
+      "generator_fraction": 1.0
+    },
+    {
+      "name": "hosting_2_grid",
+      "layout": "hosting_2",
+      "policy": "grid",
+      "bus_ids": [
+        "1079",
+        "2054"
+      ],
+      "weights": [
+        0.5,
+        0.5
+      ],
+      "role": "primary",
+      "generation_schedule": {
+        "1": 0.0,
+        "2": 0.0
+      },
+      "generator_fraction": 0.0
+    },
+    {
+      "name": "hosting_2_s2_cg",
+      "layout": "hosting_2",
+      "policy": "s2_cg",
+      "bus_ids": [
+        "1079",
+        "2054"
+      ],
+      "weights": [
+        0.5,
+        0.5
+      ],
+      "role": "primary",
+      "generation_schedule": {
+        "1": 0.0,
+        "2": 1.0
+      },
+      "generator_fraction": 1.0
+    },
+    {
+      "name": "hosting_2_both_cg",
+      "layout": "hosting_2",
+      "policy": "both_cg",
+      "bus_ids": [
+        "1079",
+        "2054"
+      ],
+      "weights": [
+        0.5,
+        0.5
+      ],
+      "role": "primary",
+      "generation_schedule": {
+        "1": 1.0,
+        "2": 1.0
+      },
+      "generator_fraction": 1.0
+    },
+    {
+      "name": "hosting_5_grid",
+      "layout": "hosting_5",
+      "policy": "grid",
+      "bus_ids": [
+        "1079",
+        "2054",
+        "2127",
+        "3046",
+        "3048"
+      ],
+      "weights": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ],
+      "role": "primary",
+      "generation_schedule": {
+        "1": 0.0,
+        "2": 0.0
+      },
+      "generator_fraction": 0.0
+    },
+    {
+      "name": "hosting_5_s2_cg",
+      "layout": "hosting_5",
+      "policy": "s2_cg",
+      "bus_ids": [
+        "1079",
+        "2054",
+        "2127",
+        "3046",
+        "3048"
+      ],
+      "weights": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ],
+      "role": "primary",
+      "generation_schedule": {
+        "1": 0.0,
+        "2": 1.0
+      },
+      "generator_fraction": 1.0
+    },
+    {
+      "name": "hosting_5_both_cg",
+      "layout": "hosting_5",
+      "policy": "both_cg",
+      "bus_ids": [
+        "1079",
+        "2054",
+        "2127",
+        "3046",
+        "3048"
+      ],
+      "weights": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ],
+      "role": "primary",
+      "generation_schedule": {
+        "1": 1.0,
+        "2": 1.0
+      },
+      "generator_fraction": 1.0
+    },
+    {
+      "name": "bottleneck_ptdf_1_grid",
+      "layout": "bottleneck_ptdf_1",
+      "policy": "grid",
+      "bus_ids": [
+        "6141"
+      ],
+      "weights": [
+        1.0
+      ],
+      "role": "primary",
+      "generation_schedule": {
+        "1": 0.0,
+        "2": 0.0
+      },
+      "generator_fraction": 0.0
+    },
+    {
+      "name": "bottleneck_ptdf_1_s2_cg",
+      "layout": "bottleneck_ptdf_1",
+      "policy": "s2_cg",
+      "bus_ids": [
+        "6141"
+      ],
+      "weights": [
+        1.0
+      ],
+      "role": "primary",
+      "generation_schedule": {
+        "1": 0.0,
+        "2": 1.0
+      },
+      "generator_fraction": 1.0
+    },
+    {
+      "name": "bottleneck_ptdf_1_both_cg",
+      "layout": "bottleneck_ptdf_1",
+      "policy": "both_cg",
+      "bus_ids": [
+        "6141"
+      ],
+      "weights": [
+        1.0
+      ],
+      "role": "primary",
+      "generation_schedule": {
+        "1": 1.0,
+        "2": 1.0
+      },
+      "generator_fraction": 1.0
+    },
+    {
+      "name": "bottleneck_ptdf_1_s1_125_s2_cg",
+      "layout": "bottleneck_ptdf_1",
+      "policy": "s1_125_s2_cg",
+      "bus_ids": [
+        "6141"
+      ],
+      "weights": [
+        1.0
+      ],
+      "role": "sizing",
+      "generation_schedule": {
+        "1": 0.25,
+        "2": 1.0
+      },
+      "generator_fraction": 1.0
+    },
+    {
+      "name": "bottleneck_ptdf_1_s1_250_s2_cg",
+      "layout": "bottleneck_ptdf_1",
+      "policy": "s1_250_s2_cg",
+      "bus_ids": [
+        "6141"
+      ],
+      "weights": [
+        1.0
+      ],
+      "role": "sizing",
+      "generation_schedule": {
+        "1": 0.5,
+        "2": 1.0
+      },
+      "generator_fraction": 1.0
+    },
+    {
+      "name": "bottleneck_ptdf_1_s1_375_s2_cg",
+      "layout": "bottleneck_ptdf_1",
+      "policy": "s1_375_s2_cg",
+      "bus_ids": [
+        "6141"
+      ],
+      "weights": [
+        1.0
+      ],
+      "role": "sizing",
+      "generation_schedule": {
+        "1": 0.75,
+        "2": 1.0
+      },
+      "generator_fraction": 1.0
+    },
+    {
+      "name": "bottleneck_ptdf_2_grid",
+      "layout": "bottleneck_ptdf_2",
+      "policy": "grid",
+      "bus_ids": [
+        "6141",
+        "5395"
+      ],
+      "weights": [
+        0.5,
+        0.5
+      ],
+      "role": "primary",
+      "generation_schedule": {
+        "1": 0.0,
+        "2": 0.0
+      },
+      "generator_fraction": 0.0
+    },
+    {
+      "name": "bottleneck_ptdf_2_s2_cg",
+      "layout": "bottleneck_ptdf_2",
+      "policy": "s2_cg",
+      "bus_ids": [
+        "6141",
+        "5395"
+      ],
+      "weights": [
+        0.5,
+        0.5
+      ],
+      "role": "primary",
+      "generation_schedule": {
+        "1": 0.0,
+        "2": 1.0
+      },
+      "generator_fraction": 1.0
+    },
+    {
+      "name": "bottleneck_ptdf_2_both_cg",
+      "layout": "bottleneck_ptdf_2",
+      "policy": "both_cg",
+      "bus_ids": [
+        "6141",
+        "5395"
+      ],
+      "weights": [
+        0.5,
+        0.5
+      ],
+      "role": "primary",
+      "generation_schedule": {
+        "1": 1.0,
+        "2": 1.0
+      },
+      "generator_fraction": 1.0
+    },
+    {
+      "name": "bottleneck_ptdf_5_grid",
+      "layout": "bottleneck_ptdf_5",
+      "policy": "grid",
+      "bus_ids": [
+        "6141",
+        "5395",
+        "6342",
+        "5451",
+        "6004"
+      ],
+      "weights": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ],
+      "role": "primary",
+      "generation_schedule": {
+        "1": 0.0,
+        "2": 0.0
+      },
+      "generator_fraction": 0.0
+    },
+    {
+      "name": "bottleneck_ptdf_5_s2_cg",
+      "layout": "bottleneck_ptdf_5",
+      "policy": "s2_cg",
+      "bus_ids": [
+        "6141",
+        "5395",
+        "6342",
+        "5451",
+        "6004"
+      ],
+      "weights": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ],
+      "role": "primary",
+      "generation_schedule": {
+        "1": 0.0,
+        "2": 1.0
+      },
+      "generator_fraction": 1.0
+    },
+    {
+      "name": "bottleneck_ptdf_5_both_cg",
+      "layout": "bottleneck_ptdf_5",
+      "policy": "both_cg",
+      "bus_ids": [
+        "6141",
+        "5395",
+        "6342",
+        "5451",
+        "6004"
+      ],
+      "weights": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ],
+      "role": "primary",
+      "generation_schedule": {
+        "1": 1.0,
+        "2": 1.0
+      },
+      "generator_fraction": 1.0
+    },
+    {
+      "name": "bottleneck_ptdf_5_s1_125_s2_cg",
+      "layout": "bottleneck_ptdf_5",
+      "policy": "s1_125_s2_cg",
+      "bus_ids": [
+        "6141",
+        "5395",
+        "6342",
+        "5451",
+        "6004"
+      ],
+      "weights": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ],
+      "role": "sizing",
+      "generation_schedule": {
+        "1": 0.25,
+        "2": 1.0
+      },
+      "generator_fraction": 1.0
+    },
+    {
+      "name": "bottleneck_ptdf_5_s1_250_s2_cg",
+      "layout": "bottleneck_ptdf_5",
+      "policy": "s1_250_s2_cg",
+      "bus_ids": [
+        "6141",
+        "5395",
+        "6342",
+        "5451",
+        "6004"
+      ],
+      "weights": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ],
+      "role": "sizing",
+      "generation_schedule": {
+        "1": 0.5,
+        "2": 1.0
+      },
+      "generator_fraction": 1.0
+    },
+    {
+      "name": "bottleneck_ptdf_5_s1_375_s2_cg",
+      "layout": "bottleneck_ptdf_5",
+      "policy": "s1_375_s2_cg",
+      "bus_ids": [
+        "6141",
+        "5395",
+        "6342",
+        "5451",
+        "6004"
+      ],
+      "weights": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ],
+      "role": "sizing",
+      "generation_schedule": {
+        "1": 0.75,
+        "2": 1.0
+      },
+      "generator_fraction": 1.0
+    }
+  ]
+}

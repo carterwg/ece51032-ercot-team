@@ -1,0 +1,17 @@
+experiment,capacity_per_submission_mw,scenario_id,round,score_billions,bus_id,grid_supply_share,private_generation_share
+ten-teams-500mw,500,nine_both_cg_ptdf_5,week-2-submission-1,18.263287149279993,6141,1.0,0.0
+ten-teams-500mw,500,nine_both_cg_ptdf_5,week-2-submission-2,16.892113710879148,6141,0.9070313841617296,0.09296861583827053
+ten-teams-500mw,500,nine_both_cg_ptdf_5,week-3-submission-1,17.687336918328963,6141,1.0,0.0
+ten-teams-500mw,500,nine_both_cg_ptdf_5,week-3-submission-2,15.930578962065162,6141,0.9070313841617296,0.09296861583827053
+ten-teams-500mw,500,nine_grid_at_6141,week-2-submission-1,10.973293451275827,6141,1.0,0.0
+ten-teams-500mw,500,nine_grid_at_6141,week-2-submission-2,17.26199904299082,6141,0.9996941988523725,0.0003058011476274342
+ten-teams-500mw,500,nine_grid_at_6141,week-3-submission-1,10.639618540258898,6141,1.0,0.0
+ten-teams-500mw,500,nine_grid_at_6141,week-3-submission-2,16.70356034997964,6141,0.9996941988523725,0.0003058011476274342
+ten-teams-500mw,500,nine_grid_at_hosting_1,week-2-submission-1,11.0467377042301,6141,1.0,0.0
+ten-teams-500mw,500,nine_grid_at_hosting_1,week-2-submission-2,17.26209251147412,6141,0.9997201833325888,0.0002798166674111306
+ten-teams-500mw,500,nine_grid_at_hosting_1,week-3-submission-1,10.71110647175646,6141,1.0,0.0
+ten-teams-500mw,500,nine_grid_at_hosting_1,week-3-submission-2,16.70513835407097,6141,0.9997201833325888,0.0002798166674111306
+ten-teams-500mw,500,nine_s2_cg_hosting_2,week-2-submission-1,11.046738201333358,6141,1.0,0.0
+ten-teams-500mw,500,nine_s2_cg_hosting_2,week-2-submission-2,17.178498881825,6141,0.9661010508538209,0.03389894914617918
+ten-teams-500mw,500,nine_s2_cg_hosting_2,week-3-submission-1,10.711142942851719,6141,1.0,0.0
+ten-teams-500mw,500,nine_s2_cg_hosting_2,week-3-submission-2,16.350290207026713,6141,0.9661010508538209,0.03389894914617918

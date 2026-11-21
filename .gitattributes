@@ -1,0 +1,3 @@
+# Part 1 reports are verified by their committed byte fingerprints.
+/analysis/clustering/part1/** -text
+/analysis/clustering/part1/*.csv whitespace=cr-at-eol

@@ -13,42 +13,42 @@ The minimum award for the selected build was 499.901525136 MW in nine_g50_b175_a
 
 | Opponent field | Rival buses | G per rival MW | P per rival MW | Our S1 MW |
 | --- | --- | --- | --- | --- |
-| [nine_grid_at_6141](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_grid_at_6141.md) | 6141 | 0 | 0 | 500.000000000 |
-| [nine_grid_at_hosting_1](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_grid_at_hosting_1.md) | 1079 | 0 | 0 | 500.000000000 |
-| [nine_s2_cg_hosting_2](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_s2_cg_hosting_2.md) | 1079, 2054 | 0 | 0 | 500.000000000 |
-| [nine_both_cg_ptdf_5](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_both_cg_ptdf_5.md) | 6141, 5395, 6342, 5451, 6004 | 500 | 0 | 500.000000000 |
-| [nine_g125_at_6141](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_g125_at_6141.md) | 6141 | 125 | 0 | 500.000000000 |
-| [nine_g150_ptdf_5](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_g150_ptdf_5.md) | 6141, 5395, 6342, 5451, 6004 | 150 | 0 | 500.000000000 |
-| [nine_g200_at_6141](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_g200_at_6141.md) | 6141 | 200 | 0 | 500.000000000 |
-| [nine_b125_at_6141](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_b125_at_6141.md) | 6141 | 0 | 125 | 500.000000000 |
-| [nine_b196_at_6141](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_b196_at_6141.md) | 6141 | 0 | 196 | 500.000000000 |
-| [nine_b150_ptdf_5](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_b150_ptdf_5.md) | 6141, 5395, 6342, 5451, 6004 | 0 | 150 | 500.000000000 |
-| [nine_g75_b125_at_6141](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_g75_b125_at_6141.md) | 6141 | 75 | 125 | 499.925737570 |
-| [nine_random_storage_01](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_random_storage_01.md) | 6141 | 55 | 70 | 500.000000000 |
-| [nine_random_storage_02](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_random_storage_02.md) | 6141 | 70 | 195 | 500.000000000 |
-| [nine_random_storage_03](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_random_storage_03.md) | 6141 | 85 | 155 | 500.000000000 |
-| [nine_random_storage_04](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_random_storage_04.md) | 6141 | 145 | 80 | 500.000000000 |
-| [nine_random_storage_05](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_random_storage_05.md) | 6141 | 170 | 120 | 500.000000000 |
-| [nine_random_storage_06](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_random_storage_06.md) | 6141 | 165 | 185 | 500.000000000 |
-| [nine_random_storage_07](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_random_storage_07.md) | 1079, 2054 | 50 | 145 | 500.000000000 |
-| [nine_random_storage_08](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_random_storage_08.md) | 1079, 2054 | 160 | 145 | 500.000000000 |
-| [nine_random_storage_09](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_random_storage_09.md) | 6141, 5395, 6342, 5451, 6004 | 35 | 190 | 500.000000000 |
-| [nine_random_storage_10](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_random_storage_10.md) | 6141, 5395, 6342, 5451, 6004 | 145 | 110 | 500.000000000 |
-| [nine_g50_b125_at_6141](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_g50_b125_at_6141.md) | 6141 | 50 | 125 | 499.944569464 |
-| [nine_g50_b150_at_6141](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_g50_b150_at_6141.md) | 6141 | 50 | 150 | 499.940265031 |
+| [nine_grid_at_6141](<Battery_S1_G97_P99__nine_grid_at_6141.md>) | 6141 | 0 | 0 | 500.000000000 |
+| [nine_grid_at_hosting_1](<Battery_S1_G97_P99__nine_grid_at_hosting_1.md>) | 1079 | 0 | 0 | 500.000000000 |
+| [nine_s2_cg_hosting_2](<Battery_S1_G97_P99__nine_s2_cg_hosting_2.md>) | 1079, 2054 | 0 | 0 | 500.000000000 |
+| [nine_both_cg_ptdf_5](<Battery_S1_G97_P99__nine_both_cg_ptdf_5.md>) | 6141, 5395, 6342, 5451, 6004 | 500 | 0 | 500.000000000 |
+| [nine_g125_at_6141](<Battery_S1_G97_P99__nine_g125_at_6141.md>) | 6141 | 125 | 0 | 500.000000000 |
+| [nine_g150_ptdf_5](<Battery_S1_G97_P99__nine_g150_ptdf_5.md>) | 6141, 5395, 6342, 5451, 6004 | 150 | 0 | 500.000000000 |
+| [nine_g200_at_6141](<Battery_S1_G97_P99__nine_g200_at_6141.md>) | 6141 | 200 | 0 | 500.000000000 |
+| [nine_b125_at_6141](<Battery_S1_G97_P99__nine_b125_at_6141.md>) | 6141 | 0 | 125 | 500.000000000 |
+| [nine_b196_at_6141](<Battery_S1_G97_P99__nine_b196_at_6141.md>) | 6141 | 0 | 196 | 500.000000000 |
+| [nine_b150_ptdf_5](<Battery_S1_G97_P99__nine_b150_ptdf_5.md>) | 6141, 5395, 6342, 5451, 6004 | 0 | 150 | 500.000000000 |
+| [nine_g75_b125_at_6141](<Battery_S1_G97_P99__nine_g75_b125_at_6141.md>) | 6141 | 75 | 125 | 499.925737570 |
+| [nine_random_storage_01](<Battery_S1_G97_P99__nine_random_storage_01.md>) | 6141 | 55 | 70 | 500.000000000 |
+| [nine_random_storage_02](<Battery_S1_G97_P99__nine_random_storage_02.md>) | 6141 | 70 | 195 | 500.000000000 |
+| [nine_random_storage_03](<Battery_S1_G97_P99__nine_random_storage_03.md>) | 6141 | 85 | 155 | 500.000000000 |
+| [nine_random_storage_04](<Battery_S1_G97_P99__nine_random_storage_04.md>) | 6141 | 145 | 80 | 500.000000000 |
+| [nine_random_storage_05](<Battery_S1_G97_P99__nine_random_storage_05.md>) | 6141 | 170 | 120 | 500.000000000 |
+| [nine_random_storage_06](<Battery_S1_G97_P99__nine_random_storage_06.md>) | 6141 | 165 | 185 | 500.000000000 |
+| [nine_random_storage_07](<Battery_S1_G97_P99__nine_random_storage_07.md>) | 1079, 2054 | 50 | 145 | 500.000000000 |
+| [nine_random_storage_08](<Battery_S1_G97_P99__nine_random_storage_08.md>) | 1079, 2054 | 160 | 145 | 500.000000000 |
+| [nine_random_storage_09](<Battery_S1_G97_P99__nine_random_storage_09.md>) | 6141, 5395, 6342, 5451, 6004 | 35 | 190 | 500.000000000 |
+| [nine_random_storage_10](<Battery_S1_G97_P99__nine_random_storage_10.md>) | 6141, 5395, 6342, 5451, 6004 | 145 | 110 | 500.000000000 |
+| [nine_g50_b125_at_6141](<Battery_S1_G97_P99__nine_g50_b125_at_6141.md>) | 6141 | 50 | 125 | 499.944569464 |
+| [nine_g50_b150_at_6141](<Battery_S1_G97_P99__nine_g50_b150_at_6141.md>) | 6141 | 50 | 150 | 499.940265031 |
 | [nine_g50_b175_at_6141](<Battery_S1_G97_P99__nine_g50_b175_at_6141.md>) | 6141 | 50 | 175 | 499.901525136 |
-| [nine_g50_b200_at_6141](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_g50_b200_at_6141.md) | 6141 | 50 | 200 | 500.000000000 |
-| [nine_g75_b150_at_6141](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_g75_b150_at_6141.md) | 6141 | 75 | 150 | 500.000000000 |
-| [nine_g75_b175_at_6141](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_g75_b175_at_6141.md) | 6141 | 75 | 175 | 500.000000000 |
-| [nine_g75_b200_at_6141](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_g75_b200_at_6141.md) | 6141 | 75 | 200 | 500.000000000 |
-| [nine_g100_b125_at_6141](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_g100_b125_at_6141.md) | 6141 | 100 | 125 | 500.000000000 |
-| [nine_g100_b150_at_6141](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_g100_b150_at_6141.md) | 6141 | 100 | 150 | 500.000000000 |
-| [nine_g100_b175_at_6141](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_g100_b175_at_6141.md) | 6141 | 100 | 175 | 500.000000000 |
-| [nine_g100_b200_at_6141](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_g100_b200_at_6141.md) | 6141 | 100 | 200 | 500.000000000 |
-| [nine_g125_b125_at_6141](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_g125_b125_at_6141.md) | 6141 | 125 | 125 | 500.000000000 |
-| [nine_g125_b150_at_6141](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_g125_b150_at_6141.md) | 6141 | 125 | 150 | 500.000000000 |
-| [nine_g125_b175_at_6141](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_g125_b175_at_6141.md) | 6141 | 125 | 175 | 500.000000000 |
-| [nine_g125_b200_at_6141](https://github.com/carterwg/ece51032-ercot-team/blob/9ad5075b1ecdb501fd063f56a328d9cbcd4a972f/findings/Battery_S1_G97_P99__nine_g125_b200_at_6141.md) | 6141 | 125 | 200 | 500.000000000 |
+| [nine_g50_b200_at_6141](<Battery_S1_G97_P99__nine_g50_b200_at_6141.md>) | 6141 | 50 | 200 | 500.000000000 |
+| [nine_g75_b150_at_6141](<Battery_S1_G97_P99__nine_g75_b150_at_6141.md>) | 6141 | 75 | 150 | 500.000000000 |
+| [nine_g75_b175_at_6141](<Battery_S1_G97_P99__nine_g75_b175_at_6141.md>) | 6141 | 75 | 175 | 500.000000000 |
+| [nine_g75_b200_at_6141](<Battery_S1_G97_P99__nine_g75_b200_at_6141.md>) | 6141 | 75 | 200 | 500.000000000 |
+| [nine_g100_b125_at_6141](<Battery_S1_G97_P99__nine_g100_b125_at_6141.md>) | 6141 | 100 | 125 | 500.000000000 |
+| [nine_g100_b150_at_6141](<Battery_S1_G97_P99__nine_g100_b150_at_6141.md>) | 6141 | 100 | 150 | 500.000000000 |
+| [nine_g100_b175_at_6141](<Battery_S1_G97_P99__nine_g100_b175_at_6141.md>) | 6141 | 100 | 175 | 500.000000000 |
+| [nine_g100_b200_at_6141](<Battery_S1_G97_P99__nine_g100_b200_at_6141.md>) | 6141 | 100 | 200 | 500.000000000 |
+| [nine_g125_b125_at_6141](<Battery_S1_G97_P99__nine_g125_b125_at_6141.md>) | 6141 | 125 | 125 | 500.000000000 |
+| [nine_g125_b150_at_6141](<Battery_S1_G97_P99__nine_g125_b150_at_6141.md>) | 6141 | 125 | 150 | 500.000000000 |
+| [nine_g125_b175_at_6141](<Battery_S1_G97_P99__nine_g125_b175_at_6141.md>) | 6141 | 125 | 175 | 500.000000000 |
+| [nine_g125_b200_at_6141](<Battery_S1_G97_P99__nine_g125_b200_at_6141.md>) | 6141 | 125 | 200 | 500.000000000 |
 
 ## Personal notes
 
