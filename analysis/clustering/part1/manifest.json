@@ -1,0 +1,1108 @@
+{
+  "schema_version": 1,
+  "status": "complete",
+  "solver": "highs",
+  "scenario_sha256": "93c59da616364082cd5fa973eb500c6150e44d7467bc683867b3d2942e586bd9",
+  "source_sha256": {
+    "src/team_strategy/clustering/bottlenecks.py": "90cafff51adc4c978f3d0df11cb363c42fe9016bf8eb7724d824768aeee8a1f0",
+    "src/team_strategy/clustering/candidates.py": "2572d456009f3aab86f099ef700a390738e60e6e225402548164638f9bb986fe",
+    "src/team_strategy/clustering/groups.py": "70df1c133b53d17dc850cc3ee461b26570265045f41431a2b0b688f089dd8460",
+    "src/team_strategy/clustering/interactions.py": "d65655a81a9728573447b872058ac4db79815340656261103261e0d6af220be3",
+    "src/team_strategy/clustering/report.py": "80c5c0268bfe7d803c6f7c1203e822a4df446d32e9ca119fa94109e452f02555",
+    "src/team_strategy/clustering/stress_scenarios.py": "ad08b2040e0533b23edfab9ca5b15d4a4262e584ee2600c23241039eb86928d1",
+    "ercot-connection-game/tools/activsg2000/dcopf.py": "1a0023b38304741edc6569e791568a40f1d4d01af470a2c1e5927de86f9ad327",
+    "ercot-connection-game/tools/hosting_capacity.py": "ae7e7e0bf23b83cabeb3225abf802ca812d000365e5cac003fbc1789a596a4f8"
+  },
+  "seed": 17,
+  "pair_count_requested": 96,
+  "candidate_pool": {
+    "candidates": [
+      {
+        "bus_id": "1079",
+        "hosting_capacity_mw": 3024.604058982,
+        "binding_period_index": 109,
+        "hosting_rank": 1,
+        "screening_rank": 61,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "2054",
+        "hosting_capacity_mw": 3024.604058981,
+        "binding_period_index": 109,
+        "hosting_rank": 2,
+        "screening_rank": 32,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "2127",
+        "hosting_capacity_mw": 3024.604058981,
+        "binding_period_index": 109,
+        "hosting_rank": 3,
+        "screening_rank": 63,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "3046",
+        "hosting_capacity_mw": 3024.604058982,
+        "binding_period_index": 109,
+        "hosting_rank": 4,
+        "screening_rank": 81,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "3048",
+        "hosting_capacity_mw": 3024.604058982,
+        "binding_period_index": 109,
+        "hosting_rank": 5,
+        "screening_rank": 40,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "3088",
+        "hosting_capacity_mw": 3024.604058982,
+        "binding_period_index": 109,
+        "hosting_rank": 6,
+        "screening_rank": 93,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5018",
+        "hosting_capacity_mw": 3024.604059002,
+        "binding_period_index": 109,
+        "hosting_rank": 7,
+        "screening_rank": 89,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5045",
+        "hosting_capacity_mw": 3024.604059003,
+        "binding_period_index": 109,
+        "hosting_rank": 8,
+        "screening_rank": 68,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5120",
+        "hosting_capacity_mw": 3024.604059003,
+        "binding_period_index": 109,
+        "hosting_rank": 9,
+        "screening_rank": 75,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5131",
+        "hosting_capacity_mw": 3024.604059003,
+        "binding_period_index": 109,
+        "hosting_rank": 10,
+        "screening_rank": 228,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5236",
+        "hosting_capacity_mw": 3024.604059003,
+        "binding_period_index": 109,
+        "hosting_rank": 11,
+        "screening_rank": 70,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5279",
+        "hosting_capacity_mw": 3024.604059003,
+        "binding_period_index": 109,
+        "hosting_rank": 12,
+        "screening_rank": 30,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5358",
+        "hosting_capacity_mw": 3024.604058989,
+        "binding_period_index": 109,
+        "hosting_rank": 13,
+        "screening_rank": 10,
+        "inclusion_reasons": [
+          "high_hosting_capacity",
+          "high_composite_screening"
+        ]
+      },
+      {
+        "bus_id": "5451",
+        "hosting_capacity_mw": 3024.60405899,
+        "binding_period_index": 109,
+        "hosting_rank": 14,
+        "screening_rank": 237,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "6003",
+        "hosting_capacity_mw": 3024.60405899,
+        "binding_period_index": 109,
+        "hosting_rank": 15,
+        "screening_rank": 18,
+        "inclusion_reasons": [
+          "high_hosting_capacity",
+          "high_composite_screening"
+        ]
+      },
+      {
+        "bus_id": "6021",
+        "hosting_capacity_mw": 3024.60405899,
+        "binding_period_index": 109,
+        "hosting_rank": 16,
+        "screening_rank": 254,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "6038",
+        "hosting_capacity_mw": 3024.60405899,
+        "binding_period_index": 109,
+        "hosting_rank": 17,
+        "screening_rank": 26,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "6045",
+        "hosting_capacity_mw": 3024.604058991,
+        "binding_period_index": 109,
+        "hosting_rank": 18,
+        "screening_rank": 73,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "6056",
+        "hosting_capacity_mw": 3024.604058991,
+        "binding_period_index": 109,
+        "hosting_rank": 19,
+        "screening_rank": 231,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "6107",
+        "hosting_capacity_mw": 3024.60405899,
+        "binding_period_index": 109,
+        "hosting_rank": 20,
+        "screening_rank": 5,
+        "inclusion_reasons": [
+          "high_hosting_capacity",
+          "high_composite_screening"
+        ]
+      },
+      {
+        "bus_id": "6118",
+        "hosting_capacity_mw": 3024.60405899,
+        "binding_period_index": 109,
+        "hosting_rank": 21,
+        "screening_rank": 41,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "6197",
+        "hosting_capacity_mw": 3024.604058991,
+        "binding_period_index": 109,
+        "hosting_rank": 22,
+        "screening_rank": 224,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "6210",
+        "hosting_capacity_mw": 3024.60405899,
+        "binding_period_index": 109,
+        "hosting_rank": 23,
+        "screening_rank": 3,
+        "inclusion_reasons": [
+          "high_hosting_capacity",
+          "high_composite_screening"
+        ]
+      },
+      {
+        "bus_id": "6234",
+        "hosting_capacity_mw": 3024.604058991,
+        "binding_period_index": 109,
+        "hosting_rank": 24,
+        "screening_rank": 250,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "6254",
+        "hosting_capacity_mw": 3024.604058991,
+        "binding_period_index": 109,
+        "hosting_rank": 25,
+        "screening_rank": 29,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "6292",
+        "hosting_capacity_mw": 3024.604058991,
+        "binding_period_index": 109,
+        "hosting_rank": 26,
+        "screening_rank": 20,
+        "inclusion_reasons": [
+          "high_hosting_capacity",
+          "high_composite_screening"
+        ]
+      },
+      {
+        "bus_id": "6349",
+        "hosting_capacity_mw": 3024.604059008,
+        "binding_period_index": 109,
+        "hosting_rank": 27,
+        "screening_rank": 35,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "8082",
+        "hosting_capacity_mw": 3024.604058987,
+        "binding_period_index": 109,
+        "hosting_rank": 28,
+        "screening_rank": 15,
+        "inclusion_reasons": [
+          "high_hosting_capacity",
+          "high_composite_screening"
+        ]
+      },
+      {
+        "bus_id": "8155",
+        "hosting_capacity_mw": 3024.604058986,
+        "binding_period_index": 109,
+        "hosting_rank": 29,
+        "screening_rank": 80,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5413",
+        "hosting_capacity_mw": 3022.548206525,
+        "binding_period_index": 109,
+        "hosting_rank": 30,
+        "screening_rank": 19,
+        "inclusion_reasons": [
+          "high_hosting_capacity",
+          "high_composite_screening"
+        ]
+      },
+      {
+        "bus_id": "5260",
+        "hosting_capacity_mw": 3013.224651329,
+        "binding_period_index": 109,
+        "hosting_rank": 31,
+        "screening_rank": 4,
+        "inclusion_reasons": [
+          "high_hosting_capacity",
+          "high_composite_screening"
+        ]
+      },
+      {
+        "bus_id": "5317",
+        "hosting_capacity_mw": 3008.717984878,
+        "binding_period_index": 109,
+        "hosting_rank": 32,
+        "screening_rank": 21,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "6141",
+        "hosting_capacity_mw": 3004.494974536,
+        "binding_period_index": 109,
+        "hosting_rank": 33,
+        "screening_rank": 1,
+        "inclusion_reasons": [
+          "high_hosting_capacity",
+          "high_composite_screening",
+          "required"
+        ]
+      },
+      {
+        "bus_id": "5401",
+        "hosting_capacity_mw": 3000.918796606,
+        "binding_period_index": 109,
+        "hosting_rank": 34,
+        "screening_rank": 36,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "6239",
+        "hosting_capacity_mw": 2979.668076029,
+        "binding_period_index": 109,
+        "hosting_rank": 35,
+        "screening_rank": 2,
+        "inclusion_reasons": [
+          "high_hosting_capacity",
+          "high_composite_screening"
+        ]
+      },
+      {
+        "bus_id": "5021",
+        "hosting_capacity_mw": 2970.582476182,
+        "binding_period_index": 109,
+        "hosting_rank": 36,
+        "screening_rank": 225,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "3058",
+        "hosting_capacity_mw": 2969.887535352,
+        "binding_period_index": 25,
+        "hosting_rank": 37,
+        "screening_rank": 65,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5204",
+        "hosting_capacity_mw": 2966.296466557,
+        "binding_period_index": 109,
+        "hosting_rank": 38,
+        "screening_rank": 13,
+        "inclusion_reasons": [
+          "high_hosting_capacity",
+          "high_composite_screening"
+        ]
+      },
+      {
+        "bus_id": "6161",
+        "hosting_capacity_mw": 2960.255483034,
+        "binding_period_index": 109,
+        "hosting_rank": 39,
+        "screening_rank": 12,
+        "inclusion_reasons": [
+          "high_hosting_capacity",
+          "high_composite_screening"
+        ]
+      },
+      {
+        "bus_id": "6062",
+        "hosting_capacity_mw": 2958.840537157,
+        "binding_period_index": 109,
+        "hosting_rank": 40,
+        "screening_rank": 258,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5361",
+        "hosting_capacity_mw": 2954.772270184,
+        "binding_period_index": 109,
+        "hosting_rank": 41,
+        "screening_rank": 9,
+        "inclusion_reasons": [
+          "high_hosting_capacity",
+          "high_composite_screening"
+        ]
+      },
+      {
+        "bus_id": "5239",
+        "hosting_capacity_mw": 2952.371617798,
+        "binding_period_index": 109,
+        "hosting_rank": 42,
+        "screening_rank": 96,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5196",
+        "hosting_capacity_mw": 2944.683482855,
+        "binding_period_index": 109,
+        "hosting_rank": 43,
+        "screening_rank": 100,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5479",
+        "hosting_capacity_mw": 2936.680618797,
+        "binding_period_index": 109,
+        "hosting_rank": 44,
+        "screening_rank": 245,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "6075",
+        "hosting_capacity_mw": 2935.287615462,
+        "binding_period_index": 109,
+        "hosting_rank": 45,
+        "screening_rank": 11,
+        "inclusion_reasons": [
+          "high_hosting_capacity",
+          "high_composite_screening"
+        ]
+      },
+      {
+        "bus_id": "5047",
+        "hosting_capacity_mw": 2929.372022718,
+        "binding_period_index": 109,
+        "hosting_rank": 46,
+        "screening_rank": 24,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5015",
+        "hosting_capacity_mw": 2929.08898613,
+        "binding_period_index": 109,
+        "hosting_rank": 47,
+        "screening_rank": 229,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5063",
+        "hosting_capacity_mw": 2919.844287438,
+        "binding_period_index": 109,
+        "hosting_rank": 48,
+        "screening_rank": 7,
+        "inclusion_reasons": [
+          "high_hosting_capacity",
+          "high_composite_screening"
+        ]
+      },
+      {
+        "bus_id": "8043",
+        "hosting_capacity_mw": 2919.136330973,
+        "binding_period_index": 109,
+        "hosting_rank": 49,
+        "screening_rank": 45,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5179",
+        "hosting_capacity_mw": 2915.951014962,
+        "binding_period_index": 109,
+        "hosting_rank": 50,
+        "screening_rank": 221,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5164",
+        "hosting_capacity_mw": 2914.342438617,
+        "binding_period_index": 109,
+        "hosting_rank": 51,
+        "screening_rank": 46,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5380",
+        "hosting_capacity_mw": 2907.189881221,
+        "binding_period_index": 109,
+        "hosting_rank": 52,
+        "screening_rank": 49,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5448",
+        "hosting_capacity_mw": 2906.748293563,
+        "binding_period_index": 109,
+        "hosting_rank": 53,
+        "screening_rank": 251,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5322",
+        "hosting_capacity_mw": 2904.769055688,
+        "binding_period_index": 109,
+        "hosting_rank": 54,
+        "screening_rank": 16,
+        "inclusion_reasons": [
+          "high_hosting_capacity",
+          "high_composite_screening"
+        ]
+      },
+      {
+        "bus_id": "5384",
+        "hosting_capacity_mw": 2893.822142809,
+        "binding_period_index": 109,
+        "hosting_rank": 55,
+        "screening_rank": 227,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5033",
+        "hosting_capacity_mw": 2891.803466413,
+        "binding_period_index": 109,
+        "hosting_rank": 56,
+        "screening_rank": 6,
+        "inclusion_reasons": [
+          "high_hosting_capacity",
+          "high_composite_screening"
+        ]
+      },
+      {
+        "bus_id": "5464",
+        "hosting_capacity_mw": 2886.695392302,
+        "binding_period_index": 109,
+        "hosting_rank": 57,
+        "screening_rank": 239,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5102",
+        "hosting_capacity_mw": 2880.785378415,
+        "binding_period_index": 109,
+        "hosting_rank": 58,
+        "screening_rank": 244,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5083",
+        "hosting_capacity_mw": 2878.2114659,
+        "binding_period_index": 109,
+        "hosting_rank": 59,
+        "screening_rank": 240,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5295",
+        "hosting_capacity_mw": 2874.419223846,
+        "binding_period_index": 109,
+        "hosting_rank": 60,
+        "screening_rank": 8,
+        "inclusion_reasons": [
+          "high_hosting_capacity",
+          "high_composite_screening"
+        ]
+      },
+      {
+        "bus_id": "5350",
+        "hosting_capacity_mw": 2869.367915481,
+        "binding_period_index": 109,
+        "hosting_rank": 61,
+        "screening_rank": 234,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5304",
+        "hosting_capacity_mw": 2866.655725949,
+        "binding_period_index": 109,
+        "hosting_rank": 62,
+        "screening_rank": 242,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "6066",
+        "hosting_capacity_mw": 2854.307554727,
+        "binding_period_index": 109,
+        "hosting_rank": 63,
+        "screening_rank": 31,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "2101",
+        "hosting_capacity_mw": 2849.681096184,
+        "binding_period_index": 109,
+        "hosting_rank": 64,
+        "screening_rank": 257,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "2002",
+        "hosting_capacity_mw": 2831.716445542,
+        "binding_period_index": 109,
+        "hosting_rank": 65,
+        "screening_rank": 255,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5323",
+        "hosting_capacity_mw": 2830.532686986,
+        "binding_period_index": 109,
+        "hosting_rank": 66,
+        "screening_rank": 661,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5388",
+        "hosting_capacity_mw": 2804.38413882,
+        "binding_period_index": 109,
+        "hosting_rank": 67,
+        "screening_rank": 253,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "7095",
+        "hosting_capacity_mw": 2799.18197838,
+        "binding_period_index": 109,
+        "hosting_rank": 68,
+        "screening_rank": 22,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "7098",
+        "hosting_capacity_mw": 2799.18197837,
+        "binding_period_index": 109,
+        "hosting_rank": 69,
+        "screening_rank": 88,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "7099",
+        "hosting_capacity_mw": 2799.18197838,
+        "binding_period_index": 109,
+        "hosting_rank": 70,
+        "screening_rank": 87,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "7414",
+        "hosting_capacity_mw": 2795.556040089,
+        "binding_period_index": 109,
+        "hosting_rank": 71,
+        "screening_rank": 58,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "7018",
+        "hosting_capacity_mw": 2791.061760682,
+        "binding_period_index": 109,
+        "hosting_rank": 72,
+        "screening_rank": 51,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "7058",
+        "hosting_capacity_mw": 2771.851543342,
+        "binding_period_index": 109,
+        "hosting_rank": 73,
+        "screening_rank": 33,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "2113",
+        "hosting_capacity_mw": 2768.711430567,
+        "binding_period_index": 109,
+        "hosting_rank": 74,
+        "screening_rank": 27,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "2017",
+        "hosting_capacity_mw": 2763.361109156,
+        "binding_period_index": 109,
+        "hosting_rank": 75,
+        "screening_rank": 79,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "7042",
+        "hosting_capacity_mw": 2760.29992903,
+        "binding_period_index": 109,
+        "hosting_rank": 76,
+        "screening_rank": 64,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5049",
+        "hosting_capacity_mw": 2752.441343326,
+        "binding_period_index": 109,
+        "hosting_rank": 77,
+        "screening_rank": 99,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5395",
+        "hosting_capacity_mw": 2738.822496045,
+        "binding_period_index": 109,
+        "hosting_rank": 78,
+        "screening_rank": 286,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "8126",
+        "hosting_capacity_mw": 2722.552407056,
+        "binding_period_index": 109,
+        "hosting_rank": 79,
+        "screening_rank": 14,
+        "inclusion_reasons": [
+          "high_hosting_capacity",
+          "high_composite_screening"
+        ]
+      },
+      {
+        "bus_id": "5263",
+        "hosting_capacity_mw": 2664.999999707,
+        "binding_period_index": 32,
+        "hosting_rank": 80,
+        "screening_rank": 94,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5262",
+        "hosting_capacity_mw": 2664.999999352,
+        "binding_period_index": 0,
+        "hosting_rank": 81,
+        "screening_rank": 95,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5444",
+        "hosting_capacity_mw": 2654.255549684,
+        "binding_period_index": 109,
+        "hosting_rank": 82,
+        "screening_rank": 52,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "7304",
+        "hosting_capacity_mw": 2607.799789424,
+        "binding_period_index": 109,
+        "hosting_rank": 83,
+        "screening_rank": 57,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5410",
+        "hosting_capacity_mw": 2606.744497409,
+        "binding_period_index": 109,
+        "hosting_rank": 84,
+        "screening_rank": 266,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "8057",
+        "hosting_capacity_mw": 2600.390669769,
+        "binding_period_index": 109,
+        "hosting_rank": 85,
+        "screening_rank": 260,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "7199",
+        "hosting_capacity_mw": 2596.402605257,
+        "binding_period_index": 109,
+        "hosting_rank": 86,
+        "screening_rank": 249,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "2011",
+        "hosting_capacity_mw": 2593.029164896,
+        "binding_period_index": 109,
+        "hosting_rank": 87,
+        "screening_rank": 83,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5385",
+        "hosting_capacity_mw": 2587.810454447,
+        "binding_period_index": 109,
+        "hosting_rank": 88,
+        "screening_rank": 654,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5055",
+        "hosting_capacity_mw": 2576.741837483,
+        "binding_period_index": 109,
+        "hosting_rank": 89,
+        "screening_rank": 66,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "6033",
+        "hosting_capacity_mw": 2540.414092514,
+        "binding_period_index": 109,
+        "hosting_rank": 90,
+        "screening_rank": 267,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "6298",
+        "hosting_capacity_mw": 2513.832888856,
+        "binding_period_index": 109,
+        "hosting_rank": 91,
+        "screening_rank": 44,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5394",
+        "hosting_capacity_mw": 2495.202584094,
+        "binding_period_index": 109,
+        "hosting_rank": 92,
+        "screening_rank": 69,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5137",
+        "hosting_capacity_mw": 2453.835415772,
+        "binding_period_index": 109,
+        "hosting_rank": 93,
+        "screening_rank": 276,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5103",
+        "hosting_capacity_mw": 2425.570933749,
+        "binding_period_index": 109,
+        "hosting_rank": 94,
+        "screening_rank": 667,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "6004",
+        "hosting_capacity_mw": 2405.896599097,
+        "binding_period_index": 109,
+        "hosting_rank": 95,
+        "screening_rank": 305,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "7047",
+        "hosting_capacity_mw": 2386.90613573,
+        "binding_period_index": 109,
+        "hosting_rank": 96,
+        "screening_rank": 277,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "6342",
+        "hosting_capacity_mw": 2342.091501918,
+        "binding_period_index": 109,
+        "hosting_rank": 97,
+        "screening_rank": 299,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "7159",
+        "hosting_capacity_mw": 2341.616153032,
+        "binding_period_index": 109,
+        "hosting_rank": 98,
+        "screening_rank": 25,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "5360",
+        "hosting_capacity_mw": 2341.0,
+        "binding_period_index": 0,
+        "hosting_rank": 99,
+        "screening_rank": 101,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "7341",
+        "hosting_capacity_mw": 2334.532613498,
+        "binding_period_index": 109,
+        "hosting_rank": 100,
+        "screening_rank": 268,
+        "inclusion_reasons": [
+          "high_hosting_capacity"
+        ]
+      },
+      {
+        "bus_id": "7346",
+        "hosting_capacity_mw": 2222.443248733,
+        "binding_period_index": 109,
+        "hosting_rank": 125,
+        "screening_rank": 17,
+        "inclusion_reasons": [
+          "high_composite_screening"
+        ]
+      }
+    ],
+    "catalog_bus_count": 2000,
+    "top_hosting_count": 100,
+    "top_screening_count": 20,
+    "required_bus_ids": [
+      "6141"
+    ],
+    "input_sha256": [
+      [
+        "hosting_capacity",
+        "b3fac131933fb269519d88f0f09c7f5853732f5925ae321b5328e192c1c48191"
+      ],
+      [
+        "screening",
+        "a675c22e2ada3e956eedc431c6986d25af6c1ba645aaf4381633f204f754761c"
+      ],
+      [
+        "bus_catalog",
+        "067b6d8532413226346b94913c33bb1c623d0c47aeac1d20b22cfeb8326ae487"
+      ]
+    ]
+  },
+  "horizon": 120,
+  "operating_request_mw": 500.0,
+  "interaction_loads_mw": [
+    250.0,
+    500.0
+  ],
+  "scope": "Fixed grid-only withdrawals; no game allocation, score, generator/storage sweep, or S2 carryover.",
+  "python_version": "3.14.3 (main, Feb  3 2026, 15:32:20) [Clang 17.0.0 (clang-1700.6.3.2)]",
+  "numpy_version": "2.5.5",
+  "solver_version": "1.16.0",
+  "reused_evidence_sha256": {
+    "manifest.json": "f066a259ceb01e2b5261bf78b952133a2e5a4f0ec5f3d7e3418c42d9ba7bf856",
+    "baseline.json": "8bb3fc1dd3605be9d47d53bbacbab0046561d90d4c51f3470b4e2f4202c1ed9f",
+    "stress.json": "63668ecb9ef0265d15b3a80e3226f95cebd806284c61e569734abe7273a6b797",
+    "interactions.json": "997d05cced9c048b68d59389bb4b19ff466ec180931e066192732dbfd1e6f0d3"
+  },
+  "extra_stress_evidence_sha256": {
+    "manifest.json": "ee17a72bff2abcc6e080313a9b099b981d99d3ea0d510309b9b4f06aad64d02b",
+    "stress.json": "393ed57b1b5a9d991c03fd7a18294e0a34f18d68e396d87d4233a3a371623c97"
+  },
+  "validation_sampling_scenarios": [
+    "baseline",
+    "hub_500",
+    "generation_500",
+    "shared_line_500",
+    "alternative_split_500",
+    "hub_2000",
+    "distributed_2000"
+  ],
+  "valid_scenario_count": 9,
+  "overlapping_group_count": 35,
+  "refined_cohort_count": 58,
+  "interaction_pair_count": 96,
+  "directional_test_count": 384,
+  "verification_sha256": "1bfcf2efb05e210a1059e5c12d0e2248611f866b4acaa25c05a35498e5ce6f86",
+  "verification_status": "passed"
+}

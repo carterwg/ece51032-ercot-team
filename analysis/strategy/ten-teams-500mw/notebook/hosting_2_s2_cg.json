@@ -1,0 +1,256 @@
+{
+  "campaigns": [
+    {
+      "experiment": "ten-teams-500mw",
+      "capacity_per_submission_mw": 500,
+      "hypothetical_capacity_override": false,
+      "scenario_id": "nine_both_cg_ptdf_5",
+      "source_scenario_sha256": "93c59da616364082cd5fa973eb500c6150e44d7467bc683867b3d2942e586bd9",
+      "effective_rules_sha256": "e1625e5274fdc0e269c89a8e43d34b09de9bdae3b75aca904179ba3d18d22b2b",
+      "effective_release_sha256": "3b52af2b1ccd2f537c529aa5a76b211a1f7037c27a6f2f90161331db82b5ed2c",
+      "rounds": [
+        {
+          "round": "week-2-submission-1",
+          "score": 18263287149.27999,
+          "service_fraction": 1.0,
+          "valid": true,
+          "feasible": true,
+          "it_value": 30763287149.27999,
+          "energy_cost": 0.0,
+          "generator_operating_cost": 0.0,
+          "generator_capital_cost": 0.0,
+          "site_cost": 12500000000.0,
+          "storage_capital_cost": 0.0
+        },
+        {
+          "round": "week-2-submission-2",
+          "score": 16821851873.224491,
+          "service_fraction": 1.0,
+          "valid": true,
+          "feasible": true,
+          "it_value": 30763287149.27999,
+          "energy_cost": 0.0,
+          "generator_operating_cost": 441435276.05550116,
+          "generator_capital_cost": 1000000000.0,
+          "site_cost": 12500000000.0,
+          "storage_capital_cost": 0.0
+        },
+        {
+          "round": "week-3-submission-1",
+          "score": 17685821693.259113,
+          "service_fraction": 1.0,
+          "valid": true,
+          "feasible": true,
+          "it_value": 30763287149.27999,
+          "energy_cost": 577465456.0208793,
+          "generator_operating_cost": 0.0,
+          "generator_capital_cost": 0.0,
+          "site_cost": 12500000000.0,
+          "storage_capital_cost": 0.0
+        },
+        {
+          "round": "week-3-submission-2",
+          "score": 15811259447.695816,
+          "service_fraction": 1.0,
+          "valid": true,
+          "feasible": true,
+          "it_value": 30763287149.27999,
+          "energy_cost": 1010592425.528675,
+          "generator_operating_cost": 441435276.05550116,
+          "generator_capital_cost": 1000000000.0,
+          "site_cost": 12500000000.0,
+          "storage_capital_cost": 0.0
+        }
+      ]
+    },
+    {
+      "experiment": "ten-teams-500mw",
+      "capacity_per_submission_mw": 500,
+      "hypothetical_capacity_override": false,
+      "scenario_id": "nine_grid_at_6141",
+      "source_scenario_sha256": "93c59da616364082cd5fa973eb500c6150e44d7467bc683867b3d2942e586bd9",
+      "effective_rules_sha256": "e1625e5274fdc0e269c89a8e43d34b09de9bdae3b75aca904179ba3d18d22b2b",
+      "effective_release_sha256": "3b52af2b1ccd2f537c529aa5a76b211a1f7037c27a6f2f90161331db82b5ed2c",
+      "rounds": [
+        {
+          "round": "week-2-submission-1",
+          "score": 11046737207.15232,
+          "service_fraction": 0.6048602925014955,
+          "valid": true,
+          "feasible": true,
+          "it_value": 18607490863.421017,
+          "energy_cost": 0.0,
+          "generator_operating_cost": 0.0,
+          "generator_capital_cost": 0.0,
+          "site_cost": 7560753656.268695,
+          "storage_capital_cost": 0.0
+        },
+        {
+          "round": "week-2-submission-2",
+          "score": 17262092511.47408,
+          "service_fraction": 1.0,
+          "valid": true,
+          "feasible": true,
+          "it_value": 30763287149.27999,
+          "energy_cost": 0.0,
+          "generator_operating_cost": 1194637.8059113566,
+          "generator_capital_cost": 1000000000.0,
+          "site_cost": 12500000000.0,
+          "storage_capital_cost": 0.0
+        },
+        {
+          "round": "week-3-submission-1",
+          "score": 10710818673.671665,
+          "service_fraction": 0.6048602925014955,
+          "valid": true,
+          "feasible": true,
+          "it_value": 18607490863.421017,
+          "energy_cost": 335918533.48065674,
+          "generator_operating_cost": 0.0,
+          "generator_capital_cost": 0.0,
+          "site_cost": 7560753656.268695,
+          "storage_capital_cost": 0.0
+        },
+        {
+          "round": "week-3-submission-2",
+          "score": 16704620915.838474,
+          "service_fraction": 1.0,
+          "valid": true,
+          "feasible": true,
+          "it_value": 30763287149.27999,
+          "energy_cost": 557471595.6356055,
+          "generator_operating_cost": 1194637.8059113566,
+          "generator_capital_cost": 1000000000.0,
+          "site_cost": 12500000000.0,
+          "storage_capital_cost": 0.0
+        }
+      ]
+    },
+    {
+      "experiment": "ten-teams-500mw",
+      "capacity_per_submission_mw": 500,
+      "hypothetical_capacity_override": false,
+      "scenario_id": "nine_grid_at_hosting_1",
+      "source_scenario_sha256": "93c59da616364082cd5fa973eb500c6150e44d7467bc683867b3d2942e586bd9",
+      "effective_rules_sha256": "e1625e5274fdc0e269c89a8e43d34b09de9bdae3b75aca904179ba3d18d22b2b",
+      "effective_release_sha256": "3b52af2b1ccd2f537c529aa5a76b211a1f7037c27a6f2f90161331db82b5ed2c",
+      "rounds": [
+        {
+          "round": "week-2-submission-1",
+          "score": 11046737207.088993,
+          "service_fraction": 0.6048602924980275,
+          "valid": true,
+          "feasible": true,
+          "it_value": 18607490863.31434,
+          "energy_cost": 0.0,
+          "generator_operating_cost": 0.0,
+          "generator_capital_cost": 0.0,
+          "site_cost": 7560753656.225345,
+          "storage_capital_cost": 0.0
+        },
+        {
+          "round": "week-2-submission-2",
+          "score": 17262082437.089134,
+          "service_fraction": 1.0,
+          "valid": true,
+          "feasible": true,
+          "it_value": 30763287149.27999,
+          "energy_cost": 0.0,
+          "generator_operating_cost": 1204712.190858734,
+          "generator_capital_cost": 1000000000.0,
+          "site_cost": 12500000000.0,
+          "storage_capital_cost": 0.0
+        },
+        {
+          "round": "week-3-submission-1",
+          "score": 10708640658.493355,
+          "service_fraction": 0.6048602924980275,
+          "valid": true,
+          "feasible": true,
+          "it_value": 18607490863.31434,
+          "energy_cost": 338096548.5956397,
+          "generator_operating_cost": 0.0,
+          "generator_capital_cost": 0.0,
+          "site_cost": 7560753656.225345,
+          "storage_capital_cost": 0.0
+        },
+        {
+          "round": "week-3-submission-2",
+          "score": 16699480479.546032,
+          "service_fraction": 1.0,
+          "valid": true,
+          "feasible": true,
+          "it_value": 30763287149.27999,
+          "energy_cost": 562601957.543103,
+          "generator_operating_cost": 1204712.190858734,
+          "generator_capital_cost": 1000000000.0,
+          "site_cost": 12500000000.0,
+          "storage_capital_cost": 0.0
+        }
+      ]
+    },
+    {
+      "experiment": "ten-teams-500mw",
+      "capacity_per_submission_mw": 500,
+      "hypothetical_capacity_override": false,
+      "scenario_id": "nine_s2_cg_hosting_2",
+      "source_scenario_sha256": "93c59da616364082cd5fa973eb500c6150e44d7467bc683867b3d2942e586bd9",
+      "effective_rules_sha256": "e1625e5274fdc0e269c89a8e43d34b09de9bdae3b75aca904179ba3d18d22b2b",
+      "effective_release_sha256": "3b52af2b1ccd2f537c529aa5a76b211a1f7037c27a6f2f90161331db82b5ed2c",
+      "rounds": [
+        {
+          "round": "week-2-submission-1",
+          "score": 11046737704.12709,
+          "service_fraction": 0.6048603197131805,
+          "valid": true,
+          "feasible": true,
+          "it_value": 18607491700.541847,
+          "energy_cost": 0.0,
+          "generator_operating_cost": 0.0,
+          "generator_capital_cost": 0.0,
+          "site_cost": 7560753996.414756,
+          "storage_capital_cost": 0.0
+        },
+        {
+          "round": "week-2-submission-2",
+          "score": 16723461667.932995,
+          "service_fraction": 1.0,
+          "valid": true,
+          "feasible": true,
+          "it_value": 30763287149.27999,
+          "energy_cost": 0.0,
+          "generator_operating_cost": 539825481.346995,
+          "generator_capital_cost": 1000000000.0,
+          "site_cost": 12500000000.0,
+          "storage_capital_cost": 0.0
+        },
+        {
+          "round": "week-3-submission-1",
+          "score": 10708608622.833164,
+          "service_fraction": 0.6048603197131805,
+          "valid": true,
+          "feasible": true,
+          "it_value": 18607491700.541847,
+          "energy_cost": 338129081.2939248,
+          "generator_operating_cost": 0.0,
+          "generator_capital_cost": 0.0,
+          "site_cost": 7560753996.414756,
+          "storage_capital_cost": 0.0
+        },
+        {
+          "round": "week-3-submission-2",
+          "score": 15123396709.42514,
+          "service_fraction": 1.0,
+          "valid": true,
+          "feasible": true,
+          "it_value": 30763287149.27999,
+          "energy_cost": 1600064958.5078528,
+          "generator_operating_cost": 539825481.346995,
+          "generator_capital_cost": 1000000000.0,
+          "site_cost": 12500000000.0,
+          "storage_capital_cost": 0.0
+        }
+      ]
+    }
+  ]
+}

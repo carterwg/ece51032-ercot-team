@@ -1,0 +1,32 @@
+{
+  "status": "complete",
+  "identity": {
+    "config_sha256": "957879ccc6070995b751dd92a76f3e4c78381c3eb2b0364ba85394092f6a55ef",
+    "scenario_sha256": "93c59da616364082cd5fa973eb500c6150e44d7467bc683867b3d2942e586bd9",
+    "rules_sha256": "e1625e5274fdc0e269c89a8e43d34b09de9bdae3b75aca904179ba3d18d22b2b",
+    "release_sha256": "3b52af2b1ccd2f537c529aa5a76b211a1f7037c27a6f2f90161331db82b5ed2c",
+    "source_sha256": {
+      "src/team_strategy/experiments/ten_teams.py": "95a83f81181e6783a9cfc30bd65f944a7bb380a9251562c006102259147c1ea5",
+      "src/team_strategy/evaluation/campaign.py": "ffbdfd54c233e34ac5ca6c400bbe436da1e239516c84f32a73f19542a789b375",
+      "src/team_strategy/evaluation/allocation_roundoff.py": "ad9e5b0de5f98cab6f63c1c37e7ac4821cfd145fdf0b9d798351d707ef55a8e0",
+      "ercot-connection-game/tools/activsg2000/allocation.py": "81e19c04a7cb2cccdc19a92878d9e2e02f03634734de964d28bc704b0f2b58c5",
+      "ercot-connection-game/src/ercot_game/batch_evaluation.py": "db5e8a52e33356d5820657a34b0c9d3c1d3b8c686889146e41a33435b70af9fd"
+    }
+  },
+  "artifact_sha256": {
+    "cells.json": "7a1d48a98f88eb9abcc1dc8af514e95bcdcc64a88a64bf92d2e30df87dfa1a78"
+  },
+  "accepted_followup_retries": [
+    "bottleneck_ptdf_1_both_cg/nine_grid_at_6141",
+    "hosting_2_both_cg/nine_grid_at_6141",
+    "hosting_5_both_cg/nine_grid_at_6141"
+  ],
+  "campaign_count": 96,
+  "evaluation_count": 384,
+  "matched_opponent_round_count": 16,
+  "all_artifact_hashes_verified": true,
+  "weekly_resets_and_all_team_carryover_verified": true,
+  "economic_arithmetic_verified": true,
+  "verified_matched_rival_rounds": 16,
+  "verified_all_csv_requests": true
+}

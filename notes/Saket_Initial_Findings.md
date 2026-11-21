@@ -59,9 +59,7 @@ Scores below are ten-year present values in **billions of USD**.
 | **Combined** | **55.271** | **67.955** | **12.684** |
 
 Combined scores use unrounded results; displayed rows are rounded independently.
-The source is the [saved comparison](../analysis/cg_bus_comparison_500mw.csv),
-supported by the [baseline](../analysis/baseline_cg_500mw.csv) and
-[Carter variant](../analysis/carter_rank1_cg_500mw.csv) per-round results.
+These are historical observations. The current scored comparison uses ten teams. See [ten-team findings](../findings/Ten_teams_500_MW_comparison.md).
 
 ## 3. Full allocation did not mean full grid supply
 
@@ -197,18 +195,11 @@ outcomes.
 ## 9. Evidence and reusable interpretation
 
 The shared framework had **89 passing tests** at the initial merge, including
-an integration check through the instructor evaluator. The template and both
-strategy notebooks execute against the saved 500 MW evidence.
+an integration check through the instructor evaluator. The notebooks now load the ten-team comparison.
 
 | Artifact | Purpose |
 | --- | --- |
-| [Baseline campaign summary](../analysis/baseline_cg_500mw.json) | Settings, scores, input fingerprints, and verification |
-| [Carter campaign summary](../analysis/carter_rank1_cg_500mw.json) | Matching evidence for bus 6141 |
-| [Comparison CSV](../analysis/cg_bus_comparison_500mw.csv) | Combined scores, gains, and normalized scores |
 | [Main template](../notebooks/main_template.ipynb) | Common plots and comparison conventions |
 | [Baseline notebook](../notebooks/01_full_generation_baseline.ipynb) | Baseline plots and calculated findings |
 | [Carter notebook](../notebooks/02_carter_rank1_cg.ipynb) | Bus 6141 plots and calculated findings |
 | [Strategy development guide](../docs/STRATEGY_DEVELOPMENT.md) | How to add, validate, evaluate, and compare a strategy |
-
-Large raw runs remain local under `runs/finalized-500mw/` and are ignored by Git.
-The committed summaries and notebooks provide the shared results for the team.

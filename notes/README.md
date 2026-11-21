@@ -7,6 +7,7 @@ submission**. Earlier recommendations may predate that finalization; use the
 
 | Note | Subject |
 | --- | --- |
+| [Saket findings for November 19, 2026](Saket_Findings_11-19-2026.md) | S1 generator and battery sizing with targeted optimization across 36 ten-team fields |
 | [Saket initial findings](Saket_Initial_Findings.md) | Finalized 500 MW baseline and bus 6141 evaluations, score decomposition, and open questions |
 | [Carter findings summary](Carter_Monday_Nov11_Findings.md) | Hosting capacity, shared headroom, bottlenecks, and competition studies |
 | [Carter agent notes](Carter_Agent_Notes.md) | Prompts, analysis steps, and recorded outputs |

@@ -1,0 +1,1404 @@
+{
+  "field_count": 36,
+  "existing_count": 21,
+  "adversarial_count": 16,
+  "initial_checks": [
+    {
+      "sizes": [
+        150,
+        0
+      ],
+      "awards": {
+        "nine_b125_at_6141": 499.9439416173396,
+        "nine_b196_at_6141": 500.0,
+        "nine_b150_ptdf_5": 432.043085513444,
+        "nine_g75_b125_at_6141": 499.90152513516307
+      }
+    },
+    {
+      "sizes": [
+        145,
+        10
+      ],
+      "awards": {
+        "nine_b125_at_6141": 499.9449430136405,
+        "nine_b196_at_6141": 500.0,
+        "nine_b150_ptdf_5": 499.9197069887396,
+        "nine_g75_b125_at_6141": 499.90959594657005
+      }
+    },
+    {
+      "sizes": [
+        150,
+        5
+      ],
+      "awards": {
+        "nine_b125_at_6141": 499.94494301398123,
+        "nine_b196_at_6141": 500.0,
+        "nine_b150_ptdf_5": 499.9197069893566,
+        "nine_g75_b125_at_6141": 499.92304729965497
+      }
+    },
+    {
+      "sizes": [
+        135,
+        35
+      ],
+      "awards": {
+        "nine_b125_at_6141": 500.0,
+        "nine_b196_at_6141": 500.0,
+        "nine_b150_ptdf_5": 499.94238925090514,
+        "nine_g75_b125_at_6141": 499.92977297587487
+      }
+    },
+    {
+      "sizes": [
+        125,
+        50
+      ],
+      "awards": {
+        "nine_b125_at_6141": 500.0,
+        "nine_b196_at_6141": 500.0,
+        "nine_b150_ptdf_5": 499.9439014017802,
+        "nine_g75_b125_at_6141": 499.9257375705084
+      }
+    }
+  ],
+  "summary": [
+    {
+      "sizes": [
+        95,
+        105
+      ],
+      "capital_m": 337.0,
+      "min_s1_mw": 499.9153608126472,
+      "min_s2_mw": 500.0,
+      "full_s1_count": 32,
+      "near_firm_count": 36,
+      "mean_score_usd": 64520754430.65184,
+      "worst_score_usd": 62751587349.75458,
+      "cases": {
+        "nine_grid_at_6141": {
+          "field": "nine_grid_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 69259252204.9399,
+          "finding": "findings/Battery_S1_G95_P105__nine_grid_at_6141_campaign.md"
+        },
+        "nine_grid_at_hosting_1": {
+          "field": "nine_grid_at_hosting_1",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 69262804744.44583,
+          "finding": "findings/Battery_S1_G95_P105__nine_grid_at_hosting_1_campaign.md"
+        },
+        "nine_s2_cg_hosting_2": {
+          "field": "nine_s2_cg_hosting_2",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68785979618.57025,
+          "finding": "findings/Battery_S1_G95_P105__nine_s2_cg_hosting_2_campaign.md"
+        },
+        "nine_both_cg_ptdf_5": {
+          "field": "nine_both_cg_ptdf_5",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68141477169.2278,
+          "finding": "findings/Battery_S1_G95_P105__nine_both_cg_ptdf_5_campaign.md"
+        },
+        "nine_g125_at_6141": {
+          "field": "nine_g125_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 63811474071.38263,
+          "finding": "findings/Battery_S1_G95_P105__nine_g125_at_6141_campaign.md"
+        },
+        "nine_g150_ptdf_5": {
+          "field": "nine_g150_ptdf_5",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68364580156.12218,
+          "finding": "findings/Battery_S1_G95_P105__nine_g150_ptdf_5_campaign.md"
+        },
+        "nine_g200_at_6141": {
+          "field": "nine_g200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62775237943.06916,
+          "finding": "findings/Battery_S1_G95_P105__nine_g200_at_6141_campaign.md"
+        },
+        "nine_b125_at_6141": {
+          "field": "nine_b125_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 63863982689.0895,
+          "finding": "findings/Battery_S1_G95_P105__nine_b125_at_6141_campaign.md"
+        },
+        "nine_b196_at_6141": {
+          "field": "nine_b196_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 63440497449.40725,
+          "finding": "findings/Battery_S1_G95_P105__nine_b196_at_6141_campaign.md"
+        },
+        "nine_b150_ptdf_5": {
+          "field": "nine_b150_ptdf_5",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68406707283.12627,
+          "finding": "findings/Battery_S1_G95_P105__nine_b150_ptdf_5_campaign.md"
+        },
+        "nine_g75_b125_at_6141": {
+          "field": "nine_g75_b125_at_6141",
+          "s1_mw": 499.92977297664083,
+          "s2_mw": 500.0,
+          "score_usd": 62915255719.234924,
+          "finding": "findings/Battery_S1_G95_P105__nine_g75_b125_at_6141_campaign.md"
+        },
+        "nine_random_storage_01": {
+          "field": "nine_random_storage_01",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 63854283409.536026,
+          "finding": "findings/Battery_S1_G95_P105__nine_random_storage_01_campaign.md"
+        },
+        "nine_random_storage_02": {
+          "field": "nine_random_storage_02",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62759093093.20128,
+          "finding": "findings/Battery_S1_G95_P105__nine_random_storage_02_campaign.md"
+        },
+        "nine_random_storage_03": {
+          "field": "nine_random_storage_03",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62767148675.47673,
+          "finding": "findings/Battery_S1_G95_P105__nine_random_storage_03_campaign.md"
+        },
+        "nine_random_storage_04": {
+          "field": "nine_random_storage_04",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62797136278.87537,
+          "finding": "findings/Battery_S1_G95_P105__nine_random_storage_04_campaign.md"
+        },
+        "nine_random_storage_05": {
+          "field": "nine_random_storage_05",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62785586035.301476,
+          "finding": "findings/Battery_S1_G95_P105__nine_random_storage_05_campaign.md"
+        },
+        "nine_random_storage_06": {
+          "field": "nine_random_storage_06",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62762404759.95802,
+          "finding": "findings/Battery_S1_G95_P105__nine_random_storage_06_campaign.md"
+        },
+        "nine_random_storage_07": {
+          "field": "nine_random_storage_07",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68564391415.237946,
+          "finding": "findings/Battery_S1_G95_P105__nine_random_storage_07_campaign.md"
+        },
+        "nine_random_storage_08": {
+          "field": "nine_random_storage_08",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68566301055.82697,
+          "finding": "findings/Battery_S1_G95_P105__nine_random_storage_08_campaign.md"
+        },
+        "nine_random_storage_09": {
+          "field": "nine_random_storage_09",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68257765069.393265,
+          "finding": "findings/Battery_S1_G95_P105__nine_random_storage_09_campaign.md"
+        },
+        "nine_random_storage_10": {
+          "field": "nine_random_storage_10",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68231330980.805435,
+          "finding": "findings/Battery_S1_G95_P105__nine_random_storage_10_campaign.md"
+        },
+        "nine_g50_b125_at_6141": {
+          "field": "nine_g50_b125_at_6141",
+          "s1_mw": 499.9447984229183,
+          "s2_mw": 500.0,
+          "score_usd": 63288672613.59505,
+          "finding": "findings/Battery_S1_G95_P105__nine_g50_b125_at_6141_campaign.md"
+        },
+        "nine_g50_b150_at_6141": {
+          "field": "nine_g50_b150_at_6141",
+          "s1_mw": 499.94098243494324,
+          "s2_mw": 500.0,
+          "score_usd": 63091132824.929565,
+          "finding": "findings/Battery_S1_G95_P105__nine_g50_b150_at_6141_campaign.md"
+        },
+        "nine_g50_b175_at_6141": {
+          "field": "nine_g50_b175_at_6141",
+          "s1_mw": 499.9153608126472,
+          "s2_mw": 500.0,
+          "score_usd": 62831108848.18346,
+          "finding": "findings/Battery_S1_G95_P105__nine_g50_b175_at_6141_campaign.md"
+        },
+        "nine_g50_b200_at_6141": {
+          "field": "nine_g50_b200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62757031949.122375,
+          "finding": "findings/Battery_S1_G95_P105__nine_g50_b200_at_6141_campaign.md"
+        },
+        "nine_g75_b150_at_6141": {
+          "field": "nine_g75_b150_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62768411592.66383,
+          "finding": "findings/Battery_S1_G95_P105__nine_g75_b150_at_6141_campaign.md"
+        },
+        "nine_g75_b175_at_6141": {
+          "field": "nine_g75_b175_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62751587349.75458,
+          "finding": "findings/Battery_S1_G95_P105__nine_g75_b175_at_6141_campaign.md"
+        },
+        "nine_g75_b200_at_6141": {
+          "field": "nine_g75_b200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62759080828.789566,
+          "finding": "findings/Battery_S1_G95_P105__nine_g75_b200_at_6141_campaign.md"
+        },
+        "nine_g100_b125_at_6141": {
+          "field": "nine_g100_b125_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62778481802.46206,
+          "finding": "findings/Battery_S1_G95_P105__nine_g100_b125_at_6141_campaign.md"
+        },
+        "nine_g100_b150_at_6141": {
+          "field": "nine_g100_b150_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62770466255.47662,
+          "finding": "findings/Battery_S1_G95_P105__nine_g100_b150_at_6141_campaign.md"
+        },
+        "nine_g100_b175_at_6141": {
+          "field": "nine_g100_b175_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62753537569.85179,
+          "finding": "findings/Battery_S1_G95_P105__nine_g100_b175_at_6141_campaign.md"
+        },
+        "nine_g100_b200_at_6141": {
+          "field": "nine_g100_b200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62759189671.13344,
+          "finding": "findings/Battery_S1_G95_P105__nine_g100_b200_at_6141_campaign.md"
+        },
+        "nine_g125_b125_at_6141": {
+          "field": "nine_g125_b125_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62780922095.78685,
+          "finding": "findings/Battery_S1_G95_P105__nine_g125_b125_at_6141_campaign.md"
+        },
+        "nine_g125_b150_at_6141": {
+          "field": "nine_g125_b150_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62771033879.27425,
+          "finding": "findings/Battery_S1_G95_P105__nine_g125_b150_at_6141_campaign.md"
+        },
+        "nine_g125_b175_at_6141": {
+          "field": "nine_g125_b175_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62754088497.52742,
+          "finding": "findings/Battery_S1_G95_P105__nine_g125_b175_at_6141_campaign.md"
+        },
+        "nine_g125_b200_at_6141": {
+          "field": "nine_g125_b200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62759723902.68707,
+          "finding": "findings/Battery_S1_G95_P105__nine_g125_b200_at_6141_campaign.md"
+        }
+      }
+    },
+    {
+      "sizes": [
+        85,
+        120
+      ],
+      "capital_m": 338.0,
+      "min_s1_mw": 499.9015251356068,
+      "min_s2_mw": 500.0,
+      "full_s1_count": 32,
+      "near_firm_count": 36,
+      "mean_score_usd": 64518681076.20878,
+      "worst_score_usd": 62749677632.02645,
+      "cases": {
+        "nine_grid_at_6141": {
+          "field": "nine_grid_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 69257569213.93341,
+          "finding": "findings/Battery_S1_G85_P120__nine_grid_at_6141_campaign.md"
+        },
+        "nine_grid_at_hosting_1": {
+          "field": "nine_grid_at_hosting_1",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 69261131673.26848,
+          "finding": "findings/Battery_S1_G85_P120__nine_grid_at_hosting_1_campaign.md"
+        },
+        "nine_s2_cg_hosting_2": {
+          "field": "nine_s2_cg_hosting_2",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68784683831.58397,
+          "finding": "findings/Battery_S1_G85_P120__nine_s2_cg_hosting_2_campaign.md"
+        },
+        "nine_both_cg_ptdf_5": {
+          "field": "nine_both_cg_ptdf_5",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68143325202.92592,
+          "finding": "findings/Battery_S1_G85_P120__nine_both_cg_ptdf_5_campaign.md"
+        },
+        "nine_g125_at_6141": {
+          "field": "nine_g125_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 63803634761.85001,
+          "finding": "findings/Battery_S1_G85_P120__nine_g125_at_6141_campaign.md"
+        },
+        "nine_g150_ptdf_5": {
+          "field": "nine_g150_ptdf_5",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68362376142.203835,
+          "finding": "findings/Battery_S1_G85_P120__nine_g150_ptdf_5_campaign.md"
+        },
+        "nine_g200_at_6141": {
+          "field": "nine_g200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62776766091.063156,
+          "finding": "findings/Battery_S1_G85_P120__nine_g200_at_6141_campaign.md"
+        },
+        "nine_b125_at_6141": {
+          "field": "nine_b125_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 63854197243.82736,
+          "finding": "findings/Battery_S1_G85_P120__nine_b125_at_6141_campaign.md"
+        },
+        "nine_b196_at_6141": {
+          "field": "nine_b196_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 63440207815.47182,
+          "finding": "findings/Battery_S1_G85_P120__nine_b196_at_6141_campaign.md"
+        },
+        "nine_b150_ptdf_5": {
+          "field": "nine_b150_ptdf_5",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68404279557.097336,
+          "finding": "findings/Battery_S1_G85_P120__nine_b150_ptdf_5_campaign.md"
+        },
+        "nine_g75_b125_at_6141": {
+          "field": "nine_g75_b125_at_6141",
+          "s1_mw": 499.925737570223,
+          "s2_mw": 500.0,
+          "score_usd": 62915430879.860344,
+          "finding": "findings/Battery_S1_G85_P120__nine_g75_b125_at_6141_campaign.md"
+        },
+        "nine_random_storage_01": {
+          "field": "nine_random_storage_01",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 63846066537.886856,
+          "finding": "findings/Battery_S1_G85_P120__nine_random_storage_01_campaign.md"
+        },
+        "nine_random_storage_02": {
+          "field": "nine_random_storage_02",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62757146611.17743,
+          "finding": "findings/Battery_S1_G85_P120__nine_random_storage_02_campaign.md"
+        },
+        "nine_random_storage_03": {
+          "field": "nine_random_storage_03",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62759252946.75486,
+          "finding": "findings/Battery_S1_G85_P120__nine_random_storage_03_campaign.md"
+        },
+        "nine_random_storage_04": {
+          "field": "nine_random_storage_04",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62795497279.36034,
+          "finding": "findings/Battery_S1_G85_P120__nine_random_storage_04_campaign.md"
+        },
+        "nine_random_storage_05": {
+          "field": "nine_random_storage_05",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62783106551.61496,
+          "finding": "findings/Battery_S1_G85_P120__nine_random_storage_05_campaign.md"
+        },
+        "nine_random_storage_06": {
+          "field": "nine_random_storage_06",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62760045962.489334,
+          "finding": "findings/Battery_S1_G85_P120__nine_random_storage_06_campaign.md"
+        },
+        "nine_random_storage_07": {
+          "field": "nine_random_storage_07",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68562830070.732086,
+          "finding": "findings/Battery_S1_G85_P120__nine_random_storage_07_campaign.md"
+        },
+        "nine_random_storage_08": {
+          "field": "nine_random_storage_08",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68564469803.72526,
+          "finding": "findings/Battery_S1_G85_P120__nine_random_storage_08_campaign.md"
+        },
+        "nine_random_storage_09": {
+          "field": "nine_random_storage_09",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68265702004.215935,
+          "finding": "findings/Battery_S1_G85_P120__nine_random_storage_09_campaign.md"
+        },
+        "nine_random_storage_10": {
+          "field": "nine_random_storage_10",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68229638481.83157,
+          "finding": "findings/Battery_S1_G85_P120__nine_random_storage_10_campaign.md"
+        },
+        "nine_g50_b125_at_6141": {
+          "field": "nine_g50_b125_at_6141",
+          "s1_mw": 499.9445694640359,
+          "s2_mw": 500.0,
+          "score_usd": 63287415478.31938,
+          "finding": "findings/Battery_S1_G85_P120__nine_g50_b125_at_6141_campaign.md"
+        },
+        "nine_g50_b150_at_6141": {
+          "field": "nine_g50_b150_at_6141",
+          "s1_mw": 499.94026503107057,
+          "s2_mw": 500.0,
+          "score_usd": 63089526154.33623,
+          "finding": "findings/Battery_S1_G85_P120__nine_g50_b150_at_6141_campaign.md"
+        },
+        "nine_g50_b175_at_6141": {
+          "field": "nine_g50_b175_at_6141",
+          "s1_mw": 499.9015251356068,
+          "s2_mw": 500.0,
+          "score_usd": 62827872052.57573,
+          "finding": "findings/Battery_S1_G85_P120__nine_g50_b175_at_6141_campaign.md"
+        },
+        "nine_g50_b200_at_6141": {
+          "field": "nine_g50_b200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62755131751.60704,
+          "finding": "findings/Battery_S1_G85_P120__nine_g50_b200_at_6141_campaign.md"
+        },
+        "nine_g75_b150_at_6141": {
+          "field": "nine_g75_b150_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62766470635.40114,
+          "finding": "findings/Battery_S1_G85_P120__nine_g75_b150_at_6141_campaign.md"
+        },
+        "nine_g75_b175_at_6141": {
+          "field": "nine_g75_b175_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62749677632.02645,
+          "finding": "findings/Battery_S1_G85_P120__nine_g75_b175_at_6141_campaign.md"
+        },
+        "nine_g75_b200_at_6141": {
+          "field": "nine_g75_b200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62757153048.58622,
+          "finding": "findings/Battery_S1_G85_P120__nine_g75_b200_at_6141_campaign.md"
+        },
+        "nine_g100_b125_at_6141": {
+          "field": "nine_g100_b125_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62776571299.27652,
+          "finding": "findings/Battery_S1_G85_P120__nine_g100_b125_at_6141_campaign.md"
+        },
+        "nine_g100_b150_at_6141": {
+          "field": "nine_g100_b150_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62768496718.372406,
+          "finding": "findings/Battery_S1_G85_P120__nine_g100_b150_at_6141_campaign.md"
+        },
+        "nine_g100_b175_at_6141": {
+          "field": "nine_g100_b175_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62751608793.20721,
+          "finding": "findings/Battery_S1_G85_P120__nine_g100_b175_at_6141_campaign.md"
+        },
+        "nine_g100_b200_at_6141": {
+          "field": "nine_g100_b200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62757251101.991486,
+          "finding": "findings/Battery_S1_G85_P120__nine_g100_b200_at_6141_campaign.md"
+        },
+        "nine_g125_b125_at_6141": {
+          "field": "nine_g125_b125_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62778993083.06157,
+          "finding": "findings/Battery_S1_G85_P120__nine_g125_b125_at_6141_campaign.md"
+        },
+        "nine_g125_b150_at_6141": {
+          "field": "nine_g125_b150_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62769057172.818756,
+          "finding": "findings/Battery_S1_G85_P120__nine_g125_b150_at_6141_campaign.md"
+        },
+        "nine_g125_b175_at_6141": {
+          "field": "nine_g125_b175_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62752154032.64363,
+          "finding": "findings/Battery_S1_G85_P120__nine_g125_b175_at_6141_campaign.md"
+        },
+        "nine_g125_b200_at_6141": {
+          "field": "nine_g125_b200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62757781126.41796,
+          "finding": "findings/Battery_S1_G85_P120__nine_g125_b200_at_6141_campaign.md"
+        }
+      }
+    },
+    {
+      "sizes": [
+        100,
+        100
+      ],
+      "capital_m": 340.0,
+      "min_s1_mw": 499.9257375703962,
+      "min_s2_mw": 500.0,
+      "full_s1_count": 33,
+      "near_firm_count": 36,
+      "mean_score_usd": 64513662153.95271,
+      "worst_score_usd": 62745558679.110634,
+      "cases": {
+        "nine_grid_at_6141": {
+          "field": "nine_grid_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 69253243318.57573,
+          "finding": "findings/Battery_S1_G100_P100__nine_grid_at_6141_campaign.md"
+        },
+        "nine_grid_at_hosting_1": {
+          "field": "nine_grid_at_hosting_1",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 69256729883.85999,
+          "finding": "findings/Battery_S1_G100_P100__nine_grid_at_hosting_1_campaign.md"
+        },
+        "nine_s2_cg_hosting_2": {
+          "field": "nine_s2_cg_hosting_2",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68779464241.17987,
+          "finding": "findings/Battery_S1_G100_P100__nine_s2_cg_hosting_2_campaign.md"
+        },
+        "nine_both_cg_ptdf_5": {
+          "field": "nine_both_cg_ptdf_5",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68134615163.355286,
+          "finding": "findings/Battery_S1_G100_P100__nine_both_cg_ptdf_5_campaign.md"
+        },
+        "nine_g125_at_6141": {
+          "field": "nine_g125_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 63805279238.32291,
+          "finding": "findings/Battery_S1_G100_P100__nine_g125_at_6141_campaign.md"
+        },
+        "nine_g150_ptdf_5": {
+          "field": "nine_g150_ptdf_5",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68358425330.28824,
+          "finding": "findings/Battery_S1_G100_P100__nine_g150_ptdf_5_campaign.md"
+        },
+        "nine_g200_at_6141": {
+          "field": "nine_g200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62768871250.13694,
+          "finding": "findings/Battery_S1_G100_P100__nine_g200_at_6141_campaign.md"
+        },
+        "nine_b125_at_6141": {
+          "field": "nine_b125_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 63857936428.102554,
+          "finding": "findings/Battery_S1_G100_P100__nine_b125_at_6141_campaign.md"
+        },
+        "nine_b196_at_6141": {
+          "field": "nine_b196_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 63431826212.83479,
+          "finding": "findings/Battery_S1_G100_P100__nine_b196_at_6141_campaign.md"
+        },
+        "nine_b150_ptdf_5": {
+          "field": "nine_b150_ptdf_5",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68400392136.16787,
+          "finding": "findings/Battery_S1_G100_P100__nine_b150_ptdf_5_campaign.md"
+        },
+        "nine_g75_b125_at_6141": {
+          "field": "nine_g75_b125_at_6141",
+          "s1_mw": 499.9338083821631,
+          "s2_mw": 500.0,
+          "score_usd": 62906265879.54858,
+          "finding": "findings/Battery_S1_G100_P100__nine_g75_b125_at_6141_campaign.md"
+        },
+        "nine_random_storage_01": {
+          "field": "nine_random_storage_01",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 63848220732.91631,
+          "finding": "findings/Battery_S1_G100_P100__nine_random_storage_01_campaign.md"
+        },
+        "nine_random_storage_02": {
+          "field": "nine_random_storage_02",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62753200078.04246,
+          "finding": "findings/Battery_S1_G100_P100__nine_random_storage_02_campaign.md"
+        },
+        "nine_random_storage_03": {
+          "field": "nine_random_storage_03",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62761065580.46074,
+          "finding": "findings/Battery_S1_G100_P100__nine_random_storage_03_campaign.md"
+        },
+        "nine_random_storage_04": {
+          "field": "nine_random_storage_04",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62791949084.439354,
+          "finding": "findings/Battery_S1_G100_P100__nine_random_storage_04_campaign.md"
+        },
+        "nine_random_storage_05": {
+          "field": "nine_random_storage_05",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62775943391.99806,
+          "finding": "findings/Battery_S1_G100_P100__nine_random_storage_05_campaign.md"
+        },
+        "nine_random_storage_06": {
+          "field": "nine_random_storage_06",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62756522569.03228,
+          "finding": "findings/Battery_S1_G100_P100__nine_random_storage_06_campaign.md"
+        },
+        "nine_random_storage_07": {
+          "field": "nine_random_storage_07",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68558290674.65869,
+          "finding": "findings/Battery_S1_G100_P100__nine_random_storage_07_campaign.md"
+        },
+        "nine_random_storage_08": {
+          "field": "nine_random_storage_08",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68560366571.23952,
+          "finding": "findings/Battery_S1_G100_P100__nine_random_storage_08_campaign.md"
+        },
+        "nine_random_storage_09": {
+          "field": "nine_random_storage_09",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68251615866.45129,
+          "finding": "findings/Battery_S1_G100_P100__nine_random_storage_09_campaign.md"
+        },
+        "nine_random_storage_10": {
+          "field": "nine_random_storage_10",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68217965930.68872,
+          "finding": "findings/Battery_S1_G100_P100__nine_random_storage_10_campaign.md"
+        },
+        "nine_g50_b125_at_6141": {
+          "field": "nine_g50_b125_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 63283497206.400314,
+          "finding": "findings/Battery_S1_G100_P100__nine_g50_b125_at_6141_campaign.md"
+        },
+        "nine_g50_b150_at_6141": {
+          "field": "nine_g50_b150_at_6141",
+          "s1_mw": 499.9418791932857,
+          "s2_mw": 500.0,
+          "score_usd": 63082158265.13933,
+          "finding": "findings/Battery_S1_G100_P100__nine_g50_b150_at_6141_campaign.md"
+        },
+        "nine_g50_b175_at_6141": {
+          "field": "nine_g50_b175_at_6141",
+          "s1_mw": 499.9257375703962,
+          "s2_mw": 500.0,
+          "score_usd": 62809361039.12355,
+          "finding": "findings/Battery_S1_G100_P100__nine_g50_b175_at_6141_campaign.md"
+        },
+        "nine_g50_b200_at_6141": {
+          "field": "nine_g50_b200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62751005282.60536,
+          "finding": "findings/Battery_S1_G100_P100__nine_g50_b200_at_6141_campaign.md"
+        },
+        "nine_g75_b150_at_6141": {
+          "field": "nine_g75_b150_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62762425638.84216,
+          "finding": "findings/Battery_S1_G100_P100__nine_g75_b150_at_6141_campaign.md"
+        },
+        "nine_g75_b175_at_6141": {
+          "field": "nine_g75_b175_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62745558679.110634,
+          "finding": "findings/Battery_S1_G100_P100__nine_g75_b175_at_6141_campaign.md"
+        },
+        "nine_g75_b200_at_6141": {
+          "field": "nine_g75_b200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62753058908.55284,
+          "finding": "findings/Battery_S1_G100_P100__nine_g75_b200_at_6141_campaign.md"
+        },
+        "nine_g100_b125_at_6141": {
+          "field": "nine_g100_b125_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62771071297.11827,
+          "finding": "findings/Battery_S1_G100_P100__nine_g100_b125_at_6141_campaign.md"
+        },
+        "nine_g100_b150_at_6141": {
+          "field": "nine_g100_b150_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62764486191.07333,
+          "finding": "findings/Battery_S1_G100_P100__nine_g100_b150_at_6141_campaign.md"
+        },
+        "nine_g100_b175_at_6141": {
+          "field": "nine_g100_b175_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62747510139.26077,
+          "finding": "findings/Battery_S1_G100_P100__nine_g100_b175_at_6141_campaign.md"
+        },
+        "nine_g100_b200_at_6141": {
+          "field": "nine_g100_b200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62753172782.846794,
+          "finding": "findings/Battery_S1_G100_P100__nine_g100_b200_at_6141_campaign.md"
+        },
+        "nine_g125_b125_at_6141": {
+          "field": "nine_g125_b125_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62773512842.004616,
+          "finding": "findings/Battery_S1_G100_P100__nine_g125_b125_at_6141_campaign.md"
+        },
+        "nine_g125_b150_at_6141": {
+          "field": "nine_g125_b150_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62765057138.2683,
+          "finding": "findings/Battery_S1_G100_P100__nine_g125_b150_at_6141_campaign.md"
+        },
+        "nine_g125_b175_at_6141": {
+          "field": "nine_g125_b175_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62748063670.840294,
+          "finding": "findings/Battery_S1_G100_P100__nine_g125_b175_at_6141_campaign.md"
+        },
+        "nine_g125_b200_at_6141": {
+          "field": "nine_g125_b200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62753708898.81086,
+          "finding": "findings/Battery_S1_G100_P100__nine_g125_b200_at_6141_campaign.md"
+        }
+      }
+    },
+    {
+      "sizes": [
+        75,
+        150
+      ],
+      "capital_m": 360.0,
+      "min_s1_mw": 499.93380838179024,
+      "min_s2_mw": 500.0,
+      "full_s1_count": 33,
+      "near_firm_count": 36,
+      "mean_score_usd": 64471010969.86655,
+      "worst_score_usd": 62707614221.99135,
+      "cases": {
+        "nine_grid_at_6141": {
+          "field": "nine_grid_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 69213833262.58539,
+          "finding": "findings/Battery_S1_G75_P150__nine_grid_at_6141_campaign.md"
+        },
+        "nine_grid_at_hosting_1": {
+          "field": "nine_grid_at_hosting_1",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 69217236628.1262,
+          "finding": "findings/Battery_S1_G75_P150__nine_grid_at_hosting_1_campaign.md"
+        },
+        "nine_s2_cg_hosting_2": {
+          "field": "nine_s2_cg_hosting_2",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68741814819.74162,
+          "finding": "findings/Battery_S1_G75_P150__nine_s2_cg_hosting_2_campaign.md"
+        },
+        "nine_both_cg_ptdf_5": {
+          "field": "nine_both_cg_ptdf_5",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68116131067.044945,
+          "finding": "findings/Battery_S1_G75_P150__nine_both_cg_ptdf_5_campaign.md"
+        },
+        "nine_g125_at_6141": {
+          "field": "nine_g125_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 63734977319.400085,
+          "finding": "findings/Battery_S1_G75_P150__nine_g125_at_6141_campaign.md"
+        },
+        "nine_g150_ptdf_5": {
+          "field": "nine_g150_ptdf_5",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68303928755.25691,
+          "finding": "findings/Battery_S1_G75_P150__nine_g150_ptdf_5_campaign.md"
+        },
+        "nine_g200_at_6141": {
+          "field": "nine_g200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62743194875.524864,
+          "finding": "findings/Battery_S1_G75_P150__nine_g200_at_6141_campaign.md"
+        },
+        "nine_b125_at_6141": {
+          "field": "nine_b125_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 63785568338.343765,
+          "finding": "findings/Battery_S1_G75_P150__nine_b125_at_6141_campaign.md"
+        },
+        "nine_b196_at_6141": {
+          "field": "nine_b196_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 63386803038.5625,
+          "finding": "findings/Battery_S1_G75_P150__nine_b196_at_6141_campaign.md"
+        },
+        "nine_b150_ptdf_5": {
+          "field": "nine_b150_ptdf_5",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68358971216.95249,
+          "finding": "findings/Battery_S1_G75_P150__nine_b150_ptdf_5_campaign.md"
+        },
+        "nine_g75_b125_at_6141": {
+          "field": "nine_g75_b125_at_6141",
+          "s1_mw": 499.9378437879731,
+          "s2_mw": 500.0,
+          "score_usd": 62861323836.120834,
+          "finding": "findings/Battery_S1_G75_P150__nine_g75_b125_at_6141_campaign.md"
+        },
+        "nine_random_storage_01": {
+          "field": "nine_random_storage_01",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 63776773204.26644,
+          "finding": "findings/Battery_S1_G75_P150__nine_random_storage_01_campaign.md"
+        },
+        "nine_random_storage_02": {
+          "field": "nine_random_storage_02",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62713261308.26543,
+          "finding": "findings/Battery_S1_G75_P150__nine_random_storage_02_campaign.md"
+        },
+        "nine_random_storage_03": {
+          "field": "nine_random_storage_03",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62715309707.783745,
+          "finding": "findings/Battery_S1_G75_P150__nine_random_storage_03_campaign.md"
+        },
+        "nine_random_storage_04": {
+          "field": "nine_random_storage_04",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62747608324.361465,
+          "finding": "findings/Battery_S1_G75_P150__nine_random_storage_04_campaign.md"
+        },
+        "nine_random_storage_05": {
+          "field": "nine_random_storage_05",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62735317819.1764,
+          "finding": "findings/Battery_S1_G75_P150__nine_random_storage_05_campaign.md"
+        },
+        "nine_random_storage_06": {
+          "field": "nine_random_storage_06",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62715276165.712036,
+          "finding": "findings/Battery_S1_G75_P150__nine_random_storage_06_campaign.md"
+        },
+        "nine_random_storage_07": {
+          "field": "nine_random_storage_07",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68518626029.834274,
+          "finding": "findings/Battery_S1_G75_P150__nine_random_storage_07_campaign.md"
+        },
+        "nine_random_storage_08": {
+          "field": "nine_random_storage_08",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68520249975.41222,
+          "finding": "findings/Battery_S1_G75_P150__nine_random_storage_08_campaign.md"
+        },
+        "nine_random_storage_09": {
+          "field": "nine_random_storage_09",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68220281194.70441,
+          "finding": "findings/Battery_S1_G75_P150__nine_random_storage_09_campaign.md"
+        },
+        "nine_random_storage_10": {
+          "field": "nine_random_storage_10",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68194714651.021614,
+          "finding": "findings/Battery_S1_G75_P150__nine_random_storage_10_campaign.md"
+        },
+        "nine_g50_b125_at_6141": {
+          "field": "nine_g50_b125_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 63225768452.97637,
+          "finding": "findings/Battery_S1_G75_P150__nine_g50_b125_at_6141_campaign.md"
+        },
+        "nine_g50_b150_at_6141": {
+          "field": "nine_g50_b150_at_6141",
+          "s1_mw": 499.94303216647995,
+          "s2_mw": 500.0,
+          "score_usd": 63031524583.22233,
+          "finding": "findings/Battery_S1_G75_P150__nine_g50_b150_at_6141_campaign.md"
+        },
+        "nine_g50_b175_at_6141": {
+          "field": "nine_g50_b175_at_6141",
+          "s1_mw": 499.93380838179024,
+          "s2_mw": 500.0,
+          "score_usd": 62758832567.557556,
+          "finding": "findings/Battery_S1_G75_P150__nine_g50_b175_at_6141_campaign.md"
+        },
+        "nine_g50_b200_at_6141": {
+          "field": "nine_g50_b200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62711331246.066216,
+          "finding": "findings/Battery_S1_G75_P150__nine_g50_b200_at_6141_campaign.md"
+        },
+        "nine_g75_b150_at_6141": {
+          "field": "nine_g75_b150_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62721396094.131516,
+          "finding": "findings/Battery_S1_G75_P150__nine_g75_b150_at_6141_campaign.md"
+        },
+        "nine_g75_b175_at_6141": {
+          "field": "nine_g75_b175_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62707614221.99135,
+          "finding": "findings/Battery_S1_G75_P150__nine_g75_b175_at_6141_campaign.md"
+        },
+        "nine_g75_b200_at_6141": {
+          "field": "nine_g75_b200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62713273567.48917,
+          "finding": "findings/Battery_S1_G75_P150__nine_g75_b200_at_6141_campaign.md"
+        },
+        "nine_g100_b125_at_6141": {
+          "field": "nine_g100_b125_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62736313869.758835,
+          "finding": "findings/Battery_S1_G75_P150__nine_g100_b125_at_6141_campaign.md"
+        },
+        "nine_g100_b150_at_6141": {
+          "field": "nine_g100_b150_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62723345329.49577,
+          "finding": "findings/Battery_S1_G75_P150__nine_g100_b150_at_6141_campaign.md"
+        },
+        "nine_g100_b175_at_6141": {
+          "field": "nine_g100_b175_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62707721756.134125,
+          "finding": "findings/Battery_S1_G75_P150__nine_g100_b175_at_6141_campaign.md"
+        },
+        "nine_g100_b200_at_6141": {
+          "field": "nine_g100_b200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62713359220.47406,
+          "finding": "findings/Battery_S1_G75_P150__nine_g100_b200_at_6141_campaign.md"
+        },
+        "nine_g125_b125_at_6141": {
+          "field": "nine_g125_b125_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62738670620.790955,
+          "finding": "findings/Battery_S1_G75_P150__nine_g125_b125_at_6141_campaign.md"
+        },
+        "nine_g125_b150_at_6141": {
+          "field": "nine_g125_b150_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62723897518.82143,
+          "finding": "findings/Battery_S1_G75_P150__nine_g125_b150_at_6141_campaign.md"
+        },
+        "nine_g125_b175_at_6141": {
+          "field": "nine_g125_b175_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62708260269.7361,
+          "finding": "findings/Battery_S1_G75_P150__nine_g125_b175_at_6141_campaign.md"
+        },
+        "nine_g125_b200_at_6141": {
+          "field": "nine_g125_b200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62713884058.35237,
+          "finding": "findings/Battery_S1_G75_P150__nine_g125_b200_at_6141_campaign.md"
+        }
+      }
+    },
+    {
+      "sizes": [
+        200,
+        0
+      ],
+      "capital_m": 400.0,
+      "min_s1_mw": 499.94394161448247,
+      "min_s2_mw": 500.0,
+      "full_s1_count": 35,
+      "near_firm_count": 36,
+      "mean_score_usd": 64386033474.471825,
+      "worst_score_usd": 62596838301.57041,
+      "cases": {
+        "nine_grid_at_6141": {
+          "field": "nine_grid_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 69131145029.91022,
+          "finding": "findings/Battery_S1_G200_P0__nine_grid_at_6141_campaign.md"
+        },
+        "nine_grid_at_hosting_1": {
+          "field": "nine_grid_at_hosting_1",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 69134287554.00507,
+          "finding": "findings/Battery_S1_G200_P0__nine_grid_at_hosting_1_campaign.md"
+        },
+        "nine_s2_cg_hosting_2": {
+          "field": "nine_s2_cg_hosting_2",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68650034332.20157,
+          "finding": "findings/Battery_S1_G200_P0__nine_s2_cg_hosting_2_campaign.md"
+        },
+        "nine_both_cg_ptdf_5": {
+          "field": "nine_both_cg_ptdf_5",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 67972994230.72601,
+          "finding": "findings/Battery_S1_G200_P0__nine_both_cg_ptdf_5_campaign.md"
+        },
+        "nine_g125_at_6141": {
+          "field": "nine_g125_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 63679578048.35458,
+          "finding": "findings/Battery_S1_G200_P0__nine_g125_at_6141_campaign.md"
+        },
+        "nine_g150_ptdf_5": {
+          "field": "nine_g150_ptdf_5",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68229902273.49881,
+          "finding": "findings/Battery_S1_G200_P0__nine_g150_ptdf_5_campaign.md"
+        },
+        "nine_g200_at_6141": {
+          "field": "nine_g200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62596838301.57041,
+          "finding": "findings/Battery_S1_G200_P0__nine_g200_at_6141_campaign.md"
+        },
+        "nine_b125_at_6141": {
+          "field": "nine_b125_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 63737322399.926956,
+          "finding": "findings/Battery_S1_G200_P0__nine_b125_at_6141_campaign.md"
+        },
+        "nine_b196_at_6141": {
+          "field": "nine_b196_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 63235541275.18175,
+          "finding": "findings/Battery_S1_G200_P0__nine_b196_at_6141_campaign.md"
+        },
+        "nine_b150_ptdf_5": {
+          "field": "nine_b150_ptdf_5",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68263982058.608246,
+          "finding": "findings/Battery_S1_G200_P0__nine_b150_ptdf_5_campaign.md"
+        },
+        "nine_g75_b125_at_6141": {
+          "field": "nine_g75_b125_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62723548290.75217,
+          "finding": "findings/Battery_S1_G200_P0__nine_g75_b125_at_6141_campaign.md"
+        },
+        "nine_random_storage_01": {
+          "field": "nine_random_storage_01",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 63718469473.74263,
+          "finding": "findings/Battery_S1_G200_P0__nine_random_storage_01_campaign.md"
+        },
+        "nine_random_storage_02": {
+          "field": "nine_random_storage_02",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62640776153.27879,
+          "finding": "findings/Battery_S1_G200_P0__nine_random_storage_02_campaign.md"
+        },
+        "nine_random_storage_03": {
+          "field": "nine_random_storage_03",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62665290633.01927,
+          "finding": "findings/Battery_S1_G200_P0__nine_random_storage_03_campaign.md"
+        },
+        "nine_random_storage_04": {
+          "field": "nine_random_storage_04",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62683447745.98692,
+          "finding": "findings/Battery_S1_G200_P0__nine_random_storage_04_campaign.md"
+        },
+        "nine_random_storage_05": {
+          "field": "nine_random_storage_05",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62668214243.81215,
+          "finding": "findings/Battery_S1_G200_P0__nine_random_storage_05_campaign.md"
+        },
+        "nine_random_storage_06": {
+          "field": "nine_random_storage_06",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62645415977.78006,
+          "finding": "findings/Battery_S1_G200_P0__nine_random_storage_06_campaign.md"
+        },
+        "nine_random_storage_07": {
+          "field": "nine_random_storage_07",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68432233610.15233,
+          "finding": "findings/Battery_S1_G200_P0__nine_random_storage_07_campaign.md"
+        },
+        "nine_random_storage_08": {
+          "field": "nine_random_storage_08",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68432963762.352486,
+          "finding": "findings/Battery_S1_G200_P0__nine_random_storage_08_campaign.md"
+        },
+        "nine_random_storage_09": {
+          "field": "nine_random_storage_09",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68129901722.11128,
+          "finding": "findings/Battery_S1_G200_P0__nine_random_storage_09_campaign.md"
+        },
+        "nine_random_storage_10": {
+          "field": "nine_random_storage_10",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 68100570830.99555,
+          "finding": "findings/Battery_S1_G200_P0__nine_random_storage_10_campaign.md"
+        },
+        "nine_g50_b125_at_6141": {
+          "field": "nine_g50_b125_at_6141",
+          "s1_mw": 499.94394161448247,
+          "s2_mw": 500.0,
+          "score_usd": 63111601334.921104,
+          "finding": "findings/Battery_S1_G200_P0__nine_g50_b125_at_6141_campaign.md"
+        },
+        "nine_g50_b150_at_6141": {
+          "field": "nine_g50_b150_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62878687800.77698,
+          "finding": "findings/Battery_S1_G200_P0__nine_g50_b150_at_6141_campaign.md"
+        },
+        "nine_g50_b175_at_6141": {
+          "field": "nine_g50_b175_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62642630343.5605,
+          "finding": "findings/Battery_S1_G200_P0__nine_g50_b175_at_6141_campaign.md"
+        },
+        "nine_g50_b200_at_6141": {
+          "field": "nine_g50_b200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62632782606.87862,
+          "finding": "findings/Battery_S1_G200_P0__nine_g50_b200_at_6141_campaign.md"
+        },
+        "nine_g75_b150_at_6141": {
+          "field": "nine_g75_b150_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62663991116.821594,
+          "finding": "findings/Battery_S1_G200_P0__nine_g75_b150_at_6141_campaign.md"
+        },
+        "nine_g75_b175_at_6141": {
+          "field": "nine_g75_b175_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62645001632.828415,
+          "finding": "findings/Battery_S1_G200_P0__nine_g75_b175_at_6141_campaign.md"
+        },
+        "nine_g75_b200_at_6141": {
+          "field": "nine_g75_b200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62634884375.85269,
+          "finding": "findings/Battery_S1_G200_P0__nine_g75_b200_at_6141_campaign.md"
+        },
+        "nine_g100_b125_at_6141": {
+          "field": "nine_g100_b125_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62658559875.81981,
+          "finding": "findings/Battery_S1_G200_P0__nine_g100_b125_at_6141_campaign.md"
+        },
+        "nine_g100_b150_at_6141": {
+          "field": "nine_g100_b150_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62666572091.259636,
+          "finding": "findings/Battery_S1_G200_P0__nine_g100_b150_at_6141_campaign.md"
+        },
+        "nine_g100_b175_at_6141": {
+          "field": "nine_g100_b175_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62645690449.587906,
+          "finding": "findings/Battery_S1_G200_P0__nine_g100_b175_at_6141_campaign.md"
+        },
+        "nine_g100_b200_at_6141": {
+          "field": "nine_g100_b200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62635528861.95465,
+          "finding": "findings/Battery_S1_G200_P0__nine_g100_b200_at_6141_campaign.md"
+        },
+        "nine_g125_b125_at_6141": {
+          "field": "nine_g125_b125_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62660559571.97657,
+          "finding": "findings/Battery_S1_G200_P0__nine_g125_b125_at_6141_campaign.md"
+        },
+        "nine_g125_b150_at_6141": {
+          "field": "nine_g125_b150_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62666756588.88145,
+          "finding": "findings/Battery_S1_G200_P0__nine_g125_b150_at_6141_campaign.md"
+        },
+        "nine_g125_b175_at_6141": {
+          "field": "nine_g125_b175_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62645845672.24716,
+          "finding": "findings/Battery_S1_G200_P0__nine_g125_b175_at_6141_campaign.md"
+        },
+        "nine_g125_b200_at_6141": {
+          "field": "nine_g125_b200_at_6141",
+          "s1_mw": 500.0,
+          "s2_mw": 500.0,
+          "score_usd": 62635654809.65144,
+          "finding": "findings/Battery_S1_G200_P0__nine_g125_b200_at_6141_campaign.md"
+        }
+      }
+    }
+  ]
+}

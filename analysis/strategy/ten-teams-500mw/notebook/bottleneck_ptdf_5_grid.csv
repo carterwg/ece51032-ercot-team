@@ -1,0 +1,17 @@
+experiment,capacity_per_submission_mw,scenario_id,round,score_billions,bus_id,grid_supply_share,private_generation_share
+ten-teams-500mw,500,nine_both_cg_ptdf_5,week-2-submission-1,18.263287149279993,6141 / 5395 / 6342 / 5451 / 6004,1.0,0.0
+ten-teams-500mw,500,nine_both_cg_ptdf_5,week-2-submission-2,0.0,6141 / 5395 / 6342 / 5451 / 6004,,
+ten-teams-500mw,500,nine_both_cg_ptdf_5,week-3-submission-1,17.684619255664682,6141 / 5395 / 6342 / 5451 / 6004,1.0,0.0
+ten-teams-500mw,500,nine_both_cg_ptdf_5,week-3-submission-2,0.0,6141 / 5395 / 6342 / 5451 / 6004,,
+ten-teams-500mw,500,nine_grid_at_6141,week-2-submission-1,11.046735715817837,6141 / 5395 / 6342 / 5451 / 6004,1.0,0.0
+ten-teams-500mw,500,nine_grid_at_6141,week-2-submission-2,0.0011046757414062511,6141 / 5395 / 6342 / 5451 / 6004,1.0,0.0
+ten-teams-500mw,500,nine_grid_at_6141,week-3-submission-1,10.710803915912132,6141 / 5395 / 6342 / 5451 / 6004,1.0,0.0
+ten-teams-500mw,500,nine_grid_at_6141,week-3-submission-2,0.0010710824954312077,6141 / 5395 / 6342 / 5451 / 6004,1.0,0.0
+ten-teams-500mw,500,nine_grid_at_hosting_1,week-2-submission-1,11.046735715817837,6141 / 5395 / 6342 / 5451 / 6004,1.0,0.0
+ten-teams-500mw,500,nine_grid_at_hosting_1,week-2-submission-2,0.0011046757414062511,6141 / 5395 / 6342 / 5451 / 6004,1.0,0.0
+ten-teams-500mw,500,nine_grid_at_hosting_1,week-3-submission-1,10.71028413889392,6141 / 5395 / 6342 / 5451 / 6004,1.0,0.0
+ten-teams-500mw,500,nine_grid_at_hosting_1,week-3-submission-2,0.0010710305176272904,6141 / 5395 / 6342 / 5451 / 6004,1.0,0.0
+ten-teams-500mw,500,nine_s2_cg_hosting_2,week-2-submission-1,11.046736958575414,6141 / 5395 / 6342 / 5451 / 6004,1.0,0.0
+ten-teams-500mw,500,nine_s2_cg_hosting_2,week-2-submission-2,0.011046686356604688,6141 / 5395 / 6342 / 5451 / 6004,1.0,0.0
+ten-teams-500mw,500,nine_s2_cg_hosting_2,week-3-submission-1,10.710193422059767,6141 / 5395 / 6342 / 5451 / 6004,1.0,0.0
+ten-teams-500mw,500,nine_s2_cg_hosting_2,week-3-submission-2,0.01042389840348249,6141 / 5395 / 6342 / 5451 / 6004,1.0,0.0

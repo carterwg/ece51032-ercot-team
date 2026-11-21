@@ -1,0 +1,37 @@
+{
+  "status": "passed",
+  "tests_passed": 113,
+  "candidate_count": 101,
+  "periods": 120,
+  "valid_backgrounds": 9,
+  "candidate_period_capacity_cells_checked": 109080,
+  "limiting_period_diagnoses_checked": 1742,
+  "unordered_pairs": 96,
+  "directional_load_tests": 384,
+  "minimum_tests_touching_each_bus": 4,
+  "max_independent_errors_mw": {
+    "max_balance_error_mw": 1.3408346944743244e-05,
+    "max_limit_violation_mw": 1.8208083929494023e-09,
+    "duality_gap_mw": 2.2734457161277533e-07
+  },
+  "ptdf_slack_invariance_real_network": {
+    "candidate_count": 101,
+    "critical_signed_line_count": 32,
+    "slack_pair_difference_error": 2.6231763343518427e-17,
+    "max_nodal_residual": 1.2645440250480533e-13
+  },
+  "validation_sample_held_fixed_for_extended_backgrounds": true,
+  "numerical_backend_note": "Gurobi stressed run rejected: independent nodal residual 0.000394632 MW exceeded 0.0001 MW. Final evidence explicitly uses HiGHS 1.16.0; no tolerance was relaxed.",
+  "reproduction_command": "PYTHONPATH=src:ercot-connection-game:ercot-connection-game/src .venv/bin/python -m team_strategy.clustering.report --solver-backend highs --output-dir runs/part1-recheck",
+  "artifact_sha256": {
+    "group_validation.csv": "d451328d3c75a28b10989cd47950c8a82784ce8712f2f45e0637fafe6ef68e91",
+    "bus_groups.csv": "447fad509060b0831203644f0fc3501eecaf55ad8be3feaca914d9e14e156d43",
+    "baseline.json": "8bb3fc1dd3605be9d47d53bbacbab0046561d90d4c51f3470b4e2f4202c1ed9f",
+    "stress.json": "fc297c2ac2bc54f0919d7e24900877ddc70d346e5f9ecb1d0e54d53aafc42b3d",
+    "ptdf_distances.csv": "d6575555f688f833069ebba9551bec1db3f18ff96510caa6f0bcc25eff9bf0aa",
+    "interactions.json": "cb166c82e79d586b353380eeee6e3a0f03b7e4e634e0347a470998a1d10e6e0f",
+    "validation.json": "dda77947b1f84131084c4e3196aac158e6ee43322e8523d6c3e55817ccbc9837",
+    "groups.json": "a9da788d0b8b46d029ab2a79db6875ba76f7210a4cc38b932cb4436954b6c82d",
+    "report.html": "00c40ca4bf732fbfcf7e48ad159894aa7b8b75ea60ebbc2c394e5d12c0391f25"
+  }
+}

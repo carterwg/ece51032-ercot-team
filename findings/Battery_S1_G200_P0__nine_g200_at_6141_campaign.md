@@ -1,0 +1,97 @@
+# 500 MW at bus 6141, S1 generator 200 MW and battery 0 MW / 0 MWh
+
+| Round | Our admitted MW | All teams admitted MW | Net score $B | IT value $B | Grid cost $B | Generator fuel $B | Generator capital $B | Battery capital $B |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| week-2-submission-1 | 500.000000 | 5,000.000000 | 17.860076 | 30.763287 | 0.000000 | 0.003211 | 0.400000 | 0.000000 |
+| week-2-submission-2 | 500.000000 | 5,000.000000 | 14.514641 | 30.763287 | 0.000000 | 2.748646 | 1.000000 | 0.000000 |
+| week-3-submission-1 | 500.000000 | 5,000.000000 | 17.206327 | 30.763287 | 0.653749 | 0.003211 | 0.400000 | 0.000000 |
+| week-3-submission-2 | 500.000000 | 5,000.000000 | 13.015794 | 30.763287 | 1.498847 | 2.748646 | 1.000000 | 0.000000 |
+
+| Round | Grid purchased MWh/yr | Generator MWh/yr | Battery charged MWh/yr | Battery discharged MWh/yr | Gen on h/yr | Discharge h/yr | Charge h/yr |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| week-2-submission-1 | 4,375,087.722 | 4,912.278 | 0.000 | 0.000 | 302.195 | 0.000 | 0.000 |
+| week-2-submission-2 | 1,336,400.825 | 3,043,599.175 | 0.000 | 0.000 | 8,760.000 | 0.000 | 0.000 |
+| week-3-submission-1 | 4,375,087.722 | 4,912.278 | 0.000 | 0.000 | 302.195 | 0.000 | 0.000 |
+| week-3-submission-2 | 1,336,400.825 | 3,043,599.175 | 0.000 | 0.000 | 8,760.000 | 0.000 | 0.000 |
+
+Four-round score **$62.596838B**. S2 uses a new 500 MW site with 500 MW generation at bus 6141 after carrying all teams’ actual S1 net withdrawals.
+
+Battery discharge is shifted energy. Annual grid purchases include charging. The hours use representative-day weights.
+
+## week-2-submission-1 dispatch
+
+| Hour | Grid MW | Our generator MW | Charge MW | Discharge MW | End SOC MWh | All-team spare native generation MW | Binding lines |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 104 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 0.000000 | 1,009.008140 | b02136:lower |
+| 105 | 473.106341 | 26.893659 | 0.000000 | 0.000000 | 0.000000 | 306.816946 | b02136:lower |
+| 106 | 401.589535 | 98.410465 | 0.000000 | 0.000000 | 0.000000 | 188.058673 | b02136:lower |
+| 107 | 346.712759 | 153.287241 | 0.000000 | 0.000000 | 0.000000 | 96.932230 | b02136:lower |
+| 108 | 312.215777 | 187.784223 | 0.000000 | 0.000000 | 0.000000 | 39.647743 | b02136:lower |
+| 109 | 300.449497 | 199.550503 | 0.000000 | 0.000000 | 0.000000 | 20.109085 | b02136:lower |
+| 110 | 312.215777 | 187.784223 | 0.000000 | 0.000000 | 0.000000 | 39.647743 | b02136:lower |
+| 111 | 346.712759 | 153.287241 | 0.000000 | 0.000000 | 0.000000 | 96.932230 | b02136:lower |
+| 112 | 401.589535 | 98.410465 | 0.000000 | 0.000000 | 0.000000 | 188.058673 | b02136:lower |
+| 113 | 473.106341 | 26.893659 | 0.000000 | 0.000000 | 0.000000 | 306.816946 | b02136:lower |
+| 114 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 0.000000 | 1,009.008140 | b02136:lower |
+
+The hourly table shows dispatched power and lines at their limits. Storage feasibility depends on charge and discharge across the day.
+
+## week-2-submission-2 dispatch
+
+| Hour | Grid MW | Our generator MW | Charge MW | Discharge MW | End SOC MWh | All-team spare native generation MW | Binding lines |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 104 | 24.196564 | 475.803436 | 0.000000 | 0.000000 | 0.000000 | 767.042497 | b01921:upper, b02090:lower, b02136:lower |
+| 105 | 0.000000 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 306.816946 | b02136:lower |
+| 106 | 0.000000 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 188.058673 | b02136:lower |
+| 107 | 0.000000 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 96.932229 | b02136:lower |
+| 108 | 0.000000 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 39.647743 | b02136:lower |
+| 109 | 0.000000 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 20.109085 | b02136:lower |
+| 110 | 0.000000 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 39.647743 | b02136:lower |
+| 111 | 0.000000 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 96.932229 | b02136:lower |
+| 112 | 0.000000 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 188.058673 | b02136:lower |
+| 113 | 0.000000 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 306.816946 | b02136:lower |
+| 114 | 24.196564 | 475.803436 | 0.000000 | 0.000000 | 0.000000 | 767.042497 | b01921:upper, b02090:lower, b02136:lower |
+
+The hourly table shows dispatched power and lines at their limits. Storage feasibility depends on charge and discharge across the day.
+
+## week-3-submission-1 dispatch
+
+| Hour | Grid MW | Our generator MW | Charge MW | Discharge MW | End SOC MWh | All-team spare native generation MW | Binding lines |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 104 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 0.000000 | 1,009.008140 | b02136:lower |
+| 105 | 473.106341 | 26.893659 | 0.000000 | 0.000000 | 0.000000 | 306.816946 | b02136:lower |
+| 106 | 401.589535 | 98.410465 | 0.000000 | 0.000000 | 0.000000 | 188.058673 | b02136:lower |
+| 107 | 346.712759 | 153.287241 | 0.000000 | 0.000000 | 0.000000 | 96.932230 | b02136:lower |
+| 108 | 312.215777 | 187.784223 | 0.000000 | 0.000000 | 0.000000 | 39.647743 | b02136:lower |
+| 109 | 300.449497 | 199.550503 | 0.000000 | 0.000000 | 0.000000 | 20.109085 | b02136:lower |
+| 110 | 312.215777 | 187.784223 | 0.000000 | 0.000000 | 0.000000 | 39.647743 | b02136:lower |
+| 111 | 346.712759 | 153.287241 | 0.000000 | 0.000000 | 0.000000 | 96.932230 | b02136:lower |
+| 112 | 401.589535 | 98.410465 | 0.000000 | 0.000000 | 0.000000 | 188.058673 | b02136:lower |
+| 113 | 473.106341 | 26.893659 | 0.000000 | 0.000000 | 0.000000 | 306.816946 | b02136:lower |
+| 114 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 0.000000 | 1,009.008140 | b02136:lower |
+
+The hourly table shows dispatched power and lines at their limits. Storage feasibility depends on charge and discharge across the day.
+
+## week-3-submission-2 dispatch
+
+| Hour | Grid MW | Our generator MW | Charge MW | Discharge MW | End SOC MWh | All-team spare native generation MW | Binding lines |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 104 | 24.196564 | 475.803436 | 0.000000 | 0.000000 | 0.000000 | 767.042497 | b01921:upper, b02090:lower, b02136:lower |
+| 105 | 0.000000 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 306.816946 | b02136:lower |
+| 106 | 0.000000 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 188.058673 | b02136:lower |
+| 107 | 0.000000 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 96.932229 | b02136:lower |
+| 108 | 0.000000 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 39.647743 | b02136:lower |
+| 109 | 0.000000 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 20.109085 | b02136:lower |
+| 110 | 0.000000 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 39.647743 | b02136:lower |
+| 111 | 0.000000 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 96.932229 | b02136:lower |
+| 112 | 0.000000 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 188.058673 | b02136:lower |
+| 113 | 0.000000 | 500.000000 | 0.000000 | 0.000000 | 0.000000 | 306.816946 | b02136:lower |
+| 114 | 24.196564 | 475.803436 | 0.000000 | 0.000000 | 0.000000 | 767.042497 | b01921:upper, b02090:lower, b02136:lower |
+
+The hourly table shows dispatched power and lines at their limits. Storage feasibility depends on charge and discharge across the day.
+
+[Full result](<../runs/battery-s1-500mw/campaign/g200_p0/nine_g200_at_6141/attempt-01/result.json>) · [Solver audit](<../runs/battery-s1-500mw/campaign/g200_p0/nine_g200_at_6141/attempt-01/execution.json>)
+
+## Personal notes
+
+<!-- USER_NOTES -->

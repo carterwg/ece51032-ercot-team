@@ -9,11 +9,12 @@ src/team_strategy/
   contracts.py         Plan, round context, strategy/scenario/evaluator interfaces
   context.py           Active release settings, package checks, input fingerprints
   validation.py        Instructor CSV validation plus team workflow checks
-  strategies/          Independent team ideas; full_generation is the baseline
+  strategies/          Full-generation baseline and weighted corridor portfolios
   opponents/           Reserved for simulated rival strategies
   scenarios/           Reserved for assembling joint competition scenarios
-  evaluation/          Reserved for an adapter implementing Evaluator
-  experiments/         Campaign normalization, risk summaries, frontier plots
+  evaluation/          Official batch adapter and coupled four-round campaigns
+  experiments/         Matched corridor experiment, normalization, risk/frontier
+  clustering/          Signed constraints, stress scenarios, PTDFs, interactions
   submissions/         Canonical CSV export and deterministic site IDs
   cli.py               Candidate generation and reports from supplied scores
 configs/               Strategy parameters, scoring assumptions, future round/scenario configs
@@ -72,11 +73,19 @@ Every strategy must have the same scenario IDs. Scenario IDs must identify the
 same opponent assumptions and coupled S1/S2 history across strategies; matching
 names alone cannot prove that the simulations used matching inputs.
 
-Scenario assembly, parameter search, and an automatic official-evaluator adapter
-remain future work. `Scenario`, `NamedPlan`, `Evaluator`, and `EvaluationResult`
-define their boundaries now. Invalid plans, evaluator failures, and valid zero
-allocations have distinct statuses; infrastructure failures must never silently
-become zero-score observations.
+`evaluation/campaign.py` now adapts the official CSV batch evaluator and carries
+every team's S1 hourly net withdrawal into a validated S2 package. It rejects
+team-dropping fallbacks as unsuitable for a matched joint comparison. The Part 2
+runner assembles fixed, explicitly configured opponent plans and records every
+round, input hash, allocation, and economic component. Invalid plans, evaluator
+failures, and genuine zero allocations remain distinct; failures never become
+zero-score observations.
+
+Campaign jobs write separate immutable attempt directories. Resume requires
+identical source/network/rule/config fingerprints and verifies every completed
+cell against its artifacts. The final comparison requires the complete matched
+matrix. Adaptive opponent models, continuous capacity optimization, and automatic
+classroom submission remain future work.
 
 Tests include a baseline CSV passing through all 120 periods of the unchanged
 official evaluator on IEEE-14. This verifies integration, not full-scale strategy
