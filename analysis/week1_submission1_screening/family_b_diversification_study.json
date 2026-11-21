@@ -1,0 +1,744 @@
+{
+  "experiment_id": "week1_submission1_screening",
+  "team_id": "7",
+  "week": 1,
+  "submission": 1,
+  "preview_stride": 1,
+  "plans": [
+    {
+      "plan_name": "B_2bus_01_2054-6062",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-2-01-2054",
+          "bus_id": 2054,
+          "connection_capacity_mw": 250.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-2-01-6062",
+          "bus_id": 6062,
+          "connection_capacity_mw": 250.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "B_2bus_02_2054-6141",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-2-02-2054",
+          "bus_id": 2054,
+          "connection_capacity_mw": 250.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-2-02-6141",
+          "bus_id": 6141,
+          "connection_capacity_mw": 250.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "B_2bus_03_2054-6298",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-2-03-2054",
+          "bus_id": 2054,
+          "connection_capacity_mw": 250.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-2-03-6298",
+          "bus_id": 6298,
+          "connection_capacity_mw": 250.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "B_2bus_04_2054-7414",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-2-04-2054",
+          "bus_id": 2054,
+          "connection_capacity_mw": 250.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-2-04-7414",
+          "bus_id": 7414,
+          "connection_capacity_mw": 250.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "B_2bus_05_6062-6141",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-2-05-6062",
+          "bus_id": 6062,
+          "connection_capacity_mw": 250.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-2-05-6141",
+          "bus_id": 6141,
+          "connection_capacity_mw": 250.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "B_2bus_06_6062-6298",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-2-06-6062",
+          "bus_id": 6062,
+          "connection_capacity_mw": 250.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-2-06-6298",
+          "bus_id": 6298,
+          "connection_capacity_mw": 250.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "B_2bus_07_6062-7414",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-2-07-6062",
+          "bus_id": 6062,
+          "connection_capacity_mw": 250.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-2-07-7414",
+          "bus_id": 7414,
+          "connection_capacity_mw": 250.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "B_2bus_08_6141-6298",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-2-08-6141",
+          "bus_id": 6141,
+          "connection_capacity_mw": 250.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-2-08-6298",
+          "bus_id": 6298,
+          "connection_capacity_mw": 250.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "B_2bus_09_6141-7414",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-2-09-6141",
+          "bus_id": 6141,
+          "connection_capacity_mw": 250.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-2-09-7414",
+          "bus_id": 7414,
+          "connection_capacity_mw": 250.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "B_2bus_10_6298-7414",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-2-10-6298",
+          "bus_id": 6298,
+          "connection_capacity_mw": 250.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-2-10-7414",
+          "bus_id": 7414,
+          "connection_capacity_mw": 250.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "B_3bus_01_2054-6062-6141",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-3-01-2054",
+          "bus_id": 2054,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-3-01-6062",
+          "bus_id": 6062,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-3-01-6141",
+          "bus_id": 6141,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "B_3bus_02_2054-6062-6298",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-3-02-2054",
+          "bus_id": 2054,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-3-02-6062",
+          "bus_id": 6062,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-3-02-6298",
+          "bus_id": 6298,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "B_3bus_03_2054-6062-7414",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-3-03-2054",
+          "bus_id": 2054,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-3-03-6062",
+          "bus_id": 6062,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-3-03-7414",
+          "bus_id": 7414,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "B_3bus_04_2054-6141-6298",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-3-04-2054",
+          "bus_id": 2054,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-3-04-6141",
+          "bus_id": 6141,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-3-04-6298",
+          "bus_id": 6298,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "B_3bus_05_2054-6141-7414",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-3-05-2054",
+          "bus_id": 2054,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-3-05-6141",
+          "bus_id": 6141,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-3-05-7414",
+          "bus_id": 7414,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "B_3bus_06_2054-6298-7414",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-3-06-2054",
+          "bus_id": 2054,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-3-06-6298",
+          "bus_id": 6298,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-3-06-7414",
+          "bus_id": 7414,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "B_3bus_07_6062-6141-6298",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-3-07-6062",
+          "bus_id": 6062,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-3-07-6141",
+          "bus_id": 6141,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-3-07-6298",
+          "bus_id": 6298,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "B_3bus_08_6062-6141-7414",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-3-08-6062",
+          "bus_id": 6062,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-3-08-6141",
+          "bus_id": 6141,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-3-08-7414",
+          "bus_id": 7414,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "B_3bus_09_6062-6298-7414",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-3-09-6062",
+          "bus_id": 6062,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-3-09-6298",
+          "bus_id": 6298,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-3-09-7414",
+          "bus_id": 7414,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "B_3bus_10_6141-6298-7414",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-3-10-6141",
+          "bus_id": 6141,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-3-10-6298",
+          "bus_id": 6298,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-3-10-7414",
+          "bus_id": 7414,
+          "connection_capacity_mw": 166.66666666666666,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "B_4bus_01_2054-6062-6141-6298",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-4-01-2054",
+          "bus_id": 2054,
+          "connection_capacity_mw": 125.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-4-01-6062",
+          "bus_id": 6062,
+          "connection_capacity_mw": 125.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-4-01-6141",
+          "bus_id": 6141,
+          "connection_capacity_mw": 125.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-4-01-6298",
+          "bus_id": 6298,
+          "connection_capacity_mw": 125.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "B_4bus_02_2054-6062-6141-7414",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-4-02-2054",
+          "bus_id": 2054,
+          "connection_capacity_mw": 125.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-4-02-6062",
+          "bus_id": 6062,
+          "connection_capacity_mw": 125.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-4-02-6141",
+          "bus_id": 6141,
+          "connection_capacity_mw": 125.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-4-02-7414",
+          "bus_id": 7414,
+          "connection_capacity_mw": 125.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "B_4bus_03_2054-6062-6298-7414",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-4-03-2054",
+          "bus_id": 2054,
+          "connection_capacity_mw": 125.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-4-03-6062",
+          "bus_id": 6062,
+          "connection_capacity_mw": 125.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-4-03-6298",
+          "bus_id": 6298,
+          "connection_capacity_mw": 125.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-4-03-7414",
+          "bus_id": 7414,
+          "connection_capacity_mw": 125.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "B_4bus_04_2054-6141-6298-7414",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-4-04-2054",
+          "bus_id": 2054,
+          "connection_capacity_mw": 125.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-4-04-6141",
+          "bus_id": 6141,
+          "connection_capacity_mw": 125.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-4-04-6298",
+          "bus_id": 6298,
+          "connection_capacity_mw": 125.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-4-04-7414",
+          "bus_id": 7414,
+          "connection_capacity_mw": 125.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "B_4bus_05_6062-6141-6298-7414",
+      "plan_source": "family-b-diversification-study",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "B-4-05-6062",
+          "bus_id": 6062,
+          "connection_capacity_mw": 125.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-4-05-6141",
+          "bus_id": 6141,
+          "connection_capacity_mw": 125.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-4-05-6298",
+          "bus_id": 6298,
+          "connection_capacity_mw": 125.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        },
+        {
+          "site_id": "B-4-05-7414",
+          "bus_id": 7414,
+          "connection_capacity_mw": 125.0,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "candidate_buses": [
+    1079,
+    2054,
+    6062,
+    6298,
+    7414
+  ],
+  "site_sizes_mw": [
+    500,
+    1000,
+    1500,
+    2000
+  ],
+  "competitor_buses": {
+    "5": [
+      6349,
+      5045,
+      5120,
+      5131,
+      5236
+    ],
+    "10": [
+      6349,
+      5045,
+      5120,
+      5131,
+      5236,
+      5279,
+      5018,
+      6045,
+      6056,
+      6197
+    ]
+  },
+  "competitor_capacity_mw": 1000,
+  "candidate_competition_capacity_mw": 1000,
+  "competitor_selection": "descending minimum hosting capacity, bus ID ascending tie-break",
+  "week": 2,
+  "energy_cost_enabled": false,
+  "horizon_periods": 120,
+  "preview_stride": 1,
+  "storage_dispatch": "idle"
+}

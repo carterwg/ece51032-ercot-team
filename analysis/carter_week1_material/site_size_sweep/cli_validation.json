@@ -1,0 +1,36 @@
+{
+  "checked_period_count": 120,
+  "energy_cost_enabled": false,
+  "exact": false,
+  "generator_dispatch_policy": "no_daily_budget",
+  "horizon_hours": 120,
+  "mode": "student_preview",
+  "projection": null,
+  "rejected_submissions": [],
+  "service_fraction_by_team": {
+    "candidate-1079": 1.0
+  },
+  "storage_dispatch_policy": "idle_for_speed;sampled_every_1_periods_1h",
+  "team_scores": [
+    {
+      "competition_scope": "student_preview",
+      "dropped": false,
+      "energy_cost": 0.0,
+      "failure_reason": null,
+      "feasible": true,
+      "generator_capital_cost": 0.0,
+      "generator_operating_cost": 0.0,
+      "it_value": 61526574298.55998,
+      "rank": 1,
+      "score": 36526574298.55998,
+      "served_load_mwh": 8759999.999998134,
+      "service_fraction": 1.0,
+      "site_cost": 25000000000.0,
+      "storage_capital_cost": 0.0,
+      "submission_key": null,
+      "team_id": "candidate-1079",
+      "valid": true
+    }
+  ],
+  "warning": "Preview only: dispatch sampled every 1 game periods (every 1 hours); storage is validated and capital-costed but not dispatched. Use the instructor evaluator for official storage-aware scores."
+}
