@@ -1,0 +1,2 @@
+team_id,site_id,bus_id,connection_capacity_mw,generator_capacity_mw,storage_power_mw,storage_energy_mwh
+7,w1-s1-0001,6141,500,97,99,396.0
