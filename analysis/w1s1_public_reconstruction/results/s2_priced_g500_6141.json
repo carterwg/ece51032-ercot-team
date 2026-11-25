@@ -1,0 +1,45 @@
+{
+  "request": [
+    {
+      "bus": "6141",
+      "connection_mw": 500.0,
+      "generator_mw": 500.0,
+      "storage_power_mw": 0.0,
+      "storage_energy_mwh": 0.0
+    }
+  ],
+  "score_usd": 16692607030.960045,
+  "rank": 1,
+  "allocated_mw": 500.0,
+  "site_allocations": [
+    {
+      "site_id": "w1-s2-0001",
+      "fraction": 1.0,
+      "requested_connection_mw": 500.0,
+      "allocated_connection_mw": 500.0
+    }
+  ],
+  "breakdown": {
+    "it_value_usd": 30763287149.27999,
+    "grid_energy_cost_usd": 566808368.9954687,
+    "generator_operating_cost_usd": 3871749.32447625,
+    "generator_capital_cost_usd": 1000000000.0,
+    "storage_capital_cost_usd": 0.0,
+    "site_cost_usd": 12500000000.0
+  },
+  "class_allocated_mw": 600.0000100530317,
+  "all_valid_feasible": true,
+  "competition_scope": "joint_projection",
+  "horizon": 120,
+  "energy_price_enabled": true,
+  "grid_energy_cost_usd": 566808368.9954687,
+  "energy_off_score_usd": 17259415399.955513,
+  "weighted_grid_purchase_mwh": 30738704.613886498,
+  "purchase_weighted_lmp_usd_per_mwh": 18.439565886566598,
+  "lmp_by_bus": {
+    "6141": {
+      "simple_mean_lmp_usd_per_mwh": 32.16681158407333,
+      "max_lmp_usd_per_mwh": 250.0000000006
+    }
+  }
+}

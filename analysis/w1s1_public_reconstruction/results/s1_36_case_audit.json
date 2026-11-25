@@ -1,0 +1,52 @@
+{
+  "scope": "unchanged 120-period course evaluator, eight reconstructed rivals, S1 at bus 6141; rivals reallocated in each run",
+  "baseline": {
+    "generator_mw": 97,
+    "storage_power_mw": 99,
+    "allocated_mw": 500.0,
+    "score_usd": 17930235796.371212,
+    "rank": 3
+  },
+  "counterfactuals": [
+    {
+      "generator_mw": 0,
+      "storage_power_mw": 0,
+      "allocated_mw": 418.91385623440914,
+      "score_usd": 15301488094.442484,
+      "rank": 6
+    },
+    {
+      "plan": {
+        "bus": "6141",
+        "connection_mw": 500,
+        "generator_mw": 1,
+        "storage_power_mw": 0
+      },
+      "allocated_mw": 499.74199061835395,
+      "score_usd": 18251860296.991577,
+      "rank": 1
+    },
+    {
+      "plan": {
+        "bus": "6141",
+        "connection_mw": 500,
+        "generator_mw": 25,
+        "storage_power_mw": 0
+      },
+      "allocated_mw": 500.0,
+      "score_usd": 18213185826.678455,
+      "rank": 2
+    },
+    {
+      "plan": {
+        "bus": "6141",
+        "connection_mw": 500,
+        "generator_mw": 100,
+        "storage_power_mw": 0
+      },
+      "allocated_mw": 500.0,
+      "score_usd": 18062837640.061367,
+      "rank": 3
+    }
+  ]
+}

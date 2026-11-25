@@ -1,0 +1,65 @@
+[
+  {
+    "team_id": "rival-20mw-x25",
+    "rank": 1,
+    "allocated_mw": 499.9412896634083,
+    "score_usd": 18211039580.18274,
+    "generator_operating_cost_usd": 108952.65927066731
+  },
+  {
+    "team_id": "rival-100mw-g20",
+    "rank": 2,
+    "allocated_mw": 500.0,
+    "score_usd": 18062858659.15354,
+    "generator_operating_cost_usd": 428490.1264503715
+  },
+  {
+    "team_id": "team07",
+    "rank": 3,
+    "allocated_mw": 500.0,
+    "score_usd": 17930235796.371212,
+    "generator_operating_cost_usd": 451352.90877851256
+  },
+  {
+    "team_id": "rival-100mw-mixed",
+    "rank": 4,
+    "allocated_mw": 490.9668041020582,
+    "score_usd": 17562475059.421646,
+    "generator_operating_cost_usd": 860388.7387725
+  },
+  {
+    "team_id": "rival-500mw-g350",
+    "rank": 5,
+    "allocated_mw": 500.0,
+    "score_usd": 17561989516.62012,
+    "generator_operating_cost_usd": 1297632.659871126
+  },
+  {
+    "team_id": "rival-250mw-hybrid",
+    "rank": 6,
+    "allocated_mw": 500.0,
+    "score_usd": 17386913569.537403,
+    "generator_operating_cost_usd": 1373579.7425884122
+  },
+  {
+    "team_id": "rival-250mw-grid",
+    "rank": 7,
+    "allocated_mw": 454.8340887352975,
+    "score_usd": 16613531135.707731,
+    "generator_operating_cost_usd": 0.0
+  },
+  {
+    "team_id": "rival-100mw-grid",
+    "rank": 8,
+    "allocated_mw": 454.8340205101222,
+    "score_usd": 16613528643.675703,
+    "generator_operating_cost_usd": 0.0
+  },
+  {
+    "team_id": "rival-5mw-x100",
+    "rank": 9,
+    "allocated_mw": 454.83186005938836,
+    "score_usd": 16613449729.811441,
+    "generator_operating_cost_usd": 0.0
+  }
+]
