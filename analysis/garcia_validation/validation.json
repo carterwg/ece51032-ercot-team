@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "team_count": 10,
+  "rival_count": 9,
+  "targeted_pairs": 50,
+  "unchanged_evaluator_pairs": 49,
+  "additional_alternate_qp_pairs": 1,
+  "unresolved_pairs": 0,
+  "previous_result_checks": 6,
+  "all_recorded_artifact_hashes_checked": true,
+  "active_jobs": [],
+  "artifact_sha256": {
+    "notes/Garcia_Official_Validation_11-21-2026.md": "3ac5159ab3edc080e224c9ee9391605d00f64da081c2772230f0c67f0e5d04d7",
+    "analysis/garcia_validation/summary.json": "eab374d316e19cbf653b94c4865dca5a5a4ac6831a001c9784d395f1a01044b7",
+    "analysis/garcia_validation/comparison.csv": "582e160a9b28342a5fb6df31a95fe25d11f492f40265f7d0f0f67a8841681901",
+    "analysis/garcia_validation/comparison.png": "fd2e6b2c5728a17aac363d84733a772686c2d2611a54e3c5718b8412267ee968",
+    "analysis/garcia_validation/comparison.svg": "ff429e873aae72dd4d42ff42f47a4c29b1ed16dcf3a8349d61ac3c4eda56dfc6",
+    "analysis/garcia_validation/selected_pairs.json": "2d59901ae0c4db9820cedac3fa505385e8d0079a76f5878aba051f51d838e547"
+  }
+}
