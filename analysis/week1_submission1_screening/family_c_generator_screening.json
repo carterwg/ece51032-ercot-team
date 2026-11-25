@@ -1,0 +1,189 @@
+{
+  "experiment_id": "week1_submission1_screening",
+  "team_id": "7",
+  "week": 1,
+  "submission": 1,
+  "preview_stride": 1,
+  "plans": [
+    {
+      "plan_name": "C_bus2054_generator_0mw",
+      "plan_source": "family-c-generator-screening",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "C-2054-0",
+          "bus_id": 2054,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "C_bus2054_generator_100mw",
+      "plan_source": "family-c-generator-screening",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "C-2054-100",
+          "bus_id": 2054,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 100,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "C_bus2054_generator_250mw",
+      "plan_source": "family-c-generator-screening",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "C-2054-250",
+          "bus_id": 2054,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 250,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "C_bus2054_generator_500mw",
+      "plan_source": "family-c-generator-screening",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "C-2054-500",
+          "bus_id": 2054,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 500,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "C_bus6062_generator_0mw",
+      "plan_source": "family-c-generator-screening",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "C-6062-0",
+          "bus_id": 6062,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "C_bus6062_generator_100mw",
+      "plan_source": "family-c-generator-screening",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "C-6062-100",
+          "bus_id": 6062,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 100,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "C_bus6062_generator_250mw",
+      "plan_source": "family-c-generator-screening",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "C-6062-250",
+          "bus_id": 6062,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 250,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "C_bus6062_generator_500mw",
+      "plan_source": "family-c-generator-screening",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "C-6062-500",
+          "bus_id": 6062,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 500,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "C_bus6298_generator_0mw",
+      "plan_source": "family-c-generator-screening",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "C-6298-0",
+          "bus_id": 6298,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "C_bus6298_generator_100mw",
+      "plan_source": "family-c-generator-screening",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "C-6298-100",
+          "bus_id": 6298,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 100,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "C_bus6298_generator_250mw",
+      "plan_source": "family-c-generator-screening",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "C-6298-250",
+          "bus_id": 6298,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 250,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "C_bus6298_generator_500mw",
+      "plan_source": "family-c-generator-screening",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "C-6298-500",
+          "bus_id": 6298,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 500,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    }
+  ]
+}

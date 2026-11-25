@@ -1,0 +1,459 @@
+{
+  "experiment_id": "week1_submission1_screening",
+  "team_id": "7",
+  "week": 1,
+  "submission": 1,
+  "preview_stride": 1,
+  "plans": [
+    {
+      "plan_name": "A_bus2054_battery_0mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-2054-0",
+          "bus_id": 2054,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus2054_battery_25mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-2054-25",
+          "bus_id": 2054,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 25,
+          "storage_energy_mwh": 100
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus2054_battery_50mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-2054-50",
+          "bus_id": 2054,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 50,
+          "storage_energy_mwh": 200
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus2054_battery_75mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-2054-75",
+          "bus_id": 2054,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 75,
+          "storage_energy_mwh": 300
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus2054_battery_100mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-2054-100",
+          "bus_id": 2054,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 100,
+          "storage_energy_mwh": 400
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus2054_battery_200mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-2054-200",
+          "bus_id": 2054,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 200,
+          "storage_energy_mwh": 800
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus6062_battery_0mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-6062-0",
+          "bus_id": 6062,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus6062_battery_25mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-6062-25",
+          "bus_id": 6062,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 25,
+          "storage_energy_mwh": 100
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus6062_battery_50mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-6062-50",
+          "bus_id": 6062,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 50,
+          "storage_energy_mwh": 200
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus6062_battery_75mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-6062-75",
+          "bus_id": 6062,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 75,
+          "storage_energy_mwh": 300
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus6062_battery_100mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-6062-100",
+          "bus_id": 6062,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 100,
+          "storage_energy_mwh": 400
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus6062_battery_200mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-6062-200",
+          "bus_id": 6062,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 200,
+          "storage_energy_mwh": 800
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus6141_battery_0mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-6141-0",
+          "bus_id": 6141,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus6141_battery_25mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-6141-25",
+          "bus_id": 6141,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 25,
+          "storage_energy_mwh": 100
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus6141_battery_50mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-6141-50",
+          "bus_id": 6141,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 50,
+          "storage_energy_mwh": 200
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus6141_battery_75mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-6141-75",
+          "bus_id": 6141,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 75,
+          "storage_energy_mwh": 300
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus6141_battery_100mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-6141-100",
+          "bus_id": 6141,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 100,
+          "storage_energy_mwh": 400
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus6141_battery_200mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-6141-200",
+          "bus_id": 6141,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 200,
+          "storage_energy_mwh": 800
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus6298_battery_0mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-6298-0",
+          "bus_id": 6298,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus6298_battery_25mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-6298-25",
+          "bus_id": 6298,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 25,
+          "storage_energy_mwh": 100
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus6298_battery_50mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-6298-50",
+          "bus_id": 6298,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 50,
+          "storage_energy_mwh": 200
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus6298_battery_75mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-6298-75",
+          "bus_id": 6298,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 75,
+          "storage_energy_mwh": 300
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus6298_battery_100mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-6298-100",
+          "bus_id": 6298,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 100,
+          "storage_energy_mwh": 400
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus6298_battery_200mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-6298-200",
+          "bus_id": 6298,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 200,
+          "storage_energy_mwh": 800
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus7414_battery_0mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-7414-0",
+          "bus_id": 7414,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 0,
+          "storage_energy_mwh": 0
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus7414_battery_25mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-7414-25",
+          "bus_id": 7414,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 25,
+          "storage_energy_mwh": 100
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus7414_battery_50mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-7414-50",
+          "bus_id": 7414,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 50,
+          "storage_energy_mwh": 200
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus7414_battery_75mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-7414-75",
+          "bus_id": 7414,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 75,
+          "storage_energy_mwh": 300
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus7414_battery_100mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-7414-100",
+          "bus_id": 7414,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 100,
+          "storage_energy_mwh": 400
+        }
+      ]
+    },
+    {
+      "plan_name": "A_bus7414_battery_200mw",
+      "plan_source": "family-a-single-bus-battery-sweep",
+      "scenario_id": "activsg2000_representative_v1",
+      "sites": [
+        {
+          "site_id": "A-7414-200",
+          "bus_id": 7414,
+          "connection_capacity_mw": 500,
+          "generator_capacity_mw": 0,
+          "storage_power_mw": 200,
+          "storage_energy_mwh": 800
+        }
+      ]
+    }
+  ]
+}

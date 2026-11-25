@@ -1,0 +1,12 @@
+team_id,site_id,bus_id,connection_capacity_mw,generator_capacity_mw,storage_power_mw,storage_energy_mwh
+candidate-7414,candidate-site-7414,7414,1000.0,0,0,0
+rival-1,rival-site-1,6349,1000.0,0,0,0
+rival-2,rival-site-2,5045,1000.0,0,0,0
+rival-3,rival-site-3,5120,1000.0,0,0,0
+rival-4,rival-site-4,5131,1000.0,0,0,0
+rival-5,rival-site-5,5236,1000.0,0,0,0
+rival-6,rival-site-6,5279,1000.0,0,0,0
+rival-7,rival-site-7,5018,1000.0,0,0,0
+rival-8,rival-site-8,6045,1000.0,0,0,0
+rival-9,rival-site-9,6056,1000.0,0,0,0
+rival-10,rival-site-10,6197,1000.0,0,0,0
