@@ -7,6 +7,8 @@ submission**. Earlier recommendations may predate that finalization; use the
 
 | Note | Subject |
 | --- | --- |
+| [Saket findings after W1S1 results](saket_findings_after_w1s1_results.md) | Nine-team reconstruction, W1S1 calibration, W1S2 carryover and candidates, hourly-LMP sensitivity |
+| [Garcia candidate validation for ten teams](Garcia_Official_Validation_11-21-2026.md) | Full-horizon S1 tests with nine rivals, compared with our generator and battery findings |
 | [Saket findings for November 19, 2026](Saket_Findings_11-19-2026.md) | S1 generator and battery sizing with targeted optimization across 36 ten-team fields |
 | [Saket initial findings](Saket_Initial_Findings.md) | Finalized 500 MW baseline and bus 6141 evaluations, score decomposition, and open questions |
 | [Carter findings summary](Carter_Monday_Nov11_Findings.md) | Hosting capacity, shared headroom, bottlenecks, and competition studies |

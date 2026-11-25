@@ -2,8 +2,29 @@ from types import SimpleNamespace
 
 import pytest
 
-from team_strategy.experiments.battery_s1 import FIELDS, ROOT, RivalPortfolio, read, rival_storage_fields
+from team_strategy.experiments.battery_s1 import (
+    FIELDS, ROOT, BatteryPlan, RivalPortfolio, native_interval_cuts, read, rival_storage_fields,
+)
 from team_strategy.experiments.battery_s1_report import storage_trace, verify_rival_storage
+
+
+def test_s1_bus_override_preserves_the_matched_s2_site():
+    plan = BatteryPlan(225, 0, s1_bus='2054')
+    first, = plan.propose(SimpleNamespace(round=SimpleNamespace(submission=1))).sites
+    second, = plan.propose(SimpleNamespace(round=SimpleNamespace(submission=2))).sites
+    assert (first.bus_id, first.connection_mw, first.generator_mw) == ('2054', 500, 225)
+    assert (second.bus_id, second.connection_mw, second.generator_mw) == ('6141', 500, 500)
+    assert plan.key != BatteryPlan(225, 0).key
+
+
+def test_native_energy_bound_applies_when_hourly_discharge_alone_would_fit():
+    site = SimpleNamespace(load_mw_by_period=(10.,)*24, generator_mw=0.,
+                           storage_power_mw=3., storage_energy_mwh=12.)
+    day = tuple(range(24))
+    limits = {(periods[0], periods[-1]): (rhs, gradient[0]) for periods, rhs, gradient in
+              native_interval_cuts([site], [day], day, (8.,)*24)}
+    assert limits[5, 5] == (8., 7.)
+    assert limits[0, 23] == (192., 240.)
 
 
 def test_storage_trace_checks_each_daily_cycle():

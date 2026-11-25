@@ -1,0 +1,121 @@
+{
+  "scenario": "All nine reconstructed teams request the same S1 buses, load and equipment as new S2 sites",
+  "s1_base_source": "/private/tmp/week1-reconstruction-baseline",
+  "s1_site_count": 146,
+  "s2_base_validation_status": "passed",
+  "scope": "joint_projection",
+  "energy_price_enabled": true,
+  "horizon": 120,
+  "all_valid_feasible": true,
+  "class_new_allocation_mw": 99.00001003113778,
+  "scores": [
+    {
+      "rank": 1,
+      "team_id": "rival-100mw-mixed",
+      "new_allocated_mw": 99.0,
+      "score_usd": 3306353693.7033777,
+      "it_value_usd": 6091130855.557432,
+      "grid_energy_cost_usd": 111010555.48780781,
+      "site_cost_usd": 2475000000.0,
+      "generator_capital_cost_usd": 198000000.0,
+      "storage_capital_cost_usd": 0.0,
+      "generator_operating_cost_usd": 766606.3662462975
+    },
+    {
+      "rank": 2,
+      "team_id": "rival-250mw-hybrid",
+      "new_allocated_mw": 1.003113777641323e-05,
+      "score_usd": 337.5590601245427,
+      "it_value_usd": 617.1815436995784,
+      "grid_energy_cost_usd": 11.235175970121068,
+      "site_cost_usd": 250.77844441033074,
+      "generator_capital_cost_usd": 14.043592886978521,
+      "storage_capital_cost_usd": 3.5108982217446307,
+      "generator_operating_cost_usd": 0.054372085860634446
+    },
+    {
+      "rank": 3,
+      "team_id": "rival-100mw-g20",
+      "new_allocated_mw": 0.0,
+      "score_usd": 0.0,
+      "it_value_usd": 0.0,
+      "grid_energy_cost_usd": 0.0,
+      "site_cost_usd": 0.0,
+      "generator_capital_cost_usd": 0.0,
+      "storage_capital_cost_usd": 0.0,
+      "generator_operating_cost_usd": 0.0
+    },
+    {
+      "rank": 4,
+      "team_id": "rival-100mw-grid",
+      "new_allocated_mw": 0.0,
+      "score_usd": 0.0,
+      "it_value_usd": 0.0,
+      "grid_energy_cost_usd": 0.0,
+      "site_cost_usd": 0.0,
+      "generator_capital_cost_usd": 0.0,
+      "storage_capital_cost_usd": 0.0,
+      "generator_operating_cost_usd": 0.0
+    },
+    {
+      "rank": 5,
+      "team_id": "rival-20mw-x25",
+      "new_allocated_mw": 0.0,
+      "score_usd": 0.0,
+      "it_value_usd": 0.0,
+      "grid_energy_cost_usd": 0.0,
+      "site_cost_usd": 0.0,
+      "generator_capital_cost_usd": 0.0,
+      "storage_capital_cost_usd": 0.0,
+      "generator_operating_cost_usd": 0.0
+    },
+    {
+      "rank": 6,
+      "team_id": "rival-250mw-grid",
+      "new_allocated_mw": 0.0,
+      "score_usd": 0.0,
+      "it_value_usd": 0.0,
+      "grid_energy_cost_usd": 0.0,
+      "site_cost_usd": 0.0,
+      "generator_capital_cost_usd": 0.0,
+      "storage_capital_cost_usd": 0.0,
+      "generator_operating_cost_usd": 0.0
+    },
+    {
+      "rank": 7,
+      "team_id": "rival-500mw-g350",
+      "new_allocated_mw": 0.0,
+      "score_usd": 0.0,
+      "it_value_usd": 0.0,
+      "grid_energy_cost_usd": 0.0,
+      "site_cost_usd": 0.0,
+      "generator_capital_cost_usd": 0.0,
+      "storage_capital_cost_usd": 0.0,
+      "generator_operating_cost_usd": 0.0
+    },
+    {
+      "rank": 8,
+      "team_id": "rival-5mw-x100",
+      "new_allocated_mw": 0.0,
+      "score_usd": 0.0,
+      "it_value_usd": 0.0,
+      "grid_energy_cost_usd": 0.0,
+      "site_cost_usd": 0.0,
+      "generator_capital_cost_usd": 0.0,
+      "storage_capital_cost_usd": 0.0,
+      "generator_operating_cost_usd": 0.0
+    },
+    {
+      "rank": 9,
+      "team_id": "team07",
+      "new_allocated_mw": 0.0,
+      "score_usd": 0.0,
+      "it_value_usd": 0.0,
+      "grid_energy_cost_usd": 0.0,
+      "site_cost_usd": 0.0,
+      "generator_capital_cost_usd": 0.0,
+      "storage_capital_cost_usd": 0.0,
+      "generator_operating_cost_usd": 0.0
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "scenario": "A tenth team duplicates the inferred 25 x 20 MW, G1-per-site rival across the same 25 buses; unchanged course evaluator, all 120 periods",
+  "runs": {
+    "submitted": {
+      "ours": "submitted",
+      "duplicate_of": "rival-20mw-x25",
+      "duplicate_team_id": "rival-20mw-x25-copy",
+      "all_teams_valid_feasible": true,
+      "class_allocated_mw": 4380.5143209541,
+      "rankings": [
+        {
+          "rank": 1,
+          "team_id": "rival-20mw-x25",
+          "allocated_mw": 500.0,
+          "score_usd": 18213187089.351482
+        },
+        {
+          "rank": 2,
+          "team_id": "rival-20mw-x25-copy",
+          "allocated_mw": 500.0,
+          "score_usd": 18213187089.351482
+        },
+        {
+          "rank": 3,
+          "team_id": "rival-100mw-g20",
+          "allocated_mw": 500.0,
+          "score_usd": 18062884629.21856
+        },
+        {
+          "rank": 4,
+          "team_id": "team07",
+          "allocated_mw": 500.0,
+          "score_usd": 17930329473.390015
+        },
+        {
+          "rank": 5,
+          "team_id": "rival-500mw-g350",
+          "allocated_mw": 500.0,
+          "score_usd": 17561710984.533043
+        },
+        {
+          "rank": 6,
+          "team_id": "rival-250mw-hybrid",
+          "allocated_mw": 500.0,
+          "score_usd": 17386881430.704754
+        },
+        {
+          "rank": 7,
+          "team_id": "rival-100mw-mixed",
+          "allocated_mw": 461.28223315253683,
+          "score_usd": 16478323075.942888
+        },
+        {
+          "rank": 8,
+          "team_id": "rival-250mw-grid",
+          "allocated_mw": 306.4112117233949,
+          "score_usd": 11192151890.926365
+        },
+        {
+          "rank": 9,
+          "team_id": "rival-100mw-grid",
+          "allocated_mw": 306.41116576100825,
+          "score_usd": 11192150212.077858
+        },
+        {
+          "rank": 10,
+          "team_id": "rival-5mw-x100",
+          "allocated_mw": 306.40971031716003,
+          "score_usd": 11192097049.699978
+        }
+      ]
+    },
+    "g1": {
+      "ours": "g1",
+      "duplicate_of": "rival-20mw-x25",
+      "duplicate_team_id": "rival-20mw-x25-copy",
+      "all_teams_valid_feasible": true,
+      "class_allocated_mw": 4185.47508006452,
+      "rankings": [
+        {
+          "rank": 1,
+          "team_id": "team07",
+          "allocated_mw": 499.740740759621,
+          "score_usd": 18251814210.196175
+        },
+        {
+          "rank": 2,
+          "team_id": "rival-20mw-x25",
+          "allocated_mw": 500.0,
+          "score_usd": 18213188405.15134
+        },
+        {
+          "rank": 3,
+          "team_id": "rival-20mw-x25-copy",
+          "allocated_mw": 500.0,
+          "score_usd": 18213188405.15134
+        },
+        {
+          "rank": 4,
+          "team_id": "rival-100mw-g20",
+          "allocated_mw": 500.0,
+          "score_usd": 18062905289.964794
+        },
+        {
+          "rank": 5,
+          "team_id": "rival-500mw-g350",
+          "allocated_mw": 500.0,
+          "score_usd": 17562118757.654243
+        },
+        {
+          "rank": 6,
+          "team_id": "rival-250mw-hybrid",
+          "allocated_mw": 500.0,
+          "score_usd": 17386980841.489933
+        },
+        {
+          "rank": 7,
+          "team_id": "rival-100mw-mixed",
+          "allocated_mw": 449.1084668062836,
+          "score_usd": 16033573338.793295
+        },
+        {
+          "rank": 8,
+          "team_id": "rival-250mw-grid",
+          "allocated_mw": 245.5423708308948,
+          "score_usd": 8968821651.599255
+        },
+        {
+          "rank": 9,
+          "team_id": "rival-100mw-grid",
+          "allocated_mw": 245.54233398518898,
+          "score_usd": 8968820305.751846
+        },
+        {
+          "rank": 10,
+          "team_id": "rival-5mw-x100",
+          "allocated_mw": 245.54116768253144,
+          "score_usd": 8968777704.711216
+        }
+      ]
+    }
+  }
+}

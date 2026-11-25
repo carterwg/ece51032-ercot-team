@@ -507,7 +507,7 @@ def write_strategy_indexes(root,destination):
     text+='\n## Other evidence\n\n'
     for p in sorted(destination.glob('*.md')):
         if p.name in {'Battery_S1_comparison.md', 'Battery_S1_targeted_optimization.md',
-                      'Battery_S1_1MW_local_search.md'} or p.name.startswith(
+                      'Battery_S1_1MW_local_search.md', 'Battery_S1_peer_campaign_comparison.md'} or p.name.startswith(
             ('Ten_teams_', 'Part1_','HISTORY_','CONTROL_','LEGACY_')
         ):
             text+='- '+link(p,p.stem)+'\n'

@@ -45,7 +45,7 @@ def storage_trace(series, power, energy, day_length=24, step=1.):
     return states, days
 
 
-def verify_requests(output, name, artifact_hashes, request_hashes, sizes, field):
+def verify_requests(output, name, artifact_hashes, request_hashes, sizes, field, *, s1_bus=BUS):
     rivals = field['rival_plan']
     submission = name[-1]
     csv_paths = sorted((output/name/'inputs').glob('*.csv'))
@@ -60,7 +60,8 @@ def verify_requests(output, name, artifact_hashes, request_hashes, sizes, field)
         owners.add(team)
         if team=='our-team':
             generation,power = sizes if submission=='1' else (CAPACITY_MW,0)
-            expected = {BUS:(CAPACITY_MW,generation,power,power*STORAGE_DURATION_HOURS)}
+            bus = s1_bus if submission == '1' else BUS
+            expected = {bus:(CAPACITY_MW,generation,power,power*STORAGE_DURATION_HOURS)}
         else:
             power = rivals.get('storage_power_schedule', {}).get(submission, 0.)
             expected = {b:(CAPACITY_MW*w,CAPACITY_MW*w*rivals['generation_schedule'][submission],
@@ -123,7 +124,8 @@ def analyze_round(result, round_result, config, field, rates, ratings):
     hashes = result['artifact_sha256']
     if json.loads(checked_bytes(output,name+'/round.json',hashes))!=round_result:
         raise ValueError('Round summary changed')
-    requests = verify_requests(output,name,hashes,round_result['input_sha256_by_team'],result['sizes'],field)
+    requests = verify_requests(output,name,hashes,round_result['input_sha256_by_team'],result['sizes'],field,
+                               s1_bus=result.get('s1_bus', BUS))
     ev = read_evaluation(output,name,hashes)
     if len(round_result['team_scores'])!=10 or len(ev['team_scores'])!=10 or round_result['horizon']!=120:
         raise ValueError('Expected 120 periods of scores and all ten teams')
@@ -194,7 +196,9 @@ def read_evaluation(output,name,hashes):
 
 def render_case(entry, destination, field):
     g,p = entry['sizes']
-    name = f"Battery_S1_G{g}_P{p}__{entry['field']}"
+    s1_bus = entry.get('s1_bus', BUS)
+    suffix = '' if s1_bus == BUS else f'_bus{s1_bus}'
+    name = f"Battery_S1_G{g}_P{p}{suffix}__{entry['field']}"
     if entry['phase']=='campaign': name+='_campaign'
     path=destination/(name+'.md')
     if entry['status']!='complete':
@@ -203,7 +207,7 @@ def render_case(entry, destination, field):
         return path
     rounds = entry['metrics']
     dollars = lambda amount: number(amount/1e9,6)
-    text = f'# 500 MW at bus {BUS}, S1 generator {g} MW and battery {p} MW / {4*p} MWh\n\n'
+    text = f'# 500 MW at bus {s1_bus}, S1 generator {g} MW and battery {p} MW / {4*p} MWh\n\n'
     text += table(['Round','Our admitted MW','All teams admitted MW','Net score $B','IT value $B','Grid cost $B',
                    'Generator fuel $B','Generator capital $B','Battery capital $B'],[
         [r['name'],number(r['admitted_mw'],6),number(r['field_mw'],6),dollars(r['score_usd']),

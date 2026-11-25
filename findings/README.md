@@ -49,6 +49,8 @@ This folder contains Markdown only. Start with a policy/layout summary, then ope
 
 ## Other evidence
 
+- [Matched campaign comparison of Carter, Garcia, the two hybrids, and the 200 and 210 MW generators](Battery_S1_peer_campaign_comparison.md)
+
 - [S1 sizing in 1 MW increments](Battery_S1_1MW_local_search.md)
 
 - [Battery_S1_comparison](<Battery_S1_comparison.md>)

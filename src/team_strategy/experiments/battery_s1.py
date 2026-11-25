@@ -37,15 +37,17 @@ RIVAL_STORAGE_SEED = 20261120
 class BatteryPlan:
     generator_mw: int
     battery_mw: int
+    s1_bus: str = BUS
 
     @property
     def key(self):
-        return f'g{self.generator_mw}_p{self.battery_mw}'
+        suffix = '' if self.s1_bus == BUS else f'_bus{self.s1_bus}'
+        return f'g{self.generator_mw}_p{self.battery_mw}{suffix}'
 
     def propose(self, context):
         if context.round.submission == 2:
             return Plan((SiteProposal(BUS, CAPACITY_MW, CAPACITY_MW),))
-        return Plan((SiteProposal(BUS, CAPACITY_MW, self.generator_mw, self.battery_mw,
+        return Plan((SiteProposal(self.s1_bus, CAPACITY_MW, self.generator_mw, self.battery_mw,
                                   self.battery_mw * STORAGE_DURATION_HOURS),))
 
 
@@ -85,6 +87,25 @@ def storage_slot(output, count=4):
         time.sleep(2)
 
 
+def native_interval_cuts(sites, blocks, period_indices, spare):
+    """Bound net withdrawals using native generation and daily storage cycles."""
+    for day in blocks:
+        for start in range(len(day)):
+            for end in range(start + 1, len(day) + 1):
+                hours = day[start:end]
+                periods = tuple(period_indices[i] for i in hours)
+                rhs = math.fsum(spare[period] for period in periods)
+                gradient = []
+                for site in sites:
+                    power, energy = site.storage_power_mw, site.storage_energy_mwh
+                    usable = 0. if len(hours) == len(day) else min(
+                        len(hours)*power, energy, energy/2+start*power, energy/2+(len(day)-end)*power
+                    )
+                    gradient.append(math.fsum(site.load_mw_by_period[i] for i in hours)
+                                    - len(hours)*site.generator_mw - usable)
+                yield periods, rhs, gradient
+
+
 @contextmanager
 def storage_feasibility_bounds():
     """Certify some infeasible proposals before assembling the official daily LPs."""
@@ -107,6 +128,15 @@ def storage_feasibility_bounds():
                     audit['full_dispatch_shortcuts'].append({'period': period, 'grid_mw_lower_bound': lower_bound,
                                                               'native_spare_mw': spare[period]})
                     raise dcopf.DCOPFInfeasible('Full requests exceed generation even at maximum battery discharge')
+            if (kwargs.get('storage_boundary_mode') == 'daily_exact_cycle'
+                and kwargs.get('time_step_hours', 1.) == 1. and len(source) % 24 == 0):
+                blocks = [tuple(range(start, start+24)) for start in range(0, len(source), 24)]
+                for periods, rhs, gradient in native_interval_cuts(sites, blocks, source, spare):
+                    required = math.fsum(gradient)
+                    if required-rhs > allocation.SHED_TOLERANCE_MWH:
+                        audit['full_dispatch_shortcuts'].append({'interval': periods, 'grid_mwh_lower_bound': required,
+                                                                  'native_spare_mwh': rhs})
+                        raise dcopf.DCOPFInfeasible('Full requests exceed available daily storage energy')
         return dispatch(directory, plans, period_indices, **kwargs)
 
     class StorageDayPool:
@@ -118,22 +148,10 @@ def storage_feasibility_bounds():
             self.directory, self.sites, self.period_indices = directory, sites, period_indices
             self.blocks = blocks
             self.models = {}
-            self.cuts = []
             spare = native_profiles(str(directory))
             self.priority = sorted(range(len(blocks)), key=lambda d: min(spare[period_indices[i]] for i in blocks[d]))
-            for day in blocks:
-                for start in range(len(day)):
-                    for end in range(start + 1, len(day) + 1):
-                        hours = day[start:end]
-                        rhs = math.fsum(spare[period_indices[i]] for i in hours)
-                        gradient = []
-                        for site in sites:
-                            power, energy = site.storage_power_mw, site.storage_energy_mwh
-                            usable = min(len(hours)*power, energy, energy/2+start*power,
-                                         energy/2+(len(day)-end)*power)
-                            gradient.append(math.fsum(site.load_mw_by_period[i] for i in hours)
-                                            - len(hours)*site.generator_mw - usable)
-                        self.cuts.append((rhs, gradient))
+            self.cuts = [(rhs, gradient) for _, rhs, gradient in
+                         native_interval_cuts(sites, blocks, period_indices, spare)]
 
         def shed(self, alphas):
             if self.fallback is not None:
@@ -183,7 +201,7 @@ def run_job(path):
 
 def run_locked_job(path, job):
     config, field = job['config'], job['field']
-    plan = BatteryPlan(*job['sizes'])
+    plan = BatteryPlan(*job['sizes'], s1_bus=job.get('s1_bus', BUS))
     rivals = tuple((f'rival-{i:02d}', RivalPortfolio(field['rival_plan'])) for i in range(1, 10))
     target = path.parent
     output = target/'evaluation'
@@ -215,7 +233,8 @@ def run_locked_job(path, job):
                 result = {'status':'complete', 'rounds':[round_result.summary]}
         finally:
             save_json(target/'execution.json', audit)
-    result.update({'sizes':job['sizes'], 'field':field['name'], 'phase':job['phase'], 'output':str(output),
+    result.update({'sizes':job['sizes'], 's1_bus':plan.s1_bus, 'field':field['name'],
+                   'phase':job['phase'], 'output':str(output),
                    'execution':str(target/'execution.json'),
                    'artifact_sha256': {str(p.relative_to(output)):file_fingerprint(p) for p in output.rglob('*') if p.is_file()}})
     save_json(target/'result.json', result)
@@ -277,8 +296,8 @@ def rival_storage_fields(config, *, randomized=False):
     return fields
 
 
-def execute(output, config, field, sizes, phase, timeout, *, storage_slots=4):
-    key = BatteryPlan(*sizes).key+'/'+field['name']
+def execute(output, config, field, sizes, phase, timeout, *, storage_slots=4, s1_bus=BUS):
+    key = BatteryPlan(*sizes, s1_bus=s1_bus).key+'/'+field['name']
     directory = output/phase/key
     directory.mkdir(parents=True, exist_ok=True)
     attempts = []
@@ -287,7 +306,8 @@ def execute(output, config, field, sizes, phase, timeout, *, storage_slots=4):
         attempt = directory/f'attempt-{len(list(directory.glob("attempt-*")))+1:02d}'
         attempt.mkdir()
         job = attempt/'job.json'
-        save_json(job, {'config':config, 'field':field, 'sizes':list(sizes), 'phase':phase, 'method':method,
+        save_json(job, {'config':config, 'field':field, 'sizes':list(sizes), 's1_bus':s1_bus,
+                        'phase':phase, 'method':method,
                         'parent_holds_storage_slot':storage})
         log = attempt/'evaluation.log'
         # Start the solver timeout after acquiring a slot so queued cases have
@@ -304,7 +324,8 @@ def execute(output, config, field, sizes, phase, timeout, *, storage_slots=4):
                 error = f'timeout after {timeout}s'
         attempts.append({'method':method, 'log':str(log), 'error':error})
         print(f'Retry {phase} {key}: {error}', flush=True)
-    return key, {'status':'failed', 'sizes':list(sizes), 'field':field['name'], 'phase':phase, 'prior_attempts':attempts}
+    return key, {'status':'failed', 'sizes':list(sizes), 's1_bus':s1_bus, 'field':field['name'],
+                 'phase':phase, 'prior_attempts':attempts}
 
 
 def run(output, candidates, phase, jobs, timeout, fields=None):

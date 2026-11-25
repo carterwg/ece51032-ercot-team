@@ -194,12 +194,14 @@ def exact_tasks(output, config, phases, *, timeout, jobs, slots=4, group='target
     records = {phase: stored_results(output, phase) for phase in phases}
     paths = {phase: output / f'{group}_{phase}.json' for phase in phases}
     written = {phase: read(path) if path.is_file() else {} for phase, path in paths.items()}
-    tasks = [(phase, sizes, field) for phase, cases in phases.items() for sizes, field in cases
-             if f"{BatteryPlan(*sizes).key}/{field['name']}" not in records[phase]]
+    requests = [(phase, plan if isinstance(plan, BatteryPlan) else BatteryPlan(*plan), field)
+                for phase, cases in phases.items() for plan, field in cases]
+    tasks = [(phase, plan, field) for phase, plan, field in requests
+             if f"{plan.key}/{field['name']}" not in records[phase]]
     print(f'{len(tasks)} exact evaluations pending', flush=True)
     with ThreadPoolExecutor(jobs) as pool:
-        futures = {pool.submit(execute, output, config, field, sizes, phase, timeout, storage_slots=slots): phase
-                   for phase, sizes, field in tasks}
+        futures = {pool.submit(execute, output, config, field, (plan.generator_mw, plan.battery_mw), phase, timeout,
+                               storage_slots=slots, s1_bus=plan.s1_bus): phase for phase, plan, field in tasks}
         for future in as_completed(futures):
             phase = futures[future]
             key, result = future.result()

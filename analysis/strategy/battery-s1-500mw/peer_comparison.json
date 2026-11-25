@@ -1,0 +1,1933 @@
+{
+  "fields": 36,
+  "summary": {
+    "Carter battery-only": {
+      "bus": "6141",
+      "generator_mw": 0,
+      "storage_mw": 125,
+      "storage_mwh": 500.0,
+      "capital_m": 175.0,
+      "min_s1_mw": 0.004262752619456578,
+      "min_s1_field": "nine_b196_at_6141",
+      "mean_s1_mw": 415.0365455908719,
+      "full_s1_fields": 22,
+      "near_firm_fields": 23,
+      "min_s2_mw": 500.0,
+      "mean_score_usd": 58824940173.3698,
+      "mean_s1_score_usd": 29548661525.900795,
+      "mean_s2_score_usd": 29276278647.469,
+      "mean_s2_generator_operating_cost_usd": 3780716538.2462955,
+      "mean_s2_grid_energy_cost_usd": 1469579112.844683,
+      "worst_score_usd": 28201707375.571415,
+      "worst_score_field": "nine_b196_at_6141",
+      "fields_tied_for_best_score": 7
+    },
+    "Garcia generator-only": {
+      "bus": "2054",
+      "generator_mw": 225,
+      "storage_mw": 0,
+      "storage_mwh": 0.0,
+      "capital_m": 450.0,
+      "min_s1_mw": 500.0,
+      "min_s1_field": "nine_grid_at_6141",
+      "mean_s1_mw": 500.0,
+      "full_s1_fields": 36,
+      "near_firm_fields": 36,
+      "min_s2_mw": 500.0,
+      "mean_score_usd": 64718191710.008514,
+      "mean_s1_score_usd": 35057170174.69455,
+      "mean_s2_score_usd": 29661021535.31396,
+      "mean_s2_generator_operating_cost_usd": 3199377214.121463,
+      "mean_s2_grid_energy_cost_usd": 1666175549.1245584,
+      "worst_score_usd": 63129694333.076065,
+      "worst_score_field": "nine_g200_at_6141",
+      "fields_tied_for_best_score": 26
+    },
+    "97/99 hybrid": {
+      "bus": "6141",
+      "generator_mw": 97,
+      "storage_mw": 99,
+      "storage_mwh": 396.0,
+      "capital_m": 332.6,
+      "min_s1_mw": 499.9015251357371,
+      "min_s1_field": "nine_g50_b175_at_6141",
+      "mean_s1_mw": 499.99200270004064,
+      "full_s1_fields": 32,
+      "near_firm_fields": 36,
+      "min_s2_mw": 500.0,
+      "mean_score_usd": 64530297695.967606,
+      "mean_s1_score_usd": 35281600471.09312,
+      "mean_s2_score_usd": 29248697224.87449,
+      "mean_s2_generator_operating_cost_usd": 3822215231.405683,
+      "mean_s2_grid_energy_cost_usd": 1455661842.279811,
+      "worst_score_usd": 62760349530.81318,
+      "worst_score_field": "nine_g75_b175_at_6141",
+      "fields_tied_for_best_score": 3
+    },
+    "95/105 hybrid": {
+      "bus": "6141",
+      "generator_mw": 95,
+      "storage_mw": 105,
+      "storage_mwh": 420.0,
+      "capital_m": 337.0,
+      "min_s1_mw": 499.9153608126472,
+      "min_s1_field": "nine_g50_b175_at_6141",
+      "mean_s1_mw": 499.99252540686524,
+      "full_s1_fields": 32,
+      "near_firm_fields": 36,
+      "min_s2_mw": 500.0,
+      "mean_score_usd": 64520754430.65184,
+      "mean_s1_score_usd": 35272998288.04672,
+      "mean_s2_score_usd": 29247756142.605118,
+      "mean_s2_generator_operating_cost_usd": 3824141601.2191463,
+      "mean_s2_grid_energy_cost_usd": 1454676554.7357187,
+      "worst_score_usd": 62751587349.75458,
+      "worst_score_field": "nine_g75_b175_at_6141",
+      "fields_tied_for_best_score": 0
+    },
+    "200 MW generator-only": {
+      "bus": "6141",
+      "generator_mw": 200,
+      "storage_mw": 0,
+      "storage_mwh": 0.0,
+      "capital_m": 400.0,
+      "min_s1_mw": 499.94394161448247,
+      "min_s1_field": "nine_g50_b125_at_6141",
+      "mean_s1_mw": 499.9984428226245,
+      "full_s1_fields": 35,
+      "near_firm_fields": 36,
+      "min_s2_mw": 500.0,
+      "mean_score_usd": 64386033474.471825,
+      "mean_s1_score_usd": 35144340780.67873,
+      "mean_s2_score_usd": 29241692693.7931,
+      "mean_s2_generator_operating_cost_usd": 3841302083.1400633,
+      "mean_s2_grid_energy_cost_usd": 1443579521.6268191,
+      "worst_score_usd": 62596838301.57041,
+      "worst_score_field": "nine_g200_at_6141",
+      "fields_tied_for_best_score": 0
+    },
+    "210 MW generator-only": {
+      "bus": "6141",
+      "generator_mw": 210,
+      "storage_mw": 0,
+      "storage_mwh": 0.0,
+      "capital_m": 420.0,
+      "min_s1_mw": 500.0,
+      "min_s1_field": "nine_grid_at_6141",
+      "mean_s1_mw": 500.0,
+      "full_s1_fields": 36,
+      "near_firm_fields": 36,
+      "min_s2_mw": 500.0,
+      "mean_score_usd": 64342015970.140854,
+      "mean_s1_score_usd": 35104361059.33442,
+      "mean_s2_score_usd": 29237654910.80644,
+      "mean_s2_generator_operating_cost_usd": 3846493915.717677,
+      "mean_s2_grid_energy_cost_usd": 1442425472.035869,
+      "worst_score_usd": 62556733126.81499,
+      "worst_score_field": "nine_g200_at_6141",
+      "fields_tied_for_best_score": 0
+    }
+  },
+  "cases": {
+    "nine_grid_at_6141": {
+      "Carter battery-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 69586500392.00638,
+        "finding": "findings/Battery_S1_G0_P125__nine_grid_at_6141_campaign.md",
+        "s1_score_usd": 35621962971.542656,
+        "s2_score_usd": 33964537420.463726
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 69032750689.73611,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_grid_at_6141_campaign.md",
+        "s1_score_usd": 35068699191.013855,
+        "s2_score_usd": 33964051498.722256
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 69268099774.2652,
+        "finding": "findings/Battery_S1_G97_P99__nine_grid_at_6141_campaign.md",
+        "s1_score_usd": 35305333424.636795,
+        "s2_score_usd": 33962766349.6284
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 69259252204.9399,
+        "finding": "findings/Battery_S1_G95_P105__nine_grid_at_6141_campaign.md",
+        "s1_score_usd": 35296595426.70566,
+        "s2_score_usd": 33962656778.234238
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 69131145029.91022,
+        "finding": "findings/Battery_S1_G200_P0__nine_grid_at_6141_campaign.md",
+        "s1_score_usd": 35168565767.61105,
+        "s2_score_usd": 33962579262.299156
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 69090917272.66707,
+        "finding": "findings/Battery_S1_G210_P0__nine_grid_at_6141_campaign.md",
+        "s1_score_usd": 35128545052.05052,
+        "s2_score_usd": 33962372220.616554
+      }
+    },
+    "nine_grid_at_hosting_1": {
+      "Carter battery-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 69589044172.85681,
+        "finding": "findings/Battery_S1_G0_P125__nine_grid_at_hosting_1_campaign.md",
+        "s1_score_usd": 35622389975.87998,
+        "s2_score_usd": 33966654196.976826
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 69029197599.56989,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_grid_at_hosting_1_campaign.md",
+        "s1_score_usd": 35064273693.46275,
+        "s2_score_usd": 33964923906.10712
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 69271542012.00291,
+        "finding": "findings/Battery_S1_G97_P99__nine_grid_at_hosting_1_campaign.md",
+        "s1_score_usd": 35306027372.15399,
+        "s2_score_usd": 33965514639.84893
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 69262804744.44583,
+        "finding": "findings/Battery_S1_G95_P105__nine_grid_at_hosting_1_campaign.md",
+        "s1_score_usd": 35297287987.487946,
+        "s2_score_usd": 33965516756.95788
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 69134287554.00507,
+        "finding": "findings/Battery_S1_G200_P0__nine_grid_at_hosting_1_campaign.md",
+        "s1_score_usd": 35169222015.97583,
+        "s2_score_usd": 33965065538.029243
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 69094151548.90996,
+        "finding": "findings/Battery_S1_G210_P0__nine_grid_at_hosting_1_campaign.md",
+        "s1_score_usd": 35129200818.784164,
+        "s2_score_usd": 33964950730.1258
+      }
+    },
+    "nine_s2_cg_hosting_2": {
+      "Carter battery-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 69136450631.46834,
+        "finding": "findings/Battery_S1_G0_P125__nine_s2_cg_hosting_2_campaign.md",
+        "s1_score_usd": 35622417129.1582,
+        "s2_score_usd": 33514033502.310143
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68585188741.71846,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_s2_cg_hosting_2_campaign.md",
+        "s1_score_usd": 35063964938.961655,
+        "s2_score_usd": 33521223802.7568
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68794889307.87158,
+        "finding": "findings/Battery_S1_G97_P99__nine_s2_cg_hosting_2_campaign.md",
+        "s1_score_usd": 35305977959.28178,
+        "s2_score_usd": 33488911348.58981
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68785979618.57025,
+        "finding": "findings/Battery_S1_G95_P105__nine_s2_cg_hosting_2_campaign.md",
+        "s1_score_usd": 35297236481.02949,
+        "s2_score_usd": 33488743137.54076
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68650034332.20157,
+        "finding": "findings/Battery_S1_G200_P0__nine_s2_cg_hosting_2_campaign.md",
+        "s1_score_usd": 35169111125.45942,
+        "s2_score_usd": 33480923206.742146
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68610007337.145164,
+        "finding": "findings/Battery_S1_G210_P0__nine_s2_cg_hosting_2_campaign.md",
+        "s1_score_usd": 35129090409.89977,
+        "s2_score_usd": 33480916927.24539
+      }
+    },
+    "nine_both_cg_ptdf_5": {
+      "Carter battery-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68470670534.78511,
+        "finding": "findings/Battery_S1_G0_P125__nine_both_cg_ptdf_5_campaign.md",
+        "s1_score_usd": 35604609749.29017,
+        "s2_score_usd": 32866060785.49494
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 67907632492.8179,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_both_cg_ptdf_5_campaign.md",
+        "s1_score_usd": 35048253921.50499,
+        "s2_score_usd": 32859378571.31292
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68149244097.2883,
+        "finding": "findings/Battery_S1_G97_P99__nine_both_cg_ptdf_5_campaign.md",
+        "s1_score_usd": 35288618796.38391,
+        "s2_score_usd": 32860625300.904392
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68141477169.2278,
+        "finding": "findings/Battery_S1_G95_P105__nine_both_cg_ptdf_5_campaign.md",
+        "s1_score_usd": 35280016751.0083,
+        "s2_score_usd": 32861460418.21949
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 67972994230.72601,
+        "finding": "findings/Battery_S1_G200_P0__nine_both_cg_ptdf_5_campaign.md",
+        "s1_score_usd": 35150301557.78171,
+        "s2_score_usd": 32822692672.94431
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 67932982949.863976,
+        "finding": "findings/Battery_S1_G210_P0__nine_both_cg_ptdf_5_campaign.md",
+        "s1_score_usd": 35110290276.91966,
+        "s2_score_usd": 32822692672.94431
+      }
+    },
+    "nine_g125_at_6141": {
+      "Carter battery-only": {
+        "s1_mw": 400.5592700098582,
+        "s2_mw": 500.0,
+        "score_usd": 57169238860.217865,
+        "finding": "findings/Battery_S1_G0_P125__nine_g125_at_6141_campaign.md",
+        "s1_score_usd": 28528640382.8607,
+        "s2_score_usd": 28640598477.35717
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 64002453600.24898,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_g125_at_6141_campaign.md",
+        "s1_score_usd": 35062819441.839325,
+        "s2_score_usd": 28939634158.409653
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63825254694.86806,
+        "finding": "findings/Battery_S1_G97_P99__nine_g125_at_6141_campaign.md",
+        "s1_score_usd": 35292784988.79941,
+        "s2_score_usd": 28532469706.06865
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63811474071.38263,
+        "finding": "findings/Battery_S1_G95_P105__nine_g125_at_6141_campaign.md",
+        "s1_score_usd": 35284017480.279495,
+        "s2_score_usd": 28527456591.103134
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63679578048.35458,
+        "finding": "findings/Battery_S1_G200_P0__nine_g125_at_6141_campaign.md",
+        "s1_score_usd": 35154960194.43887,
+        "s2_score_usd": 28524617853.91571
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63626412763.68938,
+        "finding": "findings/Battery_S1_G210_P0__nine_g125_at_6141_campaign.md",
+        "s1_score_usd": 35114733277.06064,
+        "s2_score_usd": 28511679486.628735
+      }
+    },
+    "nine_g150_ptdf_5": {
+      "Carter battery-only": {
+        "s1_mw": 0.006048603143854831,
+        "s2_mw": 500.0,
+        "score_usd": 33098737783.336853,
+        "finding": "findings/Battery_S1_G0_P125__nine_g150_ptdf_5_campaign.md",
+        "s1_score_usd": 430843.26724984363,
+        "s2_score_usd": 33098306940.069603
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68118504707.75958,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_g150_ptdf_5_campaign.md",
+        "s1_score_usd": 35060161096.01547,
+        "s2_score_usd": 33058343611.744102
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68373757070.194626,
+        "finding": "findings/Battery_S1_G97_P99__nine_g150_ptdf_5_campaign.md",
+        "s1_score_usd": 35299225803.71552,
+        "s2_score_usd": 33074531266.479103
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68364580156.12218,
+        "finding": "findings/Battery_S1_G95_P105__nine_g150_ptdf_5_campaign.md",
+        "s1_score_usd": 35290503348.35946,
+        "s2_score_usd": 33074076807.762722
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68229902273.49881,
+        "finding": "findings/Battery_S1_G200_P0__nine_g150_ptdf_5_campaign.md",
+        "s1_score_usd": 35162025661.683365,
+        "s2_score_usd": 33067876611.815445
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68166450143.97108,
+        "finding": "findings/Battery_S1_G210_P0__nine_g150_ptdf_5_campaign.md",
+        "s1_score_usd": 35122001036.16712,
+        "s2_score_usd": 33044449107.803955
+      }
+    },
+    "nine_g200_at_6141": {
+      "Carter battery-only": {
+        "s1_mw": 405.9546622885541,
+        "s2_mw": 500.0,
+        "score_usd": 56550602026.56027,
+        "finding": "findings/Battery_S1_G0_P125__nine_g200_at_6141_campaign.md",
+        "s1_score_usd": 28876428447.283344,
+        "s2_score_usd": 27674173579.276928
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63129694333.076065,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_g200_at_6141_campaign.md",
+        "s1_score_usd": 35050769755.51521,
+        "s2_score_usd": 28078924577.560844
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62783615438.65976,
+        "finding": "findings/Battery_S1_G97_P99__nine_g200_at_6141_campaign.md",
+        "s1_score_usd": 35245070761.85385,
+        "s2_score_usd": 27538544676.80591
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62775237943.06916,
+        "finding": "findings/Battery_S1_G95_P105__nine_g200_at_6141_campaign.md",
+        "s1_score_usd": 35236744965.211365,
+        "s2_score_usd": 27538492977.857796
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62596838301.57041,
+        "finding": "findings/Battery_S1_G200_P0__nine_g200_at_6141_campaign.md",
+        "s1_score_usd": 35066403498.651245,
+        "s2_score_usd": 27530434802.91917
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62556733126.81499,
+        "finding": "findings/Battery_S1_G210_P0__nine_g200_at_6141_campaign.md",
+        "s1_score_usd": 35026298323.89581,
+        "s2_score_usd": 27530434802.91917
+      }
+    },
+    "nine_b125_at_6141": {
+      "Carter battery-only": {
+        "s1_mw": 400.55927000777257,
+        "s2_mw": 500.0,
+        "score_usd": 57220344851.59311,
+        "finding": "findings/Battery_S1_G0_P125__nine_b125_at_6141_campaign.md",
+        "s1_score_usd": 28530201427.180508,
+        "s2_score_usd": 28690143424.412605
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 64105978911.06169,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_b125_at_6141_campaign.md",
+        "s1_score_usd": 35063872872.173325,
+        "s2_score_usd": 29042106038.888367
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63877759028.76695,
+        "finding": "findings/Battery_S1_G97_P99__nine_b125_at_6141_campaign.md",
+        "s1_score_usd": 35292490266.77704,
+        "s2_score_usd": 28585268761.989906
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63863982689.0895,
+        "finding": "findings/Battery_S1_G95_P105__nine_b125_at_6141_campaign.md",
+        "s1_score_usd": 35283709321.69414,
+        "s2_score_usd": 28580273367.395367
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63737322399.926956,
+        "finding": "findings/Battery_S1_G200_P0__nine_b125_at_6141_campaign.md",
+        "s1_score_usd": 35157004783.95033,
+        "s2_score_usd": 28580317615.976624
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63684655809.539185,
+        "finding": "findings/Battery_S1_G210_P0__nine_b125_at_6141_campaign.md",
+        "s1_score_usd": 35116759905.870026,
+        "s2_score_usd": 28567895903.669155
+      }
+    },
+    "nine_b196_at_6141": {
+      "Carter battery-only": {
+        "s1_mw": 0.004262752619456578,
+        "s2_mw": 500.0,
+        "score_usd": 28201707375.571415,
+        "finding": "findings/Battery_S1_G0_P125__nine_b196_at_6141_campaign.md",
+        "s1_score_usd": 303543.6681626813,
+        "s2_score_usd": 28201403831.90325
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63535562347.54207,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_b196_at_6141_campaign.md",
+        "s1_score_usd": 35054411442.66063,
+        "s2_score_usd": 28481150904.881443
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63451138607.989174,
+        "finding": "findings/Battery_S1_G97_P99__nine_b196_at_6141_campaign.md",
+        "s1_score_usd": 35283368219.88129,
+        "s2_score_usd": 28167770388.10789
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63440497449.40725,
+        "finding": "findings/Battery_S1_G95_P105__nine_b196_at_6141_campaign.md",
+        "s1_score_usd": 35274599347.690384,
+        "s2_score_usd": 28165898101.716866
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63235541275.18175,
+        "finding": "findings/Battery_S1_G200_P0__nine_b196_at_6141_campaign.md",
+        "s1_score_usd": 35146539466.3634,
+        "s2_score_usd": 28089001808.818344
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63182909614.987015,
+        "finding": "findings/Battery_S1_G210_P0__nine_b196_at_6141_campaign.md",
+        "s1_score_usd": 35106382095.32952,
+        "s2_score_usd": 28076527519.657497
+      }
+    },
+    "nine_b150_ptdf_5": {
+      "Carter battery-only": {
+        "s1_mw": 0.012440877092794815,
+        "s2_mw": 500.0,
+        "score_usd": 33137376139.435772,
+        "finding": "findings/Battery_S1_G0_P125__nine_b150_ptdf_5_campaign.md",
+        "s1_score_usd": 886234.5469934571,
+        "s2_score_usd": 33136489904.88878
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68164791267.73161,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_b150_ptdf_5_campaign.md",
+        "s1_score_usd": 35059201442.74656,
+        "s2_score_usd": 33105589824.985058
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68415538433.06035,
+        "finding": "findings/Battery_S1_G97_P99__nine_b150_ptdf_5_campaign.md",
+        "s1_score_usd": 35296952431.11958,
+        "s2_score_usd": 33118586001.940765
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68406707283.12627,
+        "finding": "findings/Battery_S1_G95_P105__nine_b150_ptdf_5_campaign.md",
+        "s1_score_usd": 35288236874.27501,
+        "s2_score_usd": 33118470408.85126
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68263982058.608246,
+        "finding": "findings/Battery_S1_G200_P0__nine_b150_ptdf_5_campaign.md",
+        "s1_score_usd": 35160909590.79601,
+        "s2_score_usd": 33103072467.81223
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68218052501.44188,
+        "finding": "findings/Battery_S1_G210_P0__nine_b150_ptdf_5_campaign.md",
+        "s1_score_usd": 35120854315.26021,
+        "s2_score_usd": 33097198186.181667
+      }
+    },
+    "nine_g75_b125_at_6141": {
+      "Carter battery-only": {
+        "s1_mw": 323.2793415924142,
+        "s2_mw": 500.0,
+        "score_usd": 50765869778.24983,
+        "finding": "findings/Battery_S1_G0_P125__nine_g75_b125_at_6141_campaign.md",
+        "s1_score_usd": 23013150584.476948,
+        "s2_score_usd": 27752719193.77289
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63172299167.8096,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_g75_b125_at_6141_campaign.md",
+        "s1_score_usd": 35055696053.088486,
+        "s2_score_usd": 28116603114.72111
+      },
+      "97/99 hybrid": {
+        "s1_mw": 499.9257375703516,
+        "s2_mw": 500.0,
+        "score_usd": 62925751987.52848,
+        "finding": "findings/Battery_S1_G97_P99__nine_g75_b125_at_6141_campaign.md",
+        "s1_score_usd": 35270440020.59882,
+        "s2_score_usd": 27655311966.929657
+      },
+      "95/105 hybrid": {
+        "s1_mw": 499.92977297664083,
+        "s2_mw": 500.0,
+        "score_usd": 62915255719.234924,
+        "finding": "findings/Battery_S1_G95_P105__nine_g75_b125_at_6141_campaign.md",
+        "s1_score_usd": 35261959217.18369,
+        "s2_score_usd": 27653296502.05123
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62723548290.75217,
+        "finding": "findings/Battery_S1_G200_P0__nine_g75_b125_at_6141_campaign.md",
+        "s1_score_usd": 35134221159.63257,
+        "s2_score_usd": 27589327131.119595
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62653127245.38702,
+        "finding": "findings/Battery_S1_G210_P0__nine_g75_b125_at_6141_campaign.md",
+        "s1_score_usd": 35092842818.57451,
+        "s2_score_usd": 27560284426.81251
+      }
+    },
+    "nine_random_storage_01": {
+      "Carter battery-only": {
+        "s1_mw": 400.5592700058265,
+        "s2_mw": 500.0,
+        "score_usd": 57210382444.692535,
+        "finding": "findings/Battery_S1_G0_P125__nine_random_storage_01_campaign.md",
+        "s1_score_usd": 28529086174.41159,
+        "s2_score_usd": 28681296270.28095
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 64034145836.01479,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_random_storage_01_campaign.md",
+        "s1_score_usd": 35062952923.01075,
+        "s2_score_usd": 28971192913.004044
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63868068485.30037,
+        "finding": "findings/Battery_S1_G97_P99__nine_random_storage_01_campaign.md",
+        "s1_score_usd": 35292776371.876335,
+        "s2_score_usd": 28575292113.42403
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63854283409.536026,
+        "finding": "findings/Battery_S1_G95_P105__nine_random_storage_01_campaign.md",
+        "s1_score_usd": 35284023048.36012,
+        "s2_score_usd": 28570260361.175896
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63718469473.74263,
+        "finding": "findings/Battery_S1_G200_P0__nine_random_storage_01_campaign.md",
+        "s1_score_usd": 35157112472.79101,
+        "s2_score_usd": 28561357000.951622
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63665647371.33659,
+        "finding": "findings/Battery_S1_G210_P0__nine_random_storage_01_campaign.md",
+        "s1_score_usd": 35116942174.86485,
+        "s2_score_usd": 28548705196.47174
+      }
+    },
+    "nine_random_storage_02": {
+      "Carter battery-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63089756441.3513,
+        "finding": "findings/Battery_S1_G0_P125__nine_random_storage_02_campaign.md",
+        "s1_score_usd": 35589521661.61523,
+        "s2_score_usd": 27500234779.736076
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63194077706.09396,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_random_storage_02_campaign.md",
+        "s1_score_usd": 35057163352.525085,
+        "s2_score_usd": 28136914353.568886
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62768032153.81748,
+        "finding": "findings/Battery_S1_G97_P99__nine_random_storage_02_campaign.md",
+        "s1_score_usd": 35273898001.172585,
+        "s2_score_usd": 27494134152.644897
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62759093093.20128,
+        "finding": "findings/Battery_S1_G95_P105__nine_random_storage_02_campaign.md",
+        "s1_score_usd": 35265127896.7551,
+        "s2_score_usd": 27493965196.44618
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62640776153.27879,
+        "finding": "findings/Battery_S1_G200_P0__nine_random_storage_02_campaign.md",
+        "s1_score_usd": 35138479428.385254,
+        "s2_score_usd": 27502296724.89353
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62600757313.20776,
+        "finding": "findings/Battery_S1_G210_P0__nine_random_storage_02_campaign.md",
+        "s1_score_usd": 35098460588.31423,
+        "s2_score_usd": 27502296724.89353
+      }
+    },
+    "nine_random_storage_03": {
+      "Carter battery-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63088090617.98599,
+        "finding": "findings/Battery_S1_G0_P125__nine_random_storage_03_campaign.md",
+        "s1_score_usd": 35589396870.60148,
+        "s2_score_usd": 27498693747.38451
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63176358976.2544,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_random_storage_03_campaign.md",
+        "s1_score_usd": 35057150119.61786,
+        "s2_score_usd": 28119208856.636543
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62777129649.27399,
+        "finding": "findings/Battery_S1_G97_P99__nine_random_storage_03_campaign.md",
+        "s1_score_usd": 35274113880.36861,
+        "s2_score_usd": 27503015768.905376
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62767148675.47673,
+        "finding": "findings/Battery_S1_G95_P105__nine_random_storage_03_campaign.md",
+        "s1_score_usd": 35265322814.65425,
+        "s2_score_usd": 27501825860.82247
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62665290633.01927,
+        "finding": "findings/Battery_S1_G200_P0__nine_random_storage_03_campaign.md",
+        "s1_score_usd": 35138684798.439384,
+        "s2_score_usd": 27526605834.57989
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62625307585.1449,
+        "finding": "findings/Battery_S1_G210_P0__nine_random_storage_03_campaign.md",
+        "s1_score_usd": 35098701750.565,
+        "s2_score_usd": 27526605834.57989
+      }
+    },
+    "nine_random_storage_04": {
+      "Carter battery-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63115332670.826004,
+        "finding": "findings/Battery_S1_G0_P125__nine_random_storage_04_campaign.md",
+        "s1_score_usd": 35583866179.498505,
+        "s2_score_usd": 27531466491.327503
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63155299899.32385,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_random_storage_04_campaign.md",
+        "s1_score_usd": 35057129122.55905,
+        "s2_score_usd": 28098170776.764797
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62806991091.39747,
+        "finding": "findings/Battery_S1_G97_P99__nine_random_storage_04_campaign.md",
+        "s1_score_usd": 35268744889.77533,
+        "s2_score_usd": 27538246201.622135
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62797136278.87537,
+        "finding": "findings/Battery_S1_G95_P105__nine_random_storage_04_campaign.md",
+        "s1_score_usd": 35260059359.04402,
+        "s2_score_usd": 27537076919.831352
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62683447745.98692,
+        "finding": "findings/Battery_S1_G200_P0__nine_random_storage_04_campaign.md",
+        "s1_score_usd": 35125083619.9586,
+        "s2_score_usd": 27558364126.028313
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62643444367.351105,
+        "finding": "findings/Battery_S1_G210_P0__nine_random_storage_04_campaign.md",
+        "s1_score_usd": 35085080241.32279,
+        "s2_score_usd": 27558364126.028313
+      }
+    },
+    "nine_random_storage_05": {
+      "Carter battery-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63098588109.61082,
+        "finding": "findings/Battery_S1_G0_P125__nine_random_storage_05_campaign.md",
+        "s1_score_usd": 35592460643.355835,
+        "s2_score_usd": 27506127466.254986
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63165748987.98705,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_random_storage_05_campaign.md",
+        "s1_score_usd": 35057591325.25549,
+        "s2_score_usd": 28108157662.731564
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62790740523.514206,
+        "finding": "findings/Battery_S1_G97_P99__nine_random_storage_05_campaign.md",
+        "s1_score_usd": 35273271962.11095,
+        "s2_score_usd": 27517468561.403255
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62785586035.301476,
+        "finding": "findings/Battery_S1_G95_P105__nine_random_storage_05_campaign.md",
+        "s1_score_usd": 35268121688.04715,
+        "s2_score_usd": 27517464347.25433
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62668214243.81215,
+        "finding": "findings/Battery_S1_G200_P0__nine_random_storage_05_campaign.md",
+        "s1_score_usd": 35135788973.25838,
+        "s2_score_usd": 27532425270.55377
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62628195295.701706,
+        "finding": "findings/Battery_S1_G210_P0__nine_random_storage_05_campaign.md",
+        "s1_score_usd": 35095770025.147934,
+        "s2_score_usd": 27532425270.55377
+      }
+    },
+    "nine_random_storage_06": {
+      "Carter battery-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63092220384.8366,
+        "finding": "findings/Battery_S1_G0_P125__nine_random_storage_06_campaign.md",
+        "s1_score_usd": 35590055795.57975,
+        "s2_score_usd": 27502164589.25685
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63195663926.79759,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_random_storage_06_campaign.md",
+        "s1_score_usd": 35057505072.922806,
+        "s2_score_usd": 28138158853.87478
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62771349258.84949,
+        "finding": "findings/Battery_S1_G97_P99__nine_random_storage_06_campaign.md",
+        "s1_score_usd": 35274680763.23432,
+        "s2_score_usd": 27496668495.615166
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62762404759.95802,
+        "finding": "findings/Battery_S1_G95_P105__nine_random_storage_06_campaign.md",
+        "s1_score_usd": 35265905220.54157,
+        "s2_score_usd": 27496499539.416447
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62645415977.78006,
+        "finding": "findings/Battery_S1_G200_P0__nine_random_storage_06_campaign.md",
+        "s1_score_usd": 35139478466.14191,
+        "s2_score_usd": 27505937511.63815
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62605409017.41901,
+        "finding": "findings/Battery_S1_G210_P0__nine_random_storage_06_campaign.md",
+        "s1_score_usd": 35099471505.78085,
+        "s2_score_usd": 27505937511.63815
+      }
+    },
+    "nine_random_storage_07": {
+      "Carter battery-only": {
+        "s1_mw": 499.90814573342533,
+        "s2_mw": 500.0,
+        "score_usd": 68887620260.55083,
+        "finding": "findings/Battery_S1_G0_P125__nine_random_storage_07_campaign.md",
+        "s1_score_usd": 35606452399.48656,
+        "s2_score_usd": 33281167861.064278
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68493985062.59296,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_random_storage_07_campaign.md",
+        "s1_score_usd": 35043956093.43582,
+        "s2_score_usd": 33450028969.15713
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68572660858.39009,
+        "finding": "findings/Battery_S1_G97_P99__nine_random_storage_07_campaign.md",
+        "s1_score_usd": 35293303194.241516,
+        "s2_score_usd": 33279357664.148567
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68564391415.237946,
+        "finding": "findings/Battery_S1_G95_P105__nine_random_storage_07_campaign.md",
+        "s1_score_usd": 35284611292.60326,
+        "s2_score_usd": 33279780122.634693
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68432233610.15233,
+        "finding": "findings/Battery_S1_G200_P0__nine_random_storage_07_campaign.md",
+        "s1_score_usd": 35156878171.12279,
+        "s2_score_usd": 33275355439.029545
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68392504242.15346,
+        "finding": "findings/Battery_S1_G210_P0__nine_random_storage_07_campaign.md",
+        "s1_score_usd": 35116738942.42015,
+        "s2_score_usd": 33275765299.73331
+      }
+    },
+    "nine_random_storage_08": {
+      "Carter battery-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68891200920.45247,
+        "finding": "findings/Battery_S1_G0_P125__nine_random_storage_08_campaign.md",
+        "s1_score_usd": 35613328284.38283,
+        "s2_score_usd": 33277872636.069645
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68476115223.616135,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_random_storage_08_campaign.md",
+        "s1_score_usd": 35045680075.38158,
+        "s2_score_usd": 33430435148.234562
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68575161618.35274,
+        "finding": "findings/Battery_S1_G97_P99__nine_random_storage_08_campaign.md",
+        "s1_score_usd": 35297606330.99371,
+        "s2_score_usd": 33277555287.35902
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68566301055.82697,
+        "finding": "findings/Battery_S1_G95_P105__nine_random_storage_08_campaign.md",
+        "s1_score_usd": 35288877897.97037,
+        "s2_score_usd": 33277423157.8566
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68432963762.352486,
+        "finding": "findings/Battery_S1_G200_P0__nine_random_storage_08_campaign.md",
+        "s1_score_usd": 35161656923.3365,
+        "s2_score_usd": 33271306839.015984
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68392944591.95871,
+        "finding": "findings/Battery_S1_G210_P0__nine_random_storage_08_campaign.md",
+        "s1_score_usd": 35121637752.94005,
+        "s2_score_usd": 33271306839.01866
+      }
+    },
+    "nine_random_storage_09": {
+      "Carter battery-only": {
+        "s1_mw": 404.83573084385563,
+        "s2_mw": 500.0,
+        "score_usd": 61814436932.982285,
+        "finding": "findings/Battery_S1_G0_P125__nine_random_storage_09_campaign.md",
+        "s1_score_usd": 28832917533.738102,
+        "s2_score_usd": 32981519399.24418
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68052616927.71355,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_random_storage_09_campaign.md",
+        "s1_score_usd": 35057156710.04639,
+        "s2_score_usd": 32995460217.66716
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68276868902.97922,
+        "finding": "findings/Battery_S1_G97_P99__nine_random_storage_09_campaign.md",
+        "s1_score_usd": 35294482117.60098,
+        "s2_score_usd": 32982386785.378235
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68257765069.393265,
+        "finding": "findings/Battery_S1_G95_P105__nine_random_storage_09_campaign.md",
+        "s1_score_usd": 35285765155.399376,
+        "s2_score_usd": 32971999913.993893
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68129901722.11128,
+        "finding": "findings/Battery_S1_G200_P0__nine_random_storage_09_campaign.md",
+        "s1_score_usd": 35158278306.79242,
+        "s2_score_usd": 32971623415.318863
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68089956874.47589,
+        "finding": "findings/Battery_S1_G210_P0__nine_random_storage_09_campaign.md",
+        "s1_score_usd": 35118333459.15703,
+        "s2_score_usd": 32971623415.318863
+      }
+    },
+    "nine_random_storage_10": {
+      "Carter battery-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68547532528.04985,
+        "finding": "findings/Battery_S1_G0_P125__nine_random_storage_10_campaign.md",
+        "s1_score_usd": 35612372978.20729,
+        "s2_score_usd": 32935159549.84256
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68015988472.09877,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_random_storage_10_campaign.md",
+        "s1_score_usd": 35058802954.93136,
+        "s2_score_usd": 32957185517.167416
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68232764960.473206,
+        "finding": "findings/Battery_S1_G97_P99__nine_random_storage_10_campaign.md",
+        "s1_score_usd": 35296565766.00318,
+        "s2_score_usd": 32936199194.470024
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68231330980.805435,
+        "finding": "findings/Battery_S1_G95_P105__nine_random_storage_10_campaign.md",
+        "s1_score_usd": 35287839184.98692,
+        "s2_score_usd": 32943491795.81851
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68100570830.99555,
+        "finding": "findings/Battery_S1_G200_P0__nine_random_storage_10_campaign.md",
+        "s1_score_usd": 35160387606.92148,
+        "s2_score_usd": 32940183224.074078
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 68060542426.781494,
+        "finding": "findings/Battery_S1_G210_P0__nine_random_storage_10_campaign.md",
+        "s1_score_usd": 35120359202.70741,
+        "s2_score_usd": 32940183224.074078
+      }
+    },
+    "nine_g50_b125_at_6141": {
+      "Carter battery-only": {
+        "s1_mw": 60.8067707312822,
+        "s2_mw": 500.0,
+        "score_usd": 32424208390.907925,
+        "finding": "findings/Battery_S1_G0_P125__nine_g50_b125_at_6141_campaign.md",
+        "s1_score_usd": 4329139454.131504,
+        "s2_score_usd": 28095068936.77642
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63486426956.35388,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_g50_b125_at_6141_campaign.md",
+        "s1_score_usd": 35057534337.34172,
+        "s2_score_usd": 28428892619.01217
+      },
+      "97/99 hybrid": {
+        "s1_mw": 499.94456946418757,
+        "s2_mw": 500.0,
+        "score_usd": 63299332734.23125,
+        "finding": "findings/Battery_S1_G97_P99__nine_g50_b125_at_6141_campaign.md",
+        "s1_score_usd": 35277473549.71199,
+        "s2_score_usd": 28021859184.51926
+      },
+      "95/105 hybrid": {
+        "s1_mw": 499.9447984229183,
+        "s2_mw": 500.0,
+        "score_usd": 63288672613.59505,
+        "finding": "findings/Battery_S1_G95_P105__nine_g50_b125_at_6141_campaign.md",
+        "s1_score_usd": 35268703071.25349,
+        "s2_score_usd": 28019969542.34156
+      },
+      "200 MW generator-only": {
+        "s1_mw": 499.94394161448247,
+        "s2_mw": 500.0,
+        "score_usd": 63111601334.921104,
+        "finding": "findings/Battery_S1_G200_P0__nine_g50_b125_at_6141_campaign.md",
+        "s1_score_usd": 35140997698.406265,
+        "s2_score_usd": 27970603636.51484
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63053696653.62302,
+        "finding": "findings/Battery_S1_G210_P0__nine_g50_b125_at_6141_campaign.md",
+        "s1_score_usd": 35104679462.09985,
+        "s2_score_usd": 27949017191.523163
+      }
+    },
+    "nine_g50_b150_at_6141": {
+      "Carter battery-only": {
+        "s1_mw": 210.79098715304795,
+        "s2_mw": 500.0,
+        "score_usd": 42905092183.75321,
+        "finding": "findings/Battery_S1_G0_P125__nine_g50_b150_at_6141_campaign.md",
+        "s1_score_usd": 15006044603.694815,
+        "s2_score_usd": 27899047580.0584
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63190513245.07776,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_g50_b150_at_6141_campaign.md",
+        "s1_score_usd": 35052411801.21765,
+        "s2_score_usd": 28138101443.860107
+      },
+      "97/99 hybrid": {
+        "s1_mw": 499.9402650311871,
+        "s2_mw": 500.0,
+        "score_usd": 63102747475.47171,
+        "finding": "findings/Battery_S1_G97_P99__nine_g50_b150_at_6141_campaign.md",
+        "s1_score_usd": 35273319867.10742,
+        "s2_score_usd": 27829427608.364296
+      },
+      "95/105 hybrid": {
+        "s1_mw": 499.94098243494324,
+        "s2_mw": 500.0,
+        "score_usd": 63091132824.929565,
+        "finding": "findings/Battery_S1_G95_P105__nine_g50_b150_at_6141_campaign.md",
+        "s1_score_usd": 35264624760.36063,
+        "s2_score_usd": 27826508064.568935
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62878687800.77698,
+        "finding": "findings/Battery_S1_G200_P0__nine_g50_b150_at_6141_campaign.md",
+        "s1_score_usd": 35141322253.06492,
+        "s2_score_usd": 27737365547.71206
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62823434191.893814,
+        "finding": "findings/Battery_S1_G210_P0__nine_g50_b150_at_6141_campaign.md",
+        "s1_score_usd": 35101093455.14931,
+        "s2_score_usd": 27722340736.744514
+      }
+    },
+    "nine_g50_b175_at_6141": {
+      "Carter battery-only": {
+        "s1_mw": 360.77548302860055,
+        "s2_mw": 500.0,
+        "score_usd": 53371814608.91624,
+        "finding": "findings/Battery_S1_G0_P125__nine_g50_b175_at_6141_campaign.md",
+        "s1_score_usd": 25681218443.67242,
+        "s2_score_usd": 27690596165.243816
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63193950629.51117,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_g50_b175_at_6141_campaign.md",
+        "s1_score_usd": 35055504534.275246,
+        "s2_score_usd": 28138446095.23592
+      },
+      "97/99 hybrid": {
+        "s1_mw": 499.9015251357371,
+        "s2_mw": 500.0,
+        "score_usd": 62845981516.293434,
+        "finding": "findings/Battery_S1_G97_P99__nine_g50_b175_at_6141_campaign.md",
+        "s1_score_usd": 35268029696.77224,
+        "s2_score_usd": 27577951819.521194
+      },
+      "95/105 hybrid": {
+        "s1_mw": 499.9153608126472,
+        "s2_mw": 500.0,
+        "score_usd": 62831108848.18346,
+        "finding": "findings/Battery_S1_G95_P105__nine_g50_b175_at_6141_campaign.md",
+        "s1_score_usd": 35260177825.386536,
+        "s2_score_usd": 27570931022.796925
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62642630343.5605,
+        "finding": "findings/Battery_S1_G200_P0__nine_g50_b175_at_6141_campaign.md",
+        "s1_score_usd": 35137639621.66145,
+        "s2_score_usd": 27504990721.899044
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62602637661.822205,
+        "finding": "findings/Battery_S1_G210_P0__nine_g50_b175_at_6141_campaign.md",
+        "s1_score_usd": 35097646939.92316,
+        "s2_score_usd": 27504990721.899044
+      }
+    },
+    "nine_g50_b200_at_6141": {
+      "Carter battery-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63087299854.231094,
+        "finding": "findings/Battery_S1_G0_P125__nine_g50_b200_at_6141_campaign.md",
+        "s1_score_usd": 35587405571.95514,
+        "s2_score_usd": 27499894282.275955
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63194487886.28529,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_g50_b200_at_6141_campaign.md",
+        "s1_score_usd": 35057160252.84855,
+        "s2_score_usd": 28137327633.436745
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62765798383.664116,
+        "finding": "findings/Battery_S1_G97_P99__nine_g50_b200_at_6141_campaign.md",
+        "s1_score_usd": 35271884428.890945,
+        "s2_score_usd": 27493913954.773167
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62757031949.122375,
+        "finding": "findings/Battery_S1_G95_P105__nine_g50_b200_at_6141_campaign.md",
+        "s1_score_usd": 35263122208.4807,
+        "s2_score_usd": 27493909740.641678
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62632782606.87862,
+        "finding": "findings/Battery_S1_G200_P0__nine_g50_b200_at_6141_campaign.md",
+        "s1_score_usd": 35136467955.61725,
+        "s2_score_usd": 27496314651.261364
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62592806501.77507,
+        "finding": "findings/Battery_S1_G210_P0__nine_g50_b200_at_6141_campaign.md",
+        "s1_score_usd": 35096491850.51371,
+        "s2_score_usd": 27496314651.261364
+      }
+    },
+    "nine_g75_b150_at_6141": {
+      "Carter battery-only": {
+        "s1_mw": 473.2639576438952,
+        "s2_mw": 500.0,
+        "score_usd": 61235045929.22545,
+        "finding": "findings/Battery_S1_G0_P125__nine_g75_b150_at_6141_campaign.md",
+        "s1_score_usd": 33686723817.857693,
+        "s2_score_usd": 27548322111.367752
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63174506087.75105,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_g75_b150_at_6141_campaign.md",
+        "s1_score_usd": 35055627159.28416,
+        "s2_score_usd": 28118878928.4669
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62777232170.10312,
+        "finding": "findings/Battery_S1_G97_P99__nine_g75_b150_at_6141_campaign.md",
+        "s1_score_usd": 35273965318.602844,
+        "s2_score_usd": 27503266851.50028
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62768411592.66383,
+        "finding": "findings/Battery_S1_G95_P105__nine_g75_b150_at_6141_campaign.md",
+        "s1_score_usd": 35265218718.508224,
+        "s2_score_usd": 27503192874.15561
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62663991116.821594,
+        "finding": "findings/Battery_S1_G200_P0__nine_g75_b150_at_6141_campaign.md",
+        "s1_score_usd": 35138416546.20379,
+        "s2_score_usd": 27525574570.61781
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62623999626.22632,
+        "finding": "findings/Battery_S1_G210_P0__nine_g75_b150_at_6141_campaign.md",
+        "s1_score_usd": 35098425055.608505,
+        "s2_score_usd": 27525574570.61781
+      }
+    },
+    "nine_g75_b175_at_6141": {
+      "Carter battery-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63083193112.37111,
+        "finding": "findings/Battery_S1_G0_P125__nine_g75_b175_at_6141_campaign.md",
+        "s1_score_usd": 35587533475.85445,
+        "s2_score_usd": 27495659636.516666
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63195496370.56081,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_g75_b175_at_6141_campaign.md",
+        "s1_score_usd": 35057050275.32489,
+        "s2_score_usd": 28138446095.23592
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62760349530.81318,
+        "finding": "findings/Battery_S1_G97_P99__nine_g75_b175_at_6141_campaign.md",
+        "s1_score_usd": 35272126562.25169,
+        "s2_score_usd": 27488222968.56149
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62751587349.75458,
+        "finding": "findings/Battery_S1_G95_P105__nine_g75_b175_at_6141_campaign.md",
+        "s1_score_usd": 35263368595.34201,
+        "s2_score_usd": 27488218754.41257
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62645001632.828415,
+        "finding": "findings/Battery_S1_G200_P0__nine_g75_b175_at_6141_campaign.md",
+        "s1_score_usd": 35140010910.929375,
+        "s2_score_usd": 27504990721.899044
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62604977628.86162,
+        "finding": "findings/Battery_S1_G210_P0__nine_g75_b175_at_6141_campaign.md",
+        "s1_score_usd": 35099986906.96258,
+        "s2_score_usd": 27504990721.899044
+      }
+    },
+    "nine_g75_b200_at_6141": {
+      "Carter battery-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63089406928.69339,
+        "finding": "findings/Battery_S1_G0_P125__nine_g75_b200_at_6141_campaign.md",
+        "s1_score_usd": 35589512646.417435,
+        "s2_score_usd": 27499894282.275955
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63194682546.014496,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_g75_b200_at_6141_campaign.md",
+        "s1_score_usd": 35057354912.57793,
+        "s2_score_usd": 28137327633.43657
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62767863295.620056,
+        "finding": "findings/Battery_S1_G97_P99__nine_g75_b200_at_6141_campaign.md",
+        "s1_score_usd": 35273949340.84689,
+        "s2_score_usd": 27493913954.773167
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62759080828.789566,
+        "finding": "findings/Battery_S1_G95_P105__nine_g75_b200_at_6141_campaign.md",
+        "s1_score_usd": 35265171088.14789,
+        "s2_score_usd": 27493909740.641678
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62634884375.85269,
+        "finding": "findings/Battery_S1_G200_P0__nine_g75_b200_at_6141_campaign.md",
+        "s1_score_usd": 35138569724.591324,
+        "s2_score_usd": 27496314651.261364
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62594868636.92374,
+        "finding": "findings/Battery_S1_G210_P0__nine_g75_b200_at_6141_campaign.md",
+        "s1_score_usd": 35098553985.66237,
+        "s2_score_usd": 27496314651.261364
+      }
+    },
+    "nine_g100_b125_at_6141": {
+      "Carter battery-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63096755440.152435,
+        "finding": "findings/Battery_S1_G0_P125__nine_g100_b125_at_6141_campaign.md",
+        "s1_score_usd": 35589827832.25183,
+        "s2_score_usd": 27506927607.9006
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63173746568.47951,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_g100_b125_at_6141_campaign.md",
+        "s1_score_usd": 35057143453.75822,
+        "s2_score_usd": 28116603114.72129
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62785881491.00423,
+        "finding": "findings/Battery_S1_G97_P99__nine_g100_b125_at_6141_campaign.md",
+        "s1_score_usd": 35274325705.23685,
+        "s2_score_usd": 27511555785.767384
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62778481802.46206,
+        "finding": "findings/Battery_S1_G95_P105__nine_g100_b125_at_6141_campaign.md",
+        "s1_score_usd": 35265577006.02985,
+        "s2_score_usd": 27512904796.432213
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62658559875.81981,
+        "finding": "findings/Battery_S1_G200_P0__nine_g100_b125_at_6141_campaign.md",
+        "s1_score_usd": 35133730761.142845,
+        "s2_score_usd": 27524829114.676964
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62618567256.66753,
+        "finding": "findings/Battery_S1_G210_P0__nine_g100_b125_at_6141_campaign.md",
+        "s1_score_usd": 35093738141.99056,
+        "s2_score_usd": 27524829114.676964
+      }
+    },
+    "nine_g100_b150_at_6141": {
+      "Carter battery-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63095487756.33956,
+        "finding": "findings/Battery_S1_G0_P125__nine_g100_b150_at_6141_campaign.md",
+        "s1_score_usd": 35589607149.54248,
+        "s2_score_usd": 27505880606.797077
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63175971398.34318,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_g100_b150_at_6141_campaign.md",
+        "s1_score_usd": 35057092469.8761,
+        "s2_score_usd": 28118878928.467075
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62779302341.73751,
+        "finding": "findings/Battery_S1_G97_P99__nine_g100_b150_at_6141_campaign.md",
+        "s1_score_usd": 35276035490.23723,
+        "s2_score_usd": 27503266851.50028
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62770466255.47662,
+        "finding": "findings/Battery_S1_G95_P105__nine_g100_b150_at_6141_campaign.md",
+        "s1_score_usd": 35267273381.321014,
+        "s2_score_usd": 27503192874.15561
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62666572091.259636,
+        "finding": "findings/Battery_S1_G200_P0__nine_g100_b150_at_6141_campaign.md",
+        "s1_score_usd": 35140997520.64183,
+        "s2_score_usd": 27525574570.61781
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62626545252.304886,
+        "finding": "findings/Battery_S1_G210_P0__nine_g100_b150_at_6141_campaign.md",
+        "s1_score_usd": 35100970681.68707,
+        "s2_score_usd": 27525574570.61781
+      }
+    },
+    "nine_g100_b175_at_6141": {
+      "Carter battery-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63085300186.83359,
+        "finding": "findings/Battery_S1_G0_P125__nine_g100_b175_at_6141_campaign.md",
+        "s1_score_usd": 35589640550.31674,
+        "s2_score_usd": 27495659636.516838
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63195513245.88244,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_g100_b175_at_6141_campaign.md",
+        "s1_score_usd": 35057067150.646515,
+        "s2_score_usd": 28138446095.23592
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62762313391.25452,
+        "finding": "findings/Battery_S1_G97_P99__nine_g100_b175_at_6141_campaign.md",
+        "s1_score_usd": 35274090422.69302,
+        "s2_score_usd": 27488222968.56149
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62753537569.85179,
+        "finding": "findings/Battery_S1_G95_P105__nine_g100_b175_at_6141_campaign.md",
+        "s1_score_usd": 35265318815.439224,
+        "s2_score_usd": 27488218754.41257
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62645690449.587906,
+        "finding": "findings/Battery_S1_G200_P0__nine_g100_b175_at_6141_campaign.md",
+        "s1_score_usd": 35140699727.68886,
+        "s2_score_usd": 27504990721.899044
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62605670599.700775,
+        "finding": "findings/Battery_S1_G210_P0__nine_g100_b175_at_6141_campaign.md",
+        "s1_score_usd": 35100679877.80173,
+        "s2_score_usd": 27504990721.899044
+      }
+    },
+    "nine_g100_b200_at_6141": {
+      "Carter battery-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63089406928.69339,
+        "finding": "findings/Battery_S1_G0_P125__nine_g100_b200_at_6141_campaign.md",
+        "s1_score_usd": 35589512646.417435,
+        "s2_score_usd": 27499894282.275955
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63194843455.10063,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_g100_b200_at_6141_campaign.md",
+        "s1_score_usd": 35057515821.66406,
+        "s2_score_usd": 28137327633.43657
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62767974636.08483,
+        "finding": "findings/Battery_S1_G97_P99__nine_g100_b200_at_6141_campaign.md",
+        "s1_score_usd": 35274060681.31166,
+        "s2_score_usd": 27493913954.773167
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62759189671.13344,
+        "finding": "findings/Battery_S1_G95_P105__nine_g100_b200_at_6141_campaign.md",
+        "s1_score_usd": 35265279930.49176,
+        "s2_score_usd": 27493909740.641678
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62635528861.95465,
+        "finding": "findings/Battery_S1_G200_P0__nine_g100_b200_at_6141_campaign.md",
+        "s1_score_usd": 35139214210.69329,
+        "s2_score_usd": 27496314651.261364
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62595516001.13515,
+        "finding": "findings/Battery_S1_G210_P0__nine_g100_b200_at_6141_campaign.md",
+        "s1_score_usd": 35099201349.87379,
+        "s2_score_usd": 27496314651.261364
+      }
+    },
+    "nine_g125_b125_at_6141": {
+      "Carter battery-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63099354165.3226,
+        "finding": "findings/Battery_S1_G0_P125__nine_g125_b125_at_6141_campaign.md",
+        "s1_score_usd": 35592426557.422,
+        "s2_score_usd": 27506927607.9006
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63174002443.53889,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_g125_b125_at_6141_campaign.md",
+        "s1_score_usd": 35057399328.8176,
+        "s2_score_usd": 28116603114.72129
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62788334934.13983,
+        "finding": "findings/Battery_S1_G97_P99__nine_g125_b125_at_6141_campaign.md",
+        "s1_score_usd": 35276779148.372444,
+        "s2_score_usd": 27511555785.767384
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62780922095.78685,
+        "finding": "findings/Battery_S1_G95_P105__nine_g125_b125_at_6141_campaign.md",
+        "s1_score_usd": 35268017299.35464,
+        "s2_score_usd": 27512904796.432213
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62660559571.97657,
+        "finding": "findings/Battery_S1_G200_P0__nine_g125_b125_at_6141_campaign.md",
+        "s1_score_usd": 35135730457.29961,
+        "s2_score_usd": 27524829114.676964
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62620532744.20027,
+        "finding": "findings/Battery_S1_G210_P0__nine_g125_b125_at_6141_campaign.md",
+        "s1_score_usd": 35095703629.5233,
+        "s2_score_usd": 27524829114.676964
+      }
+    },
+    "nine_g125_b150_at_6141": {
+      "Carter battery-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63098086481.509735,
+        "finding": "findings/Battery_S1_G0_P125__nine_g125_b150_at_6141_campaign.md",
+        "s1_score_usd": 35592205874.712654,
+        "s2_score_usd": 27505880606.797077
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63176010455.36534,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_g125_b150_at_6141_campaign.md",
+        "s1_score_usd": 35057131526.89827,
+        "s2_score_usd": 28118878928.467075
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62779871604.14564,
+        "finding": "findings/Battery_S1_G97_P99__nine_g125_b150_at_6141_campaign.md",
+        "s1_score_usd": 35276604752.645355,
+        "s2_score_usd": 27503266851.50028
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62771033879.27425,
+        "finding": "findings/Battery_S1_G95_P105__nine_g125_b150_at_6141_campaign.md",
+        "s1_score_usd": 35267841005.11864,
+        "s2_score_usd": 27503192874.15561
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62666756588.88145,
+        "finding": "findings/Battery_S1_G200_P0__nine_g125_b150_at_6141_campaign.md",
+        "s1_score_usd": 35141182018.26364,
+        "s2_score_usd": 27525574570.61781
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62626735791.52814,
+        "finding": "findings/Battery_S1_G210_P0__nine_g125_b150_at_6141_campaign.md",
+        "s1_score_usd": 35101161220.910324,
+        "s2_score_usd": 27525574570.61781
+      }
+    },
+    "nine_g125_b175_at_6141": {
+      "Carter battery-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63085791837.54128,
+        "finding": "findings/Battery_S1_G0_P125__nine_g125_b175_at_6141_campaign.md",
+        "s1_score_usd": 35590132201.02461,
+        "s2_score_usd": 27495659636.516666
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63195851939.37632,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_g125_b175_at_6141_campaign.md",
+        "s1_score_usd": 35057405844.140396,
+        "s2_score_usd": 28138446095.23592
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62762865668.086395,
+        "finding": "findings/Battery_S1_G97_P99__nine_g125_b175_at_6141_campaign.md",
+        "s1_score_usd": 35274642699.5249,
+        "s2_score_usd": 27488222968.56149
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62754088497.52742,
+        "finding": "findings/Battery_S1_G95_P105__nine_g125_b175_at_6141_campaign.md",
+        "s1_score_usd": 35265869743.11485,
+        "s2_score_usd": 27488218754.41257
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62645845672.24716,
+        "finding": "findings/Battery_S1_G200_P0__nine_g125_b175_at_6141_campaign.md",
+        "s1_score_usd": 35140854950.348114,
+        "s2_score_usd": 27504990721.899044
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62605830905.31683,
+        "finding": "findings/Battery_S1_G210_P0__nine_g125_b175_at_6141_campaign.md",
+        "s1_score_usd": 35100840183.417786,
+        "s2_score_usd": 27504990721.899044
+      }
+    },
+    "nine_g125_b200_at_6141": {
+      "Carter battery-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63089898579.40126,
+        "finding": "findings/Battery_S1_G0_P125__nine_g125_b200_at_6141_campaign.md",
+        "s1_score_usd": 35590004297.125305,
+        "s2_score_usd": 27499894282.275955
+      },
+      "Garcia generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 63194843455.10065,
+        "finding": "findings/Battery_S1_G225_P0_bus2054__nine_g125_b200_at_6141_campaign.md",
+        "s1_score_usd": 35057515821.66408,
+        "s2_score_usd": 28137327633.43657
+      },
+      "97/99 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62768509927.34044,
+        "finding": "findings/Battery_S1_G97_P99__nine_g125_b200_at_6141_campaign.md",
+        "s1_score_usd": 35274595972.567276,
+        "s2_score_usd": 27493913954.773167
+      },
+      "95/105 hybrid": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62759723902.68707,
+        "finding": "findings/Battery_S1_G95_P105__nine_g125_b200_at_6141_campaign.md",
+        "s1_score_usd": 35265814162.045395,
+        "s2_score_usd": 27493909740.641678
+      },
+      "200 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62635654809.65144,
+        "finding": "findings/Battery_S1_G200_P0__nine_g125_b200_at_6141_campaign.md",
+        "s1_score_usd": 35139340158.390076,
+        "s2_score_usd": 27496314651.261364
+      },
+      "210 MW generator-only": {
+        "s1_mw": 500.0,
+        "s2_mw": 500.0,
+        "score_usd": 62595646073.144104,
+        "finding": "findings/Battery_S1_G210_P0__nine_g125_b200_at_6141_campaign.md",
+        "s1_score_usd": 35099331421.88274,
+        "s2_score_usd": 27496314651.261364
+      }
+    }
+  }
+}
