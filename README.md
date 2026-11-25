@@ -2,6 +2,10 @@
 
 Private repository for the ECE51032 project.
 
+For work from a fresh Codex Cloud workspace, start with the
+[cloud handoff](CLOUD_HANDOFF.md). Codex also reads the concise
+[repository guidance](AGENTS.md) automatically.
+
 Start with the [step-by-step strategy development guide](docs/STRATEGY_DEVELOPMENT.md)
 for setup, what to edit, testing, evaluation, and choosing a submission.
 Interpret saved results with [main_template.ipynb](notebooks/main_template.ipynb),
